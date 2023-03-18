@@ -46,4 +46,50 @@ public int getIdade() {
 public void setIdade(int idade) {
 	this.idade = idade;
 }
+
+public static boolean VerificadorCaracteresIguais(String str){
+	char inicial = str.charAt(0);
+	int tamanho = str.length();
+	for (int i=0;i<tamanho;i++){
+		if (str.charAt(i) != inicial)
+			return false;
+	}
+	return true;
 }
+
+public static int calcularDigitoVerificador(String cpf) {
+    int total = 0;
+    for (int i = 0; i < cpf.length(); i++) {
+        int multiplicador = 11 - i;
+        total += Character.getNumericValue(cpf.charAt(i)) * multiplicador;
+    }
+    int resto = total % 11;
+    if (resto == 0 || resto == 1) {
+        return 0;
+    } else {
+        return 11 - resto;
+    }
+}
+
+boolean validarCPF(String cpf){
+	int tamanho = cpf.length();
+	boolean verificador;
+	cpf = cpf.replaceAll(".","");
+	verificador = VerificadorCaracteresIguais(cpf);
+	if (tamanho != 11)
+		return false;
+	else if (verificador == true){
+		return false;
+	}
+	int digito1 = calcularDigitoVerificador(cpf.substring(0, 9));
+    int digito2 = calcularDigitoVerificador(cpf.substring(0, 9) + digito1);
+	int digitoCpf1 = Character.getNumericValue(cpf.charAt(9));
+	int digitoCpf2 = Character.getNumericValue(cpf.charAt(10));
+	if ((digito1 == digitoCpf1) & (digito2 == digitoCpf2)){
+		return true;
+	}
+	else{
+		return false;
+	}
+} 
+} 
