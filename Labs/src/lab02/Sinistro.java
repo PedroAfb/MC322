@@ -1,5 +1,7 @@
 package lab02;
 
+import java.util.Random;
+
 public class Sinistro {
     private int id;
     private String data;
@@ -30,6 +32,12 @@ public class Sinistro {
     }
     public void setEndereco(String endereco){
         this.endereco = endereco;
+    }
+
+    public int GeraID(int id){
+        Random gerador = new Random();
+        id = gerador.nextInt(3);
+        return id;
     }
 }
 
