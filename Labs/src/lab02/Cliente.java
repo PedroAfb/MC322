@@ -57,7 +57,21 @@ public static boolean VerificadorCaracteresIguais(String str){
 	return true;
 }
 
-public static int calcularDigitoVerificador(String cpf) {
+public static int calcularDigitoVerificador1(String cpf) {
+    int total = 0;
+    for (int i = 0; i < cpf.length(); i++) {
+        int multiplicador = 10 - i;
+        total += Character.getNumericValue(cpf.charAt(i)) * multiplicador;
+    }
+    int resto = total % 11;
+    if (resto == 0 || resto == 1) {
+        return 0;
+    } else {
+        return 11 - resto;
+    }
+}
+
+public static int calcularDigitoVerificador2(String cpf) {
     int total = 0;
     for (int i = 0; i < cpf.length(); i++) {
         int multiplicador = 11 - i;
@@ -71,18 +85,27 @@ public static int calcularDigitoVerificador(String cpf) {
     }
 }
 
-boolean validarCPF(String cpf){
+public boolean validarCPF(String cpf){
 	int tamanho = cpf.length();
 	boolean verificador;
-	cpf = cpf.replaceAll(".","");
+	for (int i=0;i<tamanho;i++){
+		int ascii = (int) cpf.charAt(i);
+		if ((ascii >= 0 && ascii <= 47) || (ascii >= 58 && ascii <= 127))	{
+			cpf = cpf.replaceAll("" + cpf.charAt(i),"");
+			int tamanho_atual = cpf.length();
+			int diferenca = tamanho - tamanho_atual;
+			i -= diferenca;
+			tamanho -= diferenca;
+		}
+	}
 	verificador = VerificadorCaracteresIguais(cpf);
 	if (tamanho != 11)
 		return false;
 	else if (verificador == true){
 		return false;
 	}
-	int digito1 = calcularDigitoVerificador(cpf.substring(0, 9));
-    int digito2 = calcularDigitoVerificador(cpf.substring(0, 9) + digito1);
+	int digito1 = calcularDigitoVerificador1(cpf.substring(0, 9));
+    int digito2 = calcularDigitoVerificador2(cpf.substring(0, 9) + digito1);
 	int digitoCpf1 = Character.getNumericValue(cpf.charAt(9));
 	int digitoCpf2 = Character.getNumericValue(cpf.charAt(10));
 	if ((digito1 == digitoCpf1) & (digito2 == digitoCpf2)){

@@ -1,0 +1,39 @@
+21/03
+
+class Aluno{
+    private int idade;
+    private String nome;
+
+    public String toString(){
+        String str = "O nome do aluno é " + this.nome + ", e sua idade é " + this.idade + "\n";
+        return str;
+    }
+}
+
+na classe main:
+Aluno a1 = new.Aluno("x");
+S.O.P (a1.toString());
+
+---------------------------------------------------------------------------------------------------------
+
+Modificadores de visibilidade
+-private
+
+    Ele torna o método ou variável acessível apenas no código da classe onde está declardo
+    Se for utilizado em uma classe ou interface ele a torna inacessível fora do arquivo onde está declarado
+
+-protected
+
+    Aplicado na declaração de métodos ou varável de classe , ele é acessível apenas para as classes que pertencem
+    ao mesmo pacote dessa clase e ao código das classes que herdam desta primeira
+
+    Aplicado a declaração de  uma classe ou interface torna esta classe ou interface visível apenas no escopo do pacote
+    onde está declarada
+
+-public
+
+    Aplicado a declaração de um método, variavel, classe ou interface elimina qualquer restrição a este elemento
+
+-friendly (Default)
+
+    Aplicado a declaração de metodo, variavel, classe ou interface torna o elemento acessível no pacote onde foi declarado

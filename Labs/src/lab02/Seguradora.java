@@ -45,5 +45,5 @@ public String getEndereco () {
 
 public void setEndereco ( String endereco ) {
     this . endereco = endereco ;
-}  
+}
 }
