@@ -35,6 +35,7 @@ public class Sinistro {
     }
 
     public int GeraID(int id){
+        // Gera um número int aleatório para o id
         Random gerador = new Random();
         id = gerador.nextInt(3);
         return id;

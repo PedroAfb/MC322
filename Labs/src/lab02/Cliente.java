@@ -47,7 +47,8 @@ public void setIdade(int idade) {
 	this.idade = idade;
 }
 
-public static boolean VerificadorCaracteresIguais(String str){
+public boolean VerificadorCaracteresIguais(String str){
+	//Verifica se a string tem todos os caracteres iguais
 	char inicial = str.charAt(0);
 	int tamanho = str.length();
 	for (int i=0;i<tamanho;i++){
@@ -57,8 +58,9 @@ public static boolean VerificadorCaracteresIguais(String str){
 	return true;
 }
 
-public static int calcularDigitoVerificador1(String cpf) {
-    int total = 0;
+public int calcularDigitoVerificador1(String cpf) {
+    // Calcula o primeiro digito verificador do cpf
+	int total = 0;
     for (int i = 0; i < cpf.length(); i++) {
         int multiplicador = 10 - i;
         total += Character.getNumericValue(cpf.charAt(i)) * multiplicador;
@@ -71,8 +73,9 @@ public static int calcularDigitoVerificador1(String cpf) {
     }
 }
 
-public static int calcularDigitoVerificador2(String cpf) {
-    int total = 0;
+public int calcularDigitoVerificador2(String cpf) {
+    // Calcula o segundo digito verificador do cpf
+	int total = 0;
     for (int i = 0; i < cpf.length(); i++) {
         int multiplicador = 11 - i;
         total += Character.getNumericValue(cpf.charAt(i)) * multiplicador;
@@ -86,6 +89,7 @@ public static int calcularDigitoVerificador2(String cpf) {
 }
 
 public boolean validarCPF(String cpf){
+	// função que verifica todas as regras para que um cpf seja válido
 	int tamanho = cpf.length();
 	boolean verificador;
 	for (int i=0;i<tamanho;i++){

@@ -15,7 +15,7 @@ public class Main {
         
         else{
             String mensagem;
-            mensagem = String.format("A %s pede que a cliente %s entre em contato com a gente pelo telefone: %s, ou pelo email: %s,"+
+            mensagem = String.format("Olá,%nA %s pede que a cliente %s entre em contato com a gente pelo telefone: %s, ou pelo email: %s,"+
             " ou em nossa agência no endereço: %s. Além disso, peço que confirme os dados de seu acidente:%n%nVeículo: %s %s\n" +
             "Placa: %s%nEndereço e data: %s. Em %s%n%nSeu número de ocorrência: %d%n   Aguardamos seu retorno,%n     %s", seguradora.getNome(),
              cliente1.getNome(),seguradora.getTelefone(),seguradora.getEmail(),seguradora.getEndereco(),veiculo1.getMarca(),
