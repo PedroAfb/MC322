@@ -2,6 +2,7 @@ package lab03;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Seguradora {
     private String nome ;
@@ -67,14 +68,53 @@ public class Seguradora {
     public void setListaSinistros ( List <Sinistro> listaSinistros ) {
         this . listaSinistros = listaSinistros ;
     }
-    
-    public void adicionarSinistro(Sinistro sinistro) {
+
+    public boolean geraSinistro() {
+        Scanner scanner = new Scanner(System.in);
+        Sinistro sinistro = new Sinistro(0, "", "", null, null, null);
+        sinistro.setId(sinistro.GeraID(sinistro.getId()));
+        System.out.println("Coloque a data:");
+        sinistro.setData(scanner.nextLine());
+        System.out.println("Coloque o endereço:");
+        sinistro.setEndereco(scanner.nextLine());
         listaSinistros.add(sinistro);
+        scanner.close();
+        return true;
+
+    }
+
+    public boolean visualizarSinistro(String cliente){
+        String str;
+        for(Sinistro sinistro: listaSinistros){
+           Cliente nome = sinistro.getCliente();
+           if (nome.getNome() == cliente)
+                str = sinistro.toString();
+            System.out.println(str);
+        }
     }
     
-    public void adicionarCliente(Cliente cliente) {
+    public boolean cadastrarCliente(Cliente cliente) {
+        // Verifica se o cliente já está cadastrado na lista
+        if (listaClientes.contains(cliente)) {
+            System.out.println("Cliente já cadastrado.");
+            return false;
+        }
+        // Adiciona o novo cliente à lista
         listaClientes.add(cliente);
+        System.out.println("Cliente cadastrado com sucesso.");
+        return true;
     }
+
+    public boolean removerCliente(Cliente cliente) {
+        if (listaClientes.contains(cliente)) {
+            System.out.println("Cliente removido.");
+            return true;
+        }
+        else{
+            System.out.println("Cliente inexistente");
+            return false;
+        }
+}
     
     @Override
     public String toString() {
