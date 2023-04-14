@@ -26,12 +26,23 @@ public class ClientePJ extends Cliente {
         this.dataFundacao = dataFundacao;
     }
 
+    public boolean VerificadorCaracteresIguais(String str){
+        //Verifica se a string tem todos os caracteres iguais
+        char inicial = str.charAt(0);
+        int tamanho = str.length();
+        for (int i=0;i<tamanho;i++){
+            if (str.charAt(i) != inicial)
+                return false;
+        }
+        return true;
+    }
+
     public boolean ValidarCNPJ(String cnpj){
         boolean verificador;
-        int tamanho;
+        int tamanho = cnpj.length();
         cnpj = cnpj.replaceAll("[^0,9]", "");
         verificador = VerificadorCaracteresIguais(cnpj);
-        if (tamanho != 11)
+        if (tamanho != 14)
             return false;
         else if (verificador == true){
             return false;
@@ -60,5 +71,12 @@ public class ClientePJ extends Cliente {
         if (dv2 >= 10) {
             dv2 = 0;
     }
+        int digitoCnpj1 = Character.getNumericValue(cnpj.charAt(12));
+        int digitoCnpj2 = Character.getNumericValue(cnpj.charAt(13));
+
+        if ((digitoCnpj1 == dv1) && (digitoCnpj2 == dv2))
+            return true;
+        else
+            return false;
     }
 }

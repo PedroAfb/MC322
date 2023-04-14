@@ -64,5 +64,15 @@ public class Sinistro {
         id = gerador.nextInt(3);
         return id;
     }
+    public String toString() {
+        return "Sinistro {" +
+                "id=" + id +
+                ", data='" + data + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", seguradora=" + seguradora +
+                ", veiculo=" + veiculo +
+                ", cliente=" + cliente +
+                '}';
+    }
 }
 

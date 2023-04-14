@@ -39,4 +39,8 @@ public int getAnoFabricacao() {
 public void setAnoFabricacao(int anoFabricaco) {
 	this.anoFabricaco = anoFabricaco;
 }
+
+public String toString() {
+	return "Veículo [placa=" + placa + ", modelo=" + modelo + ", marca=" + marca + ", ano de fabricação=" + anoFabricaco + "]";
+}
 }
