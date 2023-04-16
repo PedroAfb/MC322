@@ -2,6 +2,8 @@ package lab03;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
+import java.util.Calendar;
 
 public class Cliente {
     private String nome;
@@ -33,7 +35,7 @@ public class Cliente {
 	public String getEducacao() {
 		return educacao;
 	}
-	public void setCpf(String educacao) {
+	public void setEducacao(String educacao) {
 		this.educacao = educacao;
 	}
 	public Date getDataLicenca() {
@@ -66,6 +68,23 @@ public class Cliente {
 	public void setListaVeiculos(List <Veiculo> listaVeiculos) {
 		this.listaVeiculos = listaVeiculos;
 	}
+	public void implementacaoCliente(Cliente cliente){
+        Scanner scan = new Scanner(System.in);
+        Calendar cal = Calendar.getInstance();
+        Date dataAtual = cal.getTime();
+        System.out.println("Coloque seu nome:");
+        cliente.setNome(scan.nextLine());
+        System.out.println("Coloque seu endereco:");
+        cliente.setEndereco(scan.nextLine());
+        System.out.println("Coloque seu genero:");
+        cliente.setGenero(scan.nextLine());
+        System.out.println("Coloque sua escolaridade:");
+        cliente.setEducacao(scan.nextLine());
+        System.out.println("Coloque sua classe economica:");
+        cliente.setClasseEconomica(scan.nextLine());
+        cliente.setDataLicenca(dataAtual);
+        scan.close();
+    }
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Nome: ").append(nome).append("\n");

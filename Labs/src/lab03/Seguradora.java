@@ -83,13 +83,20 @@ public class Seguradora {
 
     }
 
-    public boolean visualizarSinistro(String cliente){
-        String str;
-        for(Sinistro sinistro: listaSinistros){
-           Cliente nome = sinistro.getCliente();
-           if (nome.getNome() == cliente)
-                str = sinistro.toString();
-            System.out.println(str);
+    public void visualizarSinistro(String cliente) {
+        for (Sinistro sinistro : listaSinistros) {
+            Cliente nome = sinistro.getCliente();
+            if (nome.getNome().equals(cliente)) {
+                String str = sinistro.toString();
+                System.out.println(str);
+                break;
+            }
+        }
+    }
+
+    public void listarSinistro(){
+        for (Sinistro sinistro: listaSinistros){
+            sinistro.toString();
         }
     }
     
@@ -115,7 +122,27 @@ public class Seguradora {
             return false;
         }
 }
-    
+
+    public void listarClientes(String tipoCliente){
+            System.out.println("Lista de clientes cadastrados:");
+            for (Cliente cliente : listaClientes) {
+                System.out.println(cliente.toString());
+            }
+    }
+
+    public void implementacaoSeguradora(Seguradora seguradora){
+        Scanner scan = new Scanner(System.in);
+	    System.out.println("Coloque o nome da seguradora:");
+        seguradora.setNome(scan.nextLine());
+        System.out.println("Coloque o telefone da seguradora:");
+        seguradora.setTelefone(scan.nextLine());
+        System.out.println("Coloque o email da seguradora:");
+        seguradora.setEmail(scan.nextLine());
+	    System.out.println("Coloque o endereço da seguradora:");
+        seguradora.setEndereco(scan.nextLine());
+        scan.close();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

@@ -1,4 +1,6 @@
 package lab03;
+import java.util.Scanner;
+
 
 public class Veiculo {
     private String placa;
@@ -38,6 +40,19 @@ public int getAnoFabricacao() {
 }
 public void setAnoFabricacao(int anoFabricaco) {
 	this.anoFabricaco = anoFabricaco;
+}
+
+public void implementacaoVeiculo( Veiculo veiculo){
+	Scanner scan = new Scanner(System.in);
+	System.out.println("Coloque a placa do veículo:");
+        veiculo.setPlaca(scan.nextLine());
+        System.out.println("Coloque a marca do seu veículo:");
+        veiculo.setMarca(scan.nextLine());
+        System.out.println("Coloque o modelo do seu veículo:");
+        veiculo.setModelo(scan.nextLine());
+		System.out.println("Coloque o ano de fabricação do seu veículo:");
+        veiculo.setAnoFabricacao(scan.nextInt());
+		scan.close();
 }
 
 public String toString() {
