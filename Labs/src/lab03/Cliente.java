@@ -69,21 +69,22 @@ public class Cliente {
 		this.listaVeiculos = listaVeiculos;
 	}
 	public void implementacaoCliente(Cliente cliente){
-        Scanner scan = new Scanner(System.in);
+        Scanner scanCliente = new Scanner(System.in);
         Calendar cal = Calendar.getInstance();
         Date dataAtual = cal.getTime();
         System.out.println("Coloque seu nome:");
-        cliente.setNome(scan.nextLine());
+        cliente.setNome(scanCliente.nextLine());
         System.out.println("Coloque seu endereco:");
-        cliente.setEndereco(scan.nextLine());
+        cliente.setEndereco(scanCliente.nextLine());
         System.out.println("Coloque seu genero:");
-        cliente.setGenero(scan.nextLine());
+        cliente.setGenero(scanCliente.nextLine());
         System.out.println("Coloque sua escolaridade:");
-        cliente.setEducacao(scan.nextLine());
+        cliente.setEducacao(scanCliente.nextLine());
         System.out.println("Coloque sua classe economica:");
-        cliente.setClasseEconomica(scan.nextLine());
+        cliente.setClasseEconomica(scanCliente.nextLine());
         cliente.setDataLicenca(dataAtual);
-        scan.close();
+		cliente.setListaVeiculos(listaVeiculos);
+        //scanCliente.close();
     }
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

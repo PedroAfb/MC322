@@ -1,5 +1,5 @@
 package lab03;
-
+import java.util.Scanner;
 import java.util.Random;
 
 public class Sinistro {
@@ -63,6 +63,20 @@ public class Sinistro {
         Random gerador = new Random();
         id = gerador.nextInt(3);
         return id;
+    }
+
+    public void implementacaoSinistro(Sinistro sinistro, Veiculo veiculo, Seguradora seguradora, Cliente cliente){
+        Scanner scan = new Scanner(System.in);
+	    System.out.println("Coloque a data:");
+        sinistro.setData(scan.nextLine());
+        System.out.println("Coloque o endereço:");
+        sinistro.setEndereco(scan.nextLine());
+
+        sinistro.setCliente(cliente);
+        sinistro.setSeguradora(seguradora);
+        sinistro.setVeiculo(veiculo);
+
+        sinistro.setId(sinistro.GeraID(sinistro.getId()));
     }
     public String toString() {
         return "Sinistro {" +

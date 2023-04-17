@@ -18,8 +18,8 @@ public class Seguradora {
         this . telefone = telefone ;
         this . email = email ;
         this . endereco = endereco ;
-        listaSinistros = new ArrayList<>();
-        listaClientes = new ArrayList<>();
+        this.listaSinistros = listaSinistros != null ? listaSinistros : new ArrayList<>();
+        this.listaClientes = listaClientes != null ? listaClientes : new ArrayList<>();
     }
 
     // Getters e setters
@@ -124,7 +124,6 @@ public class Seguradora {
 }
 
     public void listarClientes(String tipoCliente){
-            System.out.println("Lista de clientes cadastrados:");
             for (Cliente cliente : listaClientes) {
                 System.out.println(cliente.toString());
             }
@@ -140,7 +139,15 @@ public class Seguradora {
         seguradora.setEmail(scan.nextLine());
 	    System.out.println("Coloque o endereço da seguradora:");
         seguradora.setEndereco(scan.nextLine());
-        scan.close();
+    }
+
+    public void relacionandoObjetos(Cliente cliente, Seguradora seguradora, Veiculo veiculo, Sinistro sinistro){
+        cliente.getListaVeiculos().add(veiculo);
+        sinistro.setCliente(cliente);
+        sinistro.setSeguradora(seguradora);
+        sinistro.setVeiculo(veiculo);
+        seguradora.getListaSinistros().add(sinistro);
+
     }
 
     @Override

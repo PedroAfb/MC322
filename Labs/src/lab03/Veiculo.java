@@ -43,16 +43,15 @@ public void setAnoFabricacao(int anoFabricaco) {
 }
 
 public void implementacaoVeiculo( Veiculo veiculo){
-	Scanner scan = new Scanner(System.in);
-	System.out.println("Coloque a placa do veículo:");
-        veiculo.setPlaca(scan.nextLine());
+	Scanner scanVeiculo = new Scanner(System.in);	System.out.println("Coloque a placa do veículo:");
+        veiculo.setPlaca(scanVeiculo.nextLine());
         System.out.println("Coloque a marca do seu veículo:");
-        veiculo.setMarca(scan.nextLine());
+        veiculo.setMarca(scanVeiculo.nextLine());
         System.out.println("Coloque o modelo do seu veículo:");
-        veiculo.setModelo(scan.nextLine());
+        veiculo.setModelo(scanVeiculo.nextLine());
 		System.out.println("Coloque o ano de fabricação do seu veículo:");
-        veiculo.setAnoFabricacao(scan.nextInt());
-		scan.close();
+        veiculo.setAnoFabricacao(scanVeiculo.nextInt());
+		//scanVeiculo.close();
 }
 
 public String toString() {

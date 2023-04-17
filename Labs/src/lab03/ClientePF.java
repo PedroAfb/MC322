@@ -1,6 +1,11 @@
 package lab03;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
+
+
 
 public class ClientePF extends Cliente {
     private String cpf;
@@ -98,6 +103,33 @@ public class ClientePF extends Cliente {
             return false;
         }
     }
+
+    public boolean implementacaoClientePF(ClientePF clientePf1, Seguradora seguradora){
+        Scanner scan = new Scanner(System.in);
+        boolean validacao;
+        System.out.println("Digite sua data de nascimento:");
+        String data = scan.nextLine();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    
+    try {
+        clientePf1.setDataNascimento(format.parse(data));;
+    } catch (ParseException e) {
+        System.out.println("Formato de data inválido!");
+        e.printStackTrace();
+    }
+
+    System.out.println("Digite seu CPF:");
+    clientePf1.setCpf(scan.nextLine());
+    seguradora.cadastrarCliente(clientePf1);
+    validacao = clientePf1.validarCPF(clientePf1.getCpf());
+    if (validacao == false){
+        System.out.println("Cpf incorreto.");
+        seguradora.removerCliente(clientePf1);
+        return false;
+    }
+    return true;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
