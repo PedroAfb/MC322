@@ -8,7 +8,7 @@ public class Veiculo {
 	private String modelo;
 	private int anoFabricaco;
 	
-	//Construtor de classes
+//Construtor de classes
 public Veiculo(String placa, String marca, String modelo, int anoFabricaco) {
 	this.placa = placa;
 	this.marca = marca;

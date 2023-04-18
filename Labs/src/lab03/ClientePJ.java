@@ -10,11 +10,13 @@ public class ClientePJ extends Cliente {
     String cnpj;
     Date dataFundacao;
 
+    //Construtor
     public ClientePJ (String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, String cnpj, Date dataFundacao){
         super(nome, endereco, genero, educacao, classeEconomica, dataLicenca, listaVeiculos);
         this.cnpj = cnpj;
         this.dataFundacao = dataFundacao;
     }
+    //Setters e Getters
     public String getCnpj () {
         return cnpj ;
     }
@@ -109,7 +111,8 @@ public class ClientePJ extends Cliente {
         }
         return true;
     }
-    @Override
+
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Nome: ").append(this.getNome()).append("\n");

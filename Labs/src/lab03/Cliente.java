@@ -3,7 +3,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class Cliente {
     private String nome;
@@ -25,6 +26,7 @@ public class Cliente {
 		this.dataLicenca = dataLicenca;
 		this.listaVeiculos = listaVeiculos != null ? listaVeiculos : new ArrayList<>();
 	}
+	//Getters e setters
 	public String getNome() {
 		return nome;
 	}
@@ -70,8 +72,6 @@ public class Cliente {
 	}
 	public void implementacaoCliente(Cliente cliente){
         Scanner scanCliente = new Scanner(System.in);
-        Calendar cal = Calendar.getInstance();
-        Date dataAtual = cal.getTime();
         System.out.println("Coloque seu nome:");
         cliente.setNome(scanCliente.nextLine());
         System.out.println("Coloque seu endereco:");
@@ -82,8 +82,17 @@ public class Cliente {
         cliente.setEducacao(scanCliente.nextLine());
         System.out.println("Coloque sua classe economica:");
         cliente.setClasseEconomica(scanCliente.nextLine());
-        cliente.setDataLicenca(dataAtual);
 		cliente.setListaVeiculos(listaVeiculos);
+		System.out.println("Digite a data de licenca:");
+        String data = scanCliente.nextLine();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    
+    try {
+        cliente.setDataLicenca(format.parse(data));;
+    } catch (ParseException e) {
+        System.out.println("Formato de data inválido!");
+        e.printStackTrace();
+    }
         //scanCliente.close();
     }
 	public String toString() {

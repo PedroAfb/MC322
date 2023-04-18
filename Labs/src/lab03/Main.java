@@ -1,21 +1,7 @@
 package lab03;
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-
-//import java.util.Scanner;
-/*System.out.println("Cliente físico ou jurídico? [PF/PJ]");
-        tipoCliente = scan.nextLine();
-        if(tipoCliente == "PF"){
-            ClientePF cliente1 = new ClientePF(tipoCliente, tipoCliente, tipoCliente, tipoCliente, tipoCliente, null, null, tipoCliente, null)
-        } */
-public class Main {
-    
-    public static void main(String [] args){
-        // Criando os objetos
+public class Main{
+        public static void main(String [] args){
         boolean validacao;
         String tipoCliente;
         Scanner scan = new Scanner(System.in);
@@ -53,11 +39,11 @@ public class Main {
 
          //Cliente 2
         Cliente cliente2 = new Cliente(null, null, null, null, null, null, null);
-        cliente1.implementacaoCliente(cliente1);
+        cliente2.implementacaoCliente(cliente2);
         Veiculo veiculo2 = new Veiculo(null, null, null, 0);
-        veiculo1.implementacaoVeiculo(veiculo1);
+        veiculo2.implementacaoVeiculo(veiculo2);
         Sinistro sinistro2 = new Sinistro(0, null, null, null, null, null);
-        sinistro1.implementacaoSinistro(sinistro1, veiculo1, seguradora, cliente1);
+        sinistro2.implementacaoSinistro(sinistro2, veiculo2, seguradora, cliente2);
 
         //Definindo o objeto Cliente 2
          System.out.println("Cliente físico ou jurídico? [PF/PJ]");
@@ -82,11 +68,11 @@ public class Main {
 
          //CLiente 3
         Cliente cliente3 = new Cliente(null, null, null, null, null, null, null);
-        cliente1.implementacaoCliente(cliente1);
+        cliente3.implementacaoCliente(cliente3);
         Veiculo veiculo3 = new Veiculo(null, null, null, 0);
-        veiculo1.implementacaoVeiculo(veiculo1);
+        veiculo3.implementacaoVeiculo(veiculo3);
         Sinistro sinistro3 = new Sinistro(0, null, null, null, null, null);
-        sinistro1.implementacaoSinistro(sinistro1, veiculo1, seguradora, cliente1);
+        sinistro3.implementacaoSinistro(sinistro3, veiculo3, seguradora, cliente3);
 
           //Definindo o objeto Cliente 3
         System.out.println("Cliente físico ou jurídico? [PF/PJ]");
@@ -112,7 +98,6 @@ public class Main {
         seguradora.listarClientes(cliente1.getNome());
         seguradora.visualizarSinistro(cliente2.getNome());
         seguradora.listarSinistro();
-        cliente1.toString();
         veiculo1.toString();
         seguradora.toString();
         sinistro1.toString();

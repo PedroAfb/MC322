@@ -11,12 +11,14 @@ public class ClientePF extends Cliente {
     private String cpf;
     private Date dataNascimento;
 
+    //Construtor
     public ClientePF(String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, String cpf, Date dataNascimento){
         super(nome, endereco, genero, educacao, classeEconomica, dataLicenca, listaVeiculos);
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
     }
 
+    //Getters e setters
     public String getCpf () {
         return cpf ;
     }
@@ -121,7 +123,6 @@ public class ClientePF extends Cliente {
     return true;
     }
 
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Nome: ").append(this.getNome()).append("\n");

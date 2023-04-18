@@ -69,19 +69,14 @@ public class Seguradora {
         this . listaSinistros = listaSinistros ;
     }
 
-    public boolean geraSinistro() {
+    public boolean geraSinistro(Cliente cliente, Veiculo veiculo, Seguradora seguradora) {
         Scanner scanner = new Scanner(System.in);
         Sinistro sinistro = new Sinistro(0, "", "", null, null, null);
-        sinistro.setId(sinistro.GeraID(sinistro.getId()));
-        System.out.println("Coloque a data:");
-        sinistro.setData(scanner.nextLine());
-        System.out.println("Coloque o endereço:");
-        sinistro.setEndereco(scanner.nextLine());
-        listaSinistros.add(sinistro);
+        sinistro.implementacaoSinistro(sinistro, veiculo, seguradora, cliente);
         scanner.close();
         return true;
-
     }
+
 
     public void visualizarSinistro(String cliente) {
         for (Sinistro sinistro : listaSinistros) {
@@ -124,6 +119,8 @@ public class Seguradora {
 }
 
     public void listarClientes(String tipoCliente){
+        /*Imprime as informações de todos os clientes 
+                     da seguradora*/ 
             for (Cliente cliente : listaClientes) {
                 System.out.println(cliente.toString());
             }
@@ -150,7 +147,6 @@ public class Seguradora {
 
     }
 
-    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Seguradora: ").append(nome).append("\n");
