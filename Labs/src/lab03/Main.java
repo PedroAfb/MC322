@@ -19,6 +19,7 @@ public class Main {
         boolean validacao;
         String tipoCliente;
         Scanner scan = new Scanner(System.in);
+        String str;
         //Cliente 1
         Cliente cliente1 = new Cliente(null, null, null, null, null, null, null);
         cliente1.implementacaoCliente(cliente1);
@@ -28,21 +29,6 @@ public class Main {
         seguradora.implementacaoSeguradora(seguradora);
         Sinistro sinistro1 = new Sinistro(0, null, null, null, null, null);
         sinistro1.implementacaoSinistro(sinistro1, veiculo1, seguradora, cliente1);
-        //Cliente 2
-        Cliente cliente2 = new Cliente(null, null, null, null, null, null, null);
-        cliente1.implementacaoCliente(cliente1);
-        Veiculo veiculo2 = new Veiculo(null, null, null, 0);
-        veiculo1.implementacaoVeiculo(veiculo1);
-        Sinistro sinistro2 = new Sinistro(0, null, null, null, null, null);
-        sinistro1.implementacaoSinistro(sinistro1, veiculo1, seguradora, cliente1);
-        //CLiente 3
-        Cliente cliente3 = new Cliente(null, null, null, null, null, null, null);
-        cliente1.implementacaoCliente(cliente1);
-        Veiculo veiculo3 = new Veiculo(null, null, null, 0);
-        veiculo1.implementacaoVeiculo(veiculo1);
-        Sinistro sinistro3 = new Sinistro(0, null, null, null, null, null);
-        sinistro1.implementacaoSinistro(sinistro1, veiculo1, seguradora, cliente1);
-
 
         //Definindo o objeto Cliente 1
         System.out.println("Cliente físico ou jurídico? [PF/PJ]");
@@ -52,7 +38,8 @@ public class Main {
             validacao = clientePf1.implementacaoClientePF(clientePf1, seguradora);
             if ( validacao == true)
                 seguradora.relacionandoObjetos(clientePf1, seguradora, veiculo1, sinistro1);
-                clientePf1.toString();
+                str = clientePf1.toString();
+                System.out.println(str);
         }
 
         else{
@@ -60,10 +47,19 @@ public class Main {
             validacao = clientePJ1.implementacaoClientePJ(clientePJ1, seguradora);
             if (validacao == true)
                 seguradora.relacionandoObjetos(clientePJ1, seguradora, veiculo1, sinistro1);
-                clientePJ1.toString();
+                str = clientePJ1.toString();
+                System.out.println(str);
         }
 
-         //Definindo o objeto Cliente 2
+         //Cliente 2
+        Cliente cliente2 = new Cliente(null, null, null, null, null, null, null);
+        cliente1.implementacaoCliente(cliente1);
+        Veiculo veiculo2 = new Veiculo(null, null, null, 0);
+        veiculo1.implementacaoVeiculo(veiculo1);
+        Sinistro sinistro2 = new Sinistro(0, null, null, null, null, null);
+        sinistro1.implementacaoSinistro(sinistro1, veiculo1, seguradora, cliente1);
+
+        //Definindo o objeto Cliente 2
          System.out.println("Cliente físico ou jurídico? [PF/PJ]");
          tipoCliente = scan.nextLine();
          if(tipoCliente.equals("PF")){
@@ -71,7 +67,8 @@ public class Main {
              validacao = clientePf2.implementacaoClientePF(clientePf2, seguradora);
              if ( validacao == true)
                  seguradora.relacionandoObjetos(clientePf2, seguradora, veiculo2, sinistro2);
-                 clientePf2.toString();
+                 str = clientePf2.toString();
+                System.out.println(str);
          }
  
          else{
@@ -79,8 +76,17 @@ public class Main {
              validacao = clientePJ2.implementacaoClientePJ(clientePJ2, seguradora);
              if (validacao == true)
                  seguradora.relacionandoObjetos(clientePJ2, seguradora, veiculo2, sinistro2);
-                 clientePJ2.toString();
+                 str = clientePJ2.toString();
+                System.out.println(str);
          }
+
+         //CLiente 3
+        Cliente cliente3 = new Cliente(null, null, null, null, null, null, null);
+        cliente1.implementacaoCliente(cliente1);
+        Veiculo veiculo3 = new Veiculo(null, null, null, 0);
+        veiculo1.implementacaoVeiculo(veiculo1);
+        Sinistro sinistro3 = new Sinistro(0, null, null, null, null, null);
+        sinistro1.implementacaoSinistro(sinistro1, veiculo1, seguradora, cliente1);
 
           //Definindo o objeto Cliente 3
         System.out.println("Cliente físico ou jurídico? [PF/PJ]");
@@ -90,7 +96,8 @@ public class Main {
             validacao = clientePf3.implementacaoClientePF(clientePf3, seguradora);
             if ( validacao == true)
                 seguradora.relacionandoObjetos(clientePf3, seguradora, veiculo3, sinistro3);
-                clientePf3.toString();
+                str = clientePf3.toString();
+                System.out.println(str);
         }
 
         else{
@@ -98,7 +105,8 @@ public class Main {
             validacao = clientePJ3.implementacaoClientePJ(clientePJ3, seguradora);
             if (validacao == true)
                 seguradora.relacionandoObjetos(clientePJ3, seguradora, veiculo3, sinistro3);
-                clientePJ3.toString();
+                str = clientePJ3.toString();
+                System.out.println(str);
         }
 
         seguradora.listarClientes(cliente1.getNome());

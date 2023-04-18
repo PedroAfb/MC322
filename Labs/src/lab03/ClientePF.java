@@ -74,18 +74,9 @@ public class ClientePF extends Cliente {
     
     public boolean validarCPF(String cpf){
         // função que verifica todas as regras para que um cpf seja válido
-        int tamanho = cpf.length();
         boolean verificador;
-        for (int i=0;i<tamanho;i++){
-            int ascii = (int) cpf.charAt(i);
-            if ((ascii >= 0 && ascii <= 47) || (ascii >= 58 && ascii <= 127))	{
-                cpf = cpf.replaceAll("" + cpf.charAt(i),"");
-                int tamanho_atual = cpf.length();
-                int diferenca = tamanho - tamanho_atual;
-                i -= diferenca;
-                tamanho -= diferenca;
-            }
-        }
+        cpf = cpf.replaceAll("[^0-9]", "");
+        int tamanho = cpf.length();
         verificador = VerificadorCaracteresIguais(cpf);
         if (tamanho != 11)
             return false;

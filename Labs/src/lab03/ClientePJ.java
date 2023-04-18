@@ -109,4 +109,24 @@ public class ClientePJ extends Cliente {
         }
         return true;
     }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome: ").append(this.getNome()).append("\n");
+        sb.append("Endereço: ").append(this.getEndereco()).append("\n");
+        sb.append("Gênero: ").append(this.getGenero()).append("\n");
+        sb.append("Educação: ").append(this.getEducacao()).append("\n");
+        sb.append("Classe Econômica: ").append(this.getClasseEconomica()).append("\n");
+        sb.append("Data da Licença: ").append(this.getDataLicenca()).append("\n");
+        sb.append("Lista de Veículos: \n");
+        for (Veiculo veiculo : this.getListaVeiculos()) {
+            sb.append("  Modelo: ").append(veiculo.getModelo())
+            .append(", Marca: ").append(veiculo.getMarca())
+            .append(", Placa: ").append(veiculo.getPlaca())
+            .append(", Ano de Fabricação: ").append(veiculo.getAnoFabricacao()).append("\n");
+        }
+        sb.append("CNPJ: ").append(this.getCnpj()).append("\n");
+        sb.append("Data de Fundação: ").append(this.getDataFundacao()).append("\n");
+        return sb.toString();
+}
 }
