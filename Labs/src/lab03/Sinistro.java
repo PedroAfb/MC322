@@ -65,8 +65,7 @@ public class Sinistro {
         return id;
     }
 
-    public void implementacaoSinistro(Sinistro sinistro, Veiculo veiculo, Seguradora seguradora, Cliente cliente){
-        Scanner scan = new Scanner(System.in);
+    public void implementacaoSinistro(Sinistro sinistro, Veiculo veiculo, Seguradora seguradora, Cliente cliente, Scanner scan){
 	    System.out.println("Coloque a data de acontecimento:");
         sinistro.setData(scan.nextLine());
         System.out.println("Coloque o endereço:");

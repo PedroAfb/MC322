@@ -97,8 +97,7 @@ public class ClientePF extends Cliente {
         }
     }
 
-    public boolean implementacaoClientePF(ClientePF clientePf1, Seguradora seguradora){
-        Scanner scan = new Scanner(System.in);
+    public boolean implementacaoClientePF(ClientePF clientePf1, Seguradora seguradora, Scanner scan){
         boolean validacao;
         System.out.println("Digite sua data de nascimento:");
         String data = scan.nextLine();

@@ -70,8 +70,7 @@ public class Cliente {
 	public void setListaVeiculos(List <Veiculo> listaVeiculos) {
 		this.listaVeiculos = listaVeiculos;
 	}
-	public void implementacaoCliente(Cliente cliente){
-        Scanner scanCliente = new Scanner(System.in);
+	public void implementacaoCliente(Cliente cliente, Scanner scanCliente){
         System.out.println("Coloque seu nome:");
         cliente.setNome(scanCliente.nextLine());
         System.out.println("Coloque seu endereco:");

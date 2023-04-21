@@ -69,11 +69,9 @@ public class Seguradora {
         this . listaSinistros = listaSinistros ;
     }
 
-    public boolean geraSinistro(Cliente cliente, Veiculo veiculo, Seguradora seguradora) {
-        Scanner scanner = new Scanner(System.in);
+    public boolean geraSinistro(Cliente cliente, Veiculo veiculo, Seguradora seguradora, Scanner scanner) {
         Sinistro sinistro = new Sinistro(0, "", "", null, null, null);
-        sinistro.implementacaoSinistro(sinistro, veiculo, seguradora, cliente);
-        scanner.close();
+        sinistro.implementacaoSinistro(sinistro, veiculo, seguradora, cliente, scanner);
         return true;
     }
 
@@ -126,8 +124,7 @@ public class Seguradora {
             }
     }
 
-    public void implementacaoSeguradora(Seguradora seguradora){
-        Scanner scan = new Scanner(System.in);
+    public void implementacaoSeguradora(Seguradora seguradora, Scanner scan){
 	    System.out.println("Coloque o nome da seguradora:");
         seguradora.setNome(scan.nextLine());
         System.out.println("Coloque o telefone da seguradora:");

@@ -85,8 +85,7 @@ public class ClientePJ extends Cliente {
             return false;
     }
 
-    public boolean implementacaoClientePJ(ClientePJ clientePJ1, Seguradora seguradora){
-        Scanner scan = new Scanner(System.in);
+    public boolean implementacaoClientePJ(ClientePJ clientePJ1, Seguradora seguradora, Scanner scan){
         boolean validacao_pj;
        
         System.out.println("Digite a data de fundação:");
