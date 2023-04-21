@@ -70,13 +70,21 @@ public class Seguradora {
     }
 
     public boolean geraSinistro(Cliente cliente, Veiculo veiculo, Seguradora seguradora, Scanner scanner) {
+        // Gera um novo sinistro para o cliente indicado
         Sinistro sinistro = new Sinistro(0, "", "", null, null, null);
+        System.out.println("Coloque a data:");
+        sinistro.setData(scanner.nextLine());
+        System.out.println("Coloque o endereço:");
+        sinistro.setEndereco(scanner.nextLine());
+
         sinistro.implementacaoSinistro(sinistro, veiculo, seguradora, cliente, scanner);
+        seguradora.getListaSinistros().add(sinistro);
         return true;
     }
 
 
     public void visualizarSinistro(String cliente) {
+        // Printa o sinistro de um cliente específico
         for (Sinistro sinistro : listaSinistros) {
             Cliente nome = sinistro.getCliente();
             if (nome.getNome().equals(cliente)) {
@@ -89,7 +97,7 @@ public class Seguradora {
 
     public void listarSinistro(){
         for (Sinistro sinistro: listaSinistros){
-            sinistro.toString();
+            System.out.println(sinistro.toString());
         }
     }
     
@@ -122,17 +130,6 @@ public class Seguradora {
             for (Cliente cliente : listaClientes) {
                 System.out.println(cliente.toString());
             }
-    }
-
-    public void implementacaoSeguradora(Seguradora seguradora, Scanner scan){
-	    System.out.println("Coloque o nome da seguradora:");
-        seguradora.setNome(scan.nextLine());
-        System.out.println("Coloque o telefone da seguradora:");
-        seguradora.setTelefone(scan.nextLine());
-        System.out.println("Coloque o email da seguradora:");
-        seguradora.setEmail(scan.nextLine());
-	    System.out.println("Coloque o endereço da seguradora:");
-        seguradora.setEndereco(scan.nextLine());
     }
 
     public void relacionandoObjetos(Cliente cliente, Seguradora seguradora, Veiculo veiculo, Sinistro sinistro){

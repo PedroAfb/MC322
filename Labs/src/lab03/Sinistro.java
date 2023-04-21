@@ -66,11 +66,6 @@ public class Sinistro {
     }
 
     public void implementacaoSinistro(Sinistro sinistro, Veiculo veiculo, Seguradora seguradora, Cliente cliente, Scanner scan){
-	    System.out.println("Coloque a data de acontecimento:");
-        sinistro.setData(scan.nextLine());
-        System.out.println("Coloque o endereço:");
-        sinistro.setEndereco(scan.nextLine());
-
         sinistro.setCliente(cliente);
         sinistro.setSeguradora(seguradora);
         sinistro.setVeiculo(veiculo);
@@ -79,13 +74,10 @@ public class Sinistro {
     }
     public String toString() {
         return "Sinistro {" +
-                "id=" + id +
-                ", data='" + data + '\'' +
-                ", endereco='" + endereco + '\'' +
-                ", seguradora=" + seguradora +
-                ", veiculo=" + veiculo +
-                ", cliente=" + cliente +
+                "id=" + getId()+
+                ", data='" + getData() + '\'' +
+                ", endereco='" + getEndereco()+
                 '}';
     }
-}
+} 
 

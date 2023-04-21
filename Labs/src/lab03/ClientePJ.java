@@ -43,6 +43,7 @@ public class ClientePJ extends Cliente {
     }
 
     public boolean ValidarCNPJ(String cnpj){
+        // função que verifica todas as regras para que um cnpj seja válido
         boolean verificador;
         int tamanho = cnpj.length();
         cnpj = cnpj.replaceAll("[^0-9]", "");
@@ -85,7 +86,7 @@ public class ClientePJ extends Cliente {
             return false;
     }
 
-    public boolean implementacaoClientePJ(ClientePJ clientePJ1, Seguradora seguradora, Scanner scan){
+    public boolean implementacaoClientePJ(ClientePJ clientePJ1, Seguradora seguradora, Scanner scan, String cnpj){
         boolean validacao_pj;
        
         System.out.println("Digite a data de fundação:");
@@ -99,8 +100,6 @@ public class ClientePJ extends Cliente {
             e.printStackTrace();
         }
 
-        System.out.println("Digite seu CNPJ:");
-        clientePJ1.setCnpj(scan.nextLine());
         validacao_pj = clientePJ1.ValidarCNPJ(clientePJ1.getCnpj());
         seguradora.cadastrarCliente(clientePJ1);
         if (validacao_pj == false){

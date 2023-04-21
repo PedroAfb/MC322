@@ -97,9 +97,9 @@ public class ClientePF extends Cliente {
         }
     }
 
-    public boolean implementacaoClientePF(ClientePF clientePf1, Seguradora seguradora, Scanner scan){
+    public boolean implementacaoClientePF(ClientePF clientePf1, Seguradora seguradora, Scanner scan, String cpf){
         boolean validacao;
-        System.out.println("Digite sua data de nascimento:");
+        System.out.println("Digite a data de nascimento do cliente:");
         String data = scan.nextLine();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     
@@ -109,9 +109,6 @@ public class ClientePF extends Cliente {
         System.out.println("Formato de data inválido!");
         e.printStackTrace();
     }
-
-    System.out.println("Digite seu CPF:");
-    clientePf1.setCpf(scan.nextLine());
     seguradora.cadastrarCliente(clientePf1);
     validacao = clientePf1.validarCPF(clientePf1.getCpf());
     if (validacao == false){
