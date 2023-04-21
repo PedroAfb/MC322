@@ -109,12 +109,13 @@ public class ClientePF extends Cliente {
         System.out.println("Formato de data inválido!");
         e.printStackTrace();
     }
-    seguradora.cadastrarCliente(clientePf1);
     validacao = clientePf1.validarCPF(clientePf1.getCpf());
     if (validacao == false){
-        System.out.println("Cpf incorreto.");
-        seguradora.removerCliente(clientePf1);
+        System.out.println("Cpf incorreto. Cliente não cadastrado");
         return false;
+    }
+    else{
+        seguradora.cadastrarCliente(clientePf1);
     }
     return true;
     }

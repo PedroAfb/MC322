@@ -72,7 +72,7 @@ public class Seguradora {
     public boolean geraSinistro(Cliente cliente, Veiculo veiculo, Seguradora seguradora, Scanner scanner) {
         // Gera um novo sinistro para o cliente indicado
         Sinistro sinistro = new Sinistro(0, "", "", null, null, null);
-        System.out.println("Coloque a data:");
+        System.out.println("Coloque a data do acontecimento:");
         sinistro.setData(scanner.nextLine());
         System.out.println("Coloque o endereço:");
         sinistro.setEndereco(scanner.nextLine());
@@ -90,7 +90,6 @@ public class Seguradora {
             if (nome.getNome().equals(cliente)) {
                 String str = sinistro.toString();
                 System.out.println(str);
-                break;
             }
         }
     }
@@ -124,7 +123,7 @@ public class Seguradora {
         }
 }
 
-    public void listarClientes(String tipoCliente){
+    public void listarClientes(){
         /*Imprime as informações de todos os clientes 
                      da seguradora*/ 
             for (Cliente cliente : listaClientes) {

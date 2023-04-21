@@ -58,11 +58,11 @@ public class Sinistro {
         this.cliente = cliente;
     }
 
-    public int GeraID(int id){
+    public int GeraID(){
         // Gera um número int aleatório para o id
         Random gerador = new Random();
-        id = gerador.nextInt(3);
-        return id;
+        return gerador.nextInt(100);
+
     }
 
     public void implementacaoSinistro(Sinistro sinistro, Veiculo veiculo, Seguradora seguradora, Cliente cliente, Scanner scan){
@@ -70,7 +70,7 @@ public class Sinistro {
         sinistro.setSeguradora(seguradora);
         sinistro.setVeiculo(veiculo);
 
-        sinistro.setId(sinistro.GeraID(sinistro.getId()));
+        sinistro.setId(sinistro.GeraID());
     }
     public String toString() {
         return "Sinistro {" +
