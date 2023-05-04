@@ -2,18 +2,20 @@
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.xml.validation.Validator;
+
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
-
-
+import java.util.Calendar;
 
 public class ClientePF extends Cliente {
     private String cpf;
     private Date dataNascimento;
 
     //Construtor
-    public ClientePF(String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, String cpf, Date dataNascimento){
-        super(nome, endereco, genero, educacao, classeEconomica, dataLicenca, listaVeiculos);
+    public ClientePF(String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, String cpf, Date dataNascimento, double valorSeguro){
+        super(nome, endereco, genero, educacao, classeEconomica, dataLicenca, listaVeiculos, valorSeguro);
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
     }
@@ -118,6 +120,35 @@ public class ClientePF extends Cliente {
         seguradora.cadastrarCliente(clientePf1);
     }
     return true;
+    }
+
+    public int calculaIdade(Date dataNascimento) {
+        // Suponha que a data de nascimento da pessoa está armazenada na variável 'dataNascimento'
+        Calendar dataNasc = Calendar.getInstance();
+        dataNasc.setTime(dataNascimento);
+
+        // Obtém a data atual
+        Calendar hoje = Calendar.getInstance();
+
+        // Calcula a diferença entre as duas datas
+        int idade = hoje.get(Calendar.YEAR) - dataNasc.get(Calendar.YEAR);
+        if (hoje.get(Calendar.MONTH) < dataNasc.get(Calendar.MONTH)) {
+            idade--;
+        } else if (hoje.get(Calendar.MONTH) == dataNasc.get(Calendar.MONTH) && hoje.get(Calendar.DAY_OF_MONTH) < dataNasc.get(Calendar.DAY_OF_MONTH)) {
+            idade--;
+        }
+
+        // A variável 'idade' agora contém a idade da pessoa
+        return idade;
+
+    }
+
+    public double calculaScore(ClientePF cliente, int idade) {
+        double qtdeCarros = cliente.getListaVeiculos().size();
+        double valor = CalcSeguro.VALOR_BASE.getValor() * idade* qtdeCarros;
+        cliente.setValorSeguro(valor);
+        return valor;
+
     }
 
     public String toString() {

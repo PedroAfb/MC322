@@ -8,12 +8,14 @@ import java.text.SimpleDateFormat;
 public class ClientePJ extends Cliente {
     String cnpj;
     Date dataFundacao;
+    int qtdeFuncionarios;
 
     //Construtor
-    public ClientePJ (String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, String cnpj, Date dataFundacao){
-        super(nome, endereco, genero, educacao, classeEconomica, dataLicenca, listaVeiculos);
+    public ClientePJ (String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, String cnpj, Date dataFundacao, int qtdeFuncionarios, double valorSeguro){
+        super(nome, endereco, genero, educacao, classeEconomica, dataLicenca, listaVeiculos, valorSeguro);
         this.cnpj = cnpj;
         this.dataFundacao = dataFundacao;
+        this.qtdeFuncionarios = qtdeFuncionarios;
     }
     //Setters e Getters
     public String getCnpj () {
@@ -29,6 +31,12 @@ public class ClientePJ extends Cliente {
     public void setDataFundacao(Date dataFundacao) {
         this.dataFundacao = dataFundacao;
     }
+    public int getQtdeFuncionarios() {
+        return qtdeFuncionarios;
+    }
+    public void setQtdeFuncionarios(int qtdeFuncionarios) {
+        this.qtdeFuncionarios = qtdeFuncionarios;
+    }
 
     public boolean VerificadorCaracteresIguais(String str){
         //Verifica se a string tem todos os caracteres iguais
@@ -42,7 +50,7 @@ public class ClientePJ extends Cliente {
     }
 
     public boolean ValidarCNPJ(String cnpj){
-        // função que verifica todas as regras para que um cnpj seja válido
+        // função que  verifica todas as regras para que um cnpj seja válido
         boolean verificador;
         int tamanho = cnpj.length();
         cnpj = cnpj.replaceAll("[^0-9]", "");
@@ -109,6 +117,12 @@ public class ClientePJ extends Cliente {
         return true;
     }
 
+    public double calculaScore(ClientePJ cliente) {
+        int qtdeCarros = cliente.getListaVeiculos().size();
+        double valor = CalcSeguro.VALOR_BASE.getValor() * (1 + (cliente.getQtdeFuncionarios())/100) * qtdeCarros;
+        cliente.setValorSeguro(valor);
+        return valor;
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

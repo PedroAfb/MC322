@@ -14,10 +14,11 @@
 		private String classeEconomica;
 		private Date dataLicenca;
 		private List <Veiculo> listaVeiculos;
+		private double valorSeguro;
 
 		
 		// Construtor de classes
-		public Cliente(String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos) {
+		public Cliente(String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, double valorSeguro) {
 			this.nome = nome;
 			this.endereco = endereco;
 			this.genero = genero;
@@ -25,6 +26,7 @@
 			this.classeEconomica = classeEconomica;
 			this.dataLicenca = dataLicenca;
 			this.listaVeiculos = listaVeiculos != null ? listaVeiculos : new ArrayList<>();
+			this.valorSeguro = valorSeguro;
 		}
 		
 		//Getters e setters
@@ -71,6 +73,12 @@
 		public void setListaVeiculos(List <Veiculo> listaVeiculos) {
 			this.listaVeiculos = listaVeiculos;
 		}
+		public double getValorSeguro() {
+			return valorSeguro;
+		}
+		public void setValorSeguro(double valorSeguro) {
+			this.valorSeguro = valorSeguro;
+		}
 
 
 		public void implementacaoCliente(Cliente cliente, Scanner scanCliente){
@@ -85,6 +93,12 @@
 			e.printStackTrace();
 		}
 
+		public double calculaScore(Cliente cliente){
+			int varivel;
+			int qtdeCarros = cliente.getListaVeiculos().size();
+			double formula = CalcSeguro.VALOR_BASE.getValor() * varivel* qtdeCarros;
+			return formula;
+		};
 
 		}
 		public String toString() {
