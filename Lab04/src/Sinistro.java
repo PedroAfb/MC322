@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.Random;
 
 public class Sinistro {
-    private int id;
+    private final int id = GeraID();
     private String data;
     private String endereco;
     private Seguradora seguradora;    
@@ -10,7 +10,6 @@ public class Sinistro {
     private Cliente cliente;
 
     public Sinistro(int id, String data, String endereco, Seguradora seguradora, Veiculo veiculo, Cliente cliente){
-        this.id = id;
         this.data = data;
         this.endereco = endereco;
         this.seguradora = seguradora;
@@ -21,10 +20,6 @@ public class Sinistro {
     public int getId(){
         return id;
     }
-    public void setId(int id){
-        this.id = id;
-    }
-
     public String getData(){
         return data;
     }
@@ -68,8 +63,6 @@ public class Sinistro {
         sinistro.setCliente(cliente);
         sinistro.setSeguradora(seguradora);
         sinistro.setVeiculo(veiculo);
-
-        sinistro.setId(sinistro.GeraID());
     }
     public String toString() {
         return "Sinistro {" +

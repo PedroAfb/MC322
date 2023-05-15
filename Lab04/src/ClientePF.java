@@ -7,7 +7,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 public class ClientePF extends Cliente {
-    private String cpf;
+    private final String cpf;
     private Date dataNascimento;
 
     //Construtor
@@ -22,9 +22,6 @@ public class ClientePF extends Cliente {
         return cpf ;
     }
     
-    public void setCpf ( String cpf ) {
-        this . cpf = cpf ;
-    }
     public Date getDataNascimento() {
         return dataNascimento;
     }

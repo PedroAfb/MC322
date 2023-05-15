@@ -139,6 +139,41 @@ public class Seguradora {
 
     }
 
+    public double calcularPrecoSeguroCliente(ClientePF cliente, Seguradora seguradora){
+        List <Sinistro> sinistros = seguradora.getListaSinistros();
+        int qtd=0;
+        for(Sinistro sinistro:sinistros){
+            if(sinistro.getCliente() == cliente)
+                qtd++;
+        }
+        double valor = cliente.calculaScore(cliente) * (1 + qtd);
+        return valor;
+    }
+
+    public double calcularPrecoSeguroCliente(ClientePJ cliente, Seguradora seguradora){
+        List <Sinistro> sinistros = seguradora.getListaSinistros();
+        int qtd=0;
+        for(Sinistro sinistro:sinistros){
+            if(sinistro.getCliente() == cliente)
+                qtd++;
+        }
+        double valor = cliente.calculaScore(cliente) * (1 + qtd);
+        return valor;
+    }
+
+    public double calcularReceita(Seguradora seguradora){
+        double receita = 0;
+        for (Cliente cliente:seguradora.getListaClientes()){
+            receita += cliente.getValorSeguro();
+        }
+        return receita;
+    }
+
+    public void trocaSeguro(Cliente cTroca, Cliente cRecebe){
+        cRecebe.setListaVeiculos(cTroca.getListaVeiculos());
+        cRecebe.setValorSeguro(cTroca.getValorSeguro());
+    }
+    
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Seguradora: ").append(nome).append("\n");

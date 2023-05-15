@@ -24,8 +24,7 @@ public class Main{
 	}
 	
 	//ler opções do menu externo
-	private static MenuOpcoes lerOpcaoMenuExterno() {
-		Scanner scanner = new Scanner(System.in);
+	private static MenuOpcoes lerOpcaoMenuExterno(Scanner scanner) {
 		int opUsuario;
 		MenuOpcoes opUsuarioConst;
 		do {
@@ -37,8 +36,7 @@ public class Main{
 	}
 	
 	//ler opção dos submenus
-	private static SubmenuOpcoes lerOpcaoSubmenu(MenuOpcoes op) {
-		Scanner scanner = new Scanner(System.in);
+	private static SubmenuOpcoes lerOpcaoSubmenu(MenuOpcoes op, Scanner scanner) {
 		int opUsuario;
 		SubmenuOpcoes opUsuarioConst;
 		do {
@@ -50,12 +48,12 @@ public class Main{
 	}
 	
 	//executar opções do menu externo
-	private static void executarOpcaoMenuExterno(MenuOpcoes op) {
+	private static void executarOpcaoMenuExterno(MenuOpcoes op, Scanner scanner) {
 		switch(op) {
 			case CADASTROS:
 			case LISTAR:
 			case EXCLUIR:
-				executarSubmenu(op);
+				executarSubmenu(op,scanner );
 				break;
 			case GERAR_SINISTRO:
 				System.out.println("Executar metodo gerar Sinistro");
@@ -105,11 +103,11 @@ public class Main{
 	}
 	
 	//executa os submenus: exibição do menu, leitura da opção e execução dos métodos
-	private static void executarSubmenu(MenuOpcoes op) {
+	private static void executarSubmenu(MenuOpcoes op, Scanner scanner) {
 		SubmenuOpcoes opSubmenu;
 		do {
 			exibirSubmenu(op);
-			opSubmenu = lerOpcaoSubmenu(op);
+			opSubmenu = lerOpcaoSubmenu(op, scanner);
 			executarOpcaoSubMenu(opSubmenu);
 		}while(opSubmenu != SubmenuOpcoes.VOLTAR);
 	}
@@ -117,10 +115,11 @@ public class Main{
 	//executa o menu externo: exibição do menu, leitura da opção e execução da opção
 	public static void main(String[] args) {
 		MenuOpcoes op;
+		Scanner scanner = new Scanner(System.in);
 		do {
 			exibirMenuExterno();
-			op = lerOpcaoMenuExterno();
-			executarOpcaoMenuExterno(op);
+			op = lerOpcaoMenuExterno(scanner);
+			executarOpcaoMenuExterno(op, scanner);
 		}while(op != MenuOpcoes.SAIR);
 		System.out.println("Saiu do sistema");
 	}

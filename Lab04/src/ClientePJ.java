@@ -6,9 +6,9 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 
 public class ClientePJ extends Cliente {
-    String cnpj;
-    Date dataFundacao;
-    int qtdeFuncionarios;
+    private final String cnpj;
+    private Date dataFundacao;
+    private int qtdeFuncionarios;
 
     //Construtor
     public ClientePJ (String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, String cnpj, Date dataFundacao, int qtdeFuncionarios, double valorSeguro){
@@ -20,10 +20,6 @@ public class ClientePJ extends Cliente {
     //Setters e Getters
     public String getCnpj () {
         return cnpj ;
-    }
-    
-    public void setCnpj ( String cnpj ) {
-        this . cnpj = cnpj ;
     }
     public Date getDataFundacao() {
         return dataFundacao;

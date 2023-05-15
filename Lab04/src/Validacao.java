@@ -107,7 +107,15 @@ public class Validacao {
         }
     }
 
-    public static boolean validarNome(String nomw){
+    public static boolean validarNome(String nome){
+        if (nome == null) {
+            return false;
+        }
+        for (int i = 0; i < nome.length(); i++) {
+            if (!Character.isLetter(nome.charAt(i))) {
+                return false;
+            }
+        }
         return true;
     }
 }
