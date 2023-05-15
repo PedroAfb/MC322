@@ -92,15 +92,16 @@
 			System.out.println("Formato de data inválido!");
 			e.printStackTrace();
 		}
+	}
 
-		public double calculaScore(Cliente cliente){
-			int varivel;
+		public void calculaScore(){
+			/*double varivel = 1.9;
 			int qtdeCarros = cliente.getListaVeiculos().size();
 			double formula = CalcSeguro.VALOR_BASE.getValor() * varivel* qtdeCarros;
-			return formula;
-		};
-
+			return formula;*/
+			//sobrecarga
 		}
+
 		public String toString() {
 			StringBuilder sb = new StringBuilder();
 			sb.append("Nome: ").append(nome).append("\n");

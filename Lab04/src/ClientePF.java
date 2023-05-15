@@ -2,9 +2,6 @@
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.xml.validation.Validator;
-
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -142,8 +139,9 @@ public class ClientePF extends Cliente {
         return idade;
 
     }
-
-    public double calculaScore(ClientePF cliente, int idade) {
+    
+    public double calculaScore(ClientePF cliente) {
+        int idade = calculaIdade(cliente.getDataNascimento());
         double qtdeCarros = cliente.getListaVeiculos().size();
         double valor = CalcSeguro.VALOR_BASE.getValor() * idade* qtdeCarros;
         cliente.setValorSeguro(valor);

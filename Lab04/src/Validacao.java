@@ -106,4 +106,8 @@ public class Validacao {
             return false;
         }
     }
+
+    public static boolean validarNome(String nomw){
+        return true;
+    }
 }

@@ -116,7 +116,6 @@ public class ClientePJ extends Cliente {
         }
         return true;
     }
-
     public double calculaScore(ClientePJ cliente) {
         int qtdeCarros = cliente.getListaVeiculos().size();
         double valor = CalcSeguro.VALOR_BASE.getValor() * (1 + (cliente.getQtdeFuncionarios())/100) * qtdeCarros;
