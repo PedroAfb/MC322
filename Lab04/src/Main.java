@@ -48,92 +48,6 @@ public class Main{
 		return opUsuarioConst;
 	}
 	
-	//executar opções do menu externo
-	/*private static void executarOpcaoMenuExterno(MenuOpcoes op, Scanner scanner) {
-		switch(op) {
-			case CADASTROS:
-			case LISTAR:
-			case EXCLUIR:
-				executarSubmenu(op,scanner );
-				break;
-			case GERAR_SINISTRO:
-				System.out.println("Executar metodo gerar Sinistro");
-				break;
-			case TRANSFERIR_SEGURO:
-				System.out.println("Executar metodo tranferir seguro");
-				break;
-			case CALCULAR_RECEITA:
-				System.out.println("Executar metodo calcular receita");
-				break;
-			//case SAIR:
-		}
-	}*/
-	
-	/*public static void executarOpcaoSubMenu(SubmenuOpcoes opSubmenu, Scanner scanner) {
-		switch(opSubmenu) {
-		case CADASTRAR_CLIENTEPF:
-			System.out.println("Chamar metodo cadastrar cliente PF");
-			String cpf = scanner.nextLine();
-			boolean validaocao = Validacao.validarCPF(cpf);
-			if (validaocao == true){
-				ClientePF clientePf;
-				clientePf = ClientePF.implementacaoClientePF(scanner, cpf);
-			}
-
-			break;
-		case CADASTRAR_CLIENTEPJ:
-			System.out.println("Chamar metodo cadastrar cliente PJ");
-			String cnpj = scanner.nextLine();
-			boolean validacao = Validacao.validarCPF(cnpj);
-			if (validacao == true){
-			ClientePJ clientePJ;
-			clientePJ = ClientePJ.implementacaoClientePJ(seguradora, scanner, cnpj);
-			}
-		case CADASTRAR_VEICULO:
-			System.out.println("Chamar metodo cadastrar veiculo");
-			break;
-		case CADASTRAR_SEGURADORA:
-			System.out.println("Chamar metodo cadastrar seguradora");
-			Seguradora seguradora;
-			seguradora = Seguradora.cadastrarSeguradora(scanner);
-
-			break;
-		case LISTAR_CLIENTES:
-			System.out.println("Chamar metodo listar clientes");
-			break;
-		case LISTAR_SINISTROS:
-			System.out.println("Chamar metodo listar sinistros");
-			break;
-		case LISTAR_VEICULOS:
-			System.out.println("Chamar metodo listar veiculos");
-			break;
-		case EXCLUIR_CLIENTE:
-			System.out.println("Chamar metodo excluir cliente");
-			break;
-		case EXCLUIR_VEICULO:
-			System.out.println("Chamar metodo excluir veiculo");
-			break;
-		case EXCLUIR_SINISTRO:
-			System.out.println("Chamar metodo excluir sinistro");
-			break;
-		//case VOLTAR:
-		//	break;
-		}
-	}*/
-	
-	//executa os submenus: exibição do menu, leitura da opção e execução dos métodos
-	/*private static void executarSubmenu(MenuOpcoes op, Scanner scanner) {
-		SubmenuOpcoes opSubmenu;
-		do {
-			exibirSubmenu(op);
-			opSubmenu = lerOpcaoSubmenu(op, scanner);
-			executarOpcaoSubMenu(opSubmenu, scanner);
-		}while(opSubmenu != SubmenuOpcoes.VOLTAR);
-	}*/
-	
-
-
-
 	//executa o menu externo: exibição do menu, leitura da opção e execução da opção
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
@@ -142,12 +56,6 @@ public class Main{
 		Seguradora seguradora;
 
  		seguradora = Seguradora.cadastrarSeguradora(scanner);
-		/*ClientePF clientePF = ClientePF.implementacaoClientePF(seguradora,scanner, "503.782.058-89");
-		ClientePJ clientePJ = ClientePJ.implementacaoClientePJ(seguradora, scanner, "57.833.395/0001-20");
-		Veiculo palio = new Veiculo("LQH-01445", "Fiat", "Palio", 2014);
-		seguradora.geraSinistro(clientePF, palio, seguradora, scanner);
-		clientePF.getListaVeiculos().add(palio);
-		clientePF.calculaScore(clientePF);*/
 
 			do {
 				exibirMenuExterno();
@@ -161,7 +69,7 @@ public class Main{
 						System.out.println("Nome do cliente:");
 						scanner.nextLine();
 						String nomeCliente = scanner.nextLine();
-						System.out.println("PLaca do veiculo:");
+						System.out.println("Placa do veiculo:");
 						String placaVeiculo = scanner.nextLine();
 							for (Cliente cliente: seguradora.getListaClientes()){
 								if (cliente.getNome().equals(nomeCliente)){
@@ -208,9 +116,11 @@ public class Main{
 						if (validaocao == true){
 							ClientePF clientePf;
 							clientePf = ClientePF.implementacaoClientePF(seguradora,scanner, cpf);
+							System.out.println("cliente PF cadastrado");
 						}
-						System.out.println("cliente PF cadastrado");
-
+						else
+							System.out.println("Cliente não cadastrado, cpf inválido.");
+						
 						break;
 					case CADASTRAR_CLIENTEPJ:
 						System.out.println("Digite seu cnpj:");
@@ -220,8 +130,10 @@ public class Main{
 						if (validacao == true){
 						ClientePJ clientePJ;
 						clientePJ = ClientePJ.implementacaoClientePJ(seguradora, scanner, cnpj);
-						}
 						System.out.println("cliente PJ cadastrado");
+						}
+						else
+							System.out.println("Cliente não cadastrado, cnpj inválido.");
 		
 						break;
 					case CADASTRAR_SEGURADORA:
@@ -233,7 +145,6 @@ public class Main{
 					case CADASTRAR_VEICULO:
 						Veiculo veiculo;
 						veiculo = Veiculo.cadastrarVeiculo(seguradora, scanner);
-						System.out.println("Veículo cadastrado");
 
 
 						break;
@@ -255,34 +166,75 @@ public class Main{
 						}
 						break;
 					case EXCLUIR_CLIENTE:
+						scanner.nextLine();
+						validacao = false;
 						String nomeCliente = scanner.nextLine();
 						for (Cliente cliente: seguradora.getListaClientes()){
-							if (cliente.equals(nomeCliente))
+							if (cliente.getNome().equals(nomeCliente)){
 								seguradora.removerCliente(cliente);
+								validacao = true;
+								System.out.println("cliente excluido");
+							}
 						}
-						System.out.println("cliente excluido");
+						
+						if (validacao == false)
+							System.out.println("cliente não foi excluido, nome do cliente não foi encontrado");
 
 
 						break;
 					case EXCLUIR_VEICULO:
+						System.out.println("Digite a placa do veiculo:");
+						scanner.nextLine();
+						boolean tipoCliente = false;
 						String placaVeiculo = scanner.nextLine();
-						for (Cliente cliente : seguradora.getListaClientes()){
+						for (ClientePF cliente : seguradora.getListaClientePFs()){
 							for (Veiculo veiculo1: cliente.getListaVeiculos()){
-								if(veiculo1.getPlaca().equals(placaVeiculo))
+								if(veiculo1.getPlaca().equals(placaVeiculo)){
 									cliente.getListaVeiculos().remove(veiculo1);
+									cliente.calculaScore(cliente);
+									tipoCliente = true;
+									System.out.println("veiculo excluido");
+									break;
+								}
 							}
 						}
-						System.out.println("veiculo excluido");
+
+						if (tipoCliente == false){
+							for (ClientePJ cliente : seguradora.getListaClientePJs()){
+								for (Veiculo veiculo1: cliente.getListaVeiculos()){
+									if(veiculo1.getPlaca().equals(placaVeiculo)){
+										cliente.getListaVeiculos().remove(veiculo1);
+										cliente.calculaScore(cliente);
+										tipoCliente = true;
+										System.out.println("veiculo excluido");
+										tipoCliente = true;
+										break;
+									}
+								}
+							}
+						}
+
+						if (tipoCliente == false)
+							System.out.println("veiculo não excluido, a placa e/ou o nome do cliente não foram encontrados");
 
 
 						break;
 					case EXCLUIR_SINISTRO:
+						validacao = false;
+						System.out.println("Informações dos sinistros:");
+						seguradora.listarSinistro();
+						System.out.println("Digite o ID do sinistro:");
 						int idSinistro = scanner.nextInt();
 						for (Sinistro sinistro: seguradora.getListaSinistros()){
 							if(sinistro.getId() == idSinistro)
 								seguradora.getListaSinistros().remove(sinistro);
+								validacao = true;
+								System.out.println("sinistro excluido");
+								break;
 						}
-						System.out.println("sinistro excluido");
+
+						if (validacao == false)
+							System.out.println("sinistro não foi excluido, id não encontrado");
 
 
 						break;

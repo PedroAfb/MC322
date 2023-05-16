@@ -54,6 +54,7 @@ public void implementacaoVeiculo( Veiculo veiculo, Scanner scanVeiculo){
 }
 
 public static Veiculo cadastrarVeiculo(Seguradora seguradora, Scanner scanner){
+	boolean v = false;
 	System.out.println("Placa do veiculo:");
 	scanner.nextLine();
 	String placa = scanner.nextLine();
@@ -68,10 +69,17 @@ public static Veiculo cadastrarVeiculo(Seguradora seguradora, Scanner scanner){
 	String nomeCliente = scanner.nextLine();
 	Veiculo veiculo = new Veiculo(placa, marca, modelo, anoFabricaco);
 	for ( Cliente cliente : seguradora.getListaClientes()){
-		if (cliente.getNome().equals(nomeCliente))
-		cliente.getListaVeiculos().add(veiculo);
+		if (cliente.getNome().equals(nomeCliente)){
+			cliente.getListaVeiculos().add(veiculo);
+			v = true;
+		}
 		}
 
+	if(v == false){
+		System.out.println("Veiculo não cadastrado, não encontramos o nome desse cliente");
+	}
+	else
+		System.out.println("Veículo cadastrado");
 	// calcula valor seguro
 
 	for (ClientePF clientePF: seguradora.getListaClientePFs()){

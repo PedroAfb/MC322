@@ -182,7 +182,12 @@ public class Seguradora {
     public double calcularReceita(Seguradora seguradora){
         double receita = 0;
         for (Cliente cliente:seguradora.getListaClientes()){
-            receita += cliente.getValorSeguro();
+            int qntdSinistro = 0;
+            for(Sinistro sinistro: seguradora.getListaSinistros()){
+                if(sinistro.getCliente().getNome().equals(cliente.getNome()))
+                    qntdSinistro++;
+            }
+            receita += cliente.getValorSeguro() * (1 + qntdSinistro);
         }
         System.out.println("A receita é de " + receita + " reais.");
         return receita;
