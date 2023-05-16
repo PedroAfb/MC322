@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
     private final String cpf;
@@ -93,11 +94,16 @@ public class ClientePF extends Cliente {
         }
     }
 
-    public static ClientePF implementacaoClientePF(Scanner scan, String cpf){
+    public static ClientePF implementacaoClientePF(Seguradora seguradora, Scanner scan, String cpf){
+        System.out.println("Seu nome:");
         String nome = scan.nextLine();
+        System.out.println("Seu endereço:");
         String endereco = scan.nextLine();
+        System.out.println("Seu genero:");
         String genero = scan.nextLine();
+        System.out.println("Sua educacao:");
         String educacao = scan.nextLine();
+        System.out.println("Sua classe economica:");
         String classeEconomica = scan.nextLine();
 
         System.out.println("Digite a data de licença:");
@@ -123,6 +129,9 @@ public class ClientePF extends Cliente {
             e.printStackTrace();
         }
 
+        clientePf1.setListaVeiculos(new ArrayList<Veiculo>());
+        seguradora.getListaClientes().add(clientePf1);
+        seguradora.getListaClientePFs().add(clientePf1);
         return clientePf1;
     }
 
@@ -179,6 +188,7 @@ public class ClientePF extends Cliente {
             .append(", Ano de Fabricação: ").append(veiculo.getAnoFabricacao()).append("\n");
         }
         sb.append("CPF: ").append(this.getCpf()).append("\n");
+        sb.append("Valor Seguro: ").append(this.getValorSeguro()).append("\n");
         sb.append("Data de Nascimento: ").append(this.getDataNascimento()).append("\n");
         return sb.toString();
 }

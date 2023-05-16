@@ -94,7 +94,7 @@
 		}
 	}
 
-		public void calculaScore(){
+		public void calculaScore(Cliente cliente){
 			/*double varivel = 1.9;
 			int qtdeCarros = cliente.getListaVeiculos().size();
 			double formula = CalcSeguro.VALOR_BASE.getValor() * varivel* qtdeCarros;

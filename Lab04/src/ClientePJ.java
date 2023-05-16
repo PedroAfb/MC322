@@ -1,6 +1,5 @@
-
-import java.sql.ClientInfoStatus;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -90,15 +89,22 @@ public class ClientePJ extends Cliente {
             return false;
     }
 
-    public static ClientePJ implementacaoClientePJ(Scanner scan, String cnpj){
+    public static ClientePJ implementacaoClientePJ(Seguradora seguradora,Scanner scan, String cnpj){
+        System.out.println("Seu nome:");
         String nome = scan.nextLine();
+        System.out.println("Seu endereco:");
         String endereco = scan.nextLine();
+        System.out.println("Seu genero:");
         String genero = scan.nextLine();
+        System.out.println("Sua educacao:");
         String educacao = scan.nextLine();
+        System.out.println("Sua classe economica:");
         String classeEconomica = scan.nextLine();
+        System.out.println("Quantidade de funcionários:");
         int qtdeFuncionarios = scan.nextInt();
 
         System.out.println("Digite a data de licença:");
+        scan.nextLine();
         String data = scan.nextLine();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
@@ -120,12 +126,14 @@ public class ClientePJ extends Cliente {
             System.out.println("Formato de data inválido!");
             e.printStackTrace();
         }
-
+        clientePJ.setListaVeiculos(new ArrayList<Veiculo>());
+        seguradora.getListaClientes().add(clientePJ);
+        seguradora.getListaClientePJs().add(clientePJ);
         return clientePJ;
     }
     public double calculaScore(ClientePJ cliente) {
         int qtdeCarros = cliente.getListaVeiculos().size();
-        double valor = CalcSeguro.VALOR_BASE.getValor() * (1 + (cliente.getQtdeFuncionarios())/100) * qtdeCarros;
+        double valor= CalcSeguro.VALOR_BASE.getValor() * (1 + (cliente.getQtdeFuncionarios())/100) * qtdeCarros;
         cliente.setValorSeguro(valor);
         return valor;
     }
@@ -146,6 +154,7 @@ public class ClientePJ extends Cliente {
             .append(", Ano de Fabricação: ").append(veiculo.getAnoFabricacao()).append("\n");
         }
         sb.append("CNPJ: ").append(this.getCnpj()).append("\n");
+        sb.append("Valor Seguro: ").append(this.getValorSeguro()).append("\n");
         sb.append("Data de Fundação: ").append(this.getDataFundacao()).append("\n");
         return sb.toString();
 }

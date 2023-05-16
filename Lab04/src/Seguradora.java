@@ -10,15 +10,21 @@ public class Seguradora {
     private String endereco ;
     private List <Sinistro> listaSinistros;
     private List <Cliente> listaClientes;
+    private List <ClientePF> listaClientePFs;
+    private List <ClientePJ> listaClientePJs;
 
     // Construtor
-    public Seguradora ( String nome , String telefone , String email , String endereco, List <Sinistro> listaSinistros, List <Cliente> listaClientes ) {
+    public Seguradora ( String nome , String telefone , String email , String endereco, List <Sinistro> listaSinistros, List <Cliente> listaClientes, List <ClientePF> listaClientePFs, List <ClientePJ> listaClientePJs ) {
         this . nome = nome ;
         this . telefone = telefone ;
         this . email = email ;
         this . endereco = endereco ;
         this.listaSinistros = listaSinistros != null ? listaSinistros : new ArrayList<>();
         this.listaClientes = listaClientes != null ? listaClientes : new ArrayList<>();
+        this.listaClientePFs = listaClientePFs != null ? listaClientePFs : new ArrayList<>();
+        this.listaClientePJs = listaClientePJs != null ? listaClientePJs : new ArrayList<>();
+
+
     }
 
     // Getters e setters
@@ -57,7 +63,7 @@ public class Seguradora {
         return listaClientes ;
     }
 
-    public void setListaCliente ( List <Cliente> listaClientes ) {
+    public void setListaClientes ( List <Cliente> listaClientes ) {
         this . listaClientes = listaClientes ;
     }
     public List <Sinistro> getListaSinistros () {
@@ -66,6 +72,18 @@ public class Seguradora {
 
     public void setListaSinistros ( List <Sinistro> listaSinistros ) {
         this . listaSinistros = listaSinistros ;
+    }
+    public List<ClientePF> getListaClientePFs() {
+        return listaClientePFs;
+    }
+    public void setListaClientePFs(List<ClientePF> listaClientePFs) {
+        this.listaClientePFs = listaClientePFs;
+    }
+    public List<ClientePJ> getListaClientePJs() {
+        return listaClientePJs;
+    }
+    public void setListaClientePJs(List<ClientePJ> listaClientePJs) {
+        this.listaClientePJs = listaClientePJs;
     }
 
     public boolean geraSinistro(Cliente cliente, Veiculo veiculo, Seguradora seguradora, Scanner scanner) {
@@ -166,12 +184,31 @@ public class Seguradora {
         for (Cliente cliente:seguradora.getListaClientes()){
             receita += cliente.getValorSeguro();
         }
+        System.out.println("A receita é de " + receita + " reais.");
         return receita;
     }
 
     public void trocaSeguro(Cliente cTroca, Cliente cRecebe){
         cRecebe.setListaVeiculos(cTroca.getListaVeiculos());
         cRecebe.setValorSeguro(cTroca.getValorSeguro());
+    }
+
+    public static Seguradora cadastrarSeguradora(Scanner scan){
+        System.out.println("nome da Seguradora:");
+        String nome = scan.nextLine();
+        System.out.println("endereco da Seguradora:");
+        String endereco = scan.nextLine();
+        System.out.println("telefone da Seguradora:");
+        String telefone = scan.nextLine();
+        System.out.println("email da Seguradora:");
+        String email = scan.nextLine();
+        Seguradora seguradora = new Seguradora(nome, telefone, email, endereco, null, null, null, null);
+        seguradora.setListaClientes(new ArrayList<Cliente>());
+        seguradora.setListaSinistros(new ArrayList<Sinistro>());
+        seguradora.setListaClientePFs(new ArrayList<ClientePF>());
+        seguradora.setListaClientePJs(new ArrayList<ClientePJ>());
+
+        return seguradora;
     }
     
     public String toString() {
