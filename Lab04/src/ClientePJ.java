@@ -1,4 +1,5 @@
 
+import java.sql.ClientInfoStatus;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -89,28 +90,38 @@ public class ClientePJ extends Cliente {
             return false;
     }
 
-    public boolean implementacaoClientePJ(ClientePJ clientePJ1, Seguradora seguradora, Scanner scan, String cnpj){
-        boolean validacao_pj;
-       
-        System.out.println("Digite a data de fundação:");
+    public static ClientePJ implementacaoClientePJ(Scanner scan, String cnpj){
+        String nome = scan.nextLine();
+        String endereco = scan.nextLine();
+        String genero = scan.nextLine();
+        String educacao = scan.nextLine();
+        String classeEconomica = scan.nextLine();
+        int qtdeFuncionarios = scan.nextInt();
+
+        System.out.println("Digite a data de licença:");
         String data = scan.nextLine();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         
+        ClientePJ clientePJ = new ClientePJ(nome, endereco, genero, educacao, classeEconomica, null, null, cnpj, null, qtdeFuncionarios, 0);
+
         try {
-            clientePJ1.setDataFundacao(format.parse(data));;
+            clientePJ.setDataLicenca(format.parse(data));
         } catch (ParseException e) {
             System.out.println("Formato de data inválido!");
             e.printStackTrace();
         }
 
-        validacao_pj = clientePJ1.ValidarCNPJ(clientePJ1.getCnpj());
-        seguradora.cadastrarCliente(clientePJ1);
-        if (validacao_pj == false){
-            System.out.println("Cnpj incorreto.");
-            seguradora.removerCliente(clientePJ1);
-            return false;
+        System.out.println("Digite a data de Fundacao:");
+        data = scan.nextLine();
+        
+        try {
+            clientePJ.setDataFundacao(format.parse(data));;
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido!");
+            e.printStackTrace();
         }
-        return true;
+
+        return clientePJ;
     }
     public double calculaScore(ClientePJ cliente) {
         int qtdeCarros = cliente.getListaVeiculos().size();

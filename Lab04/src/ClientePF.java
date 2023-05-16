@@ -93,27 +93,37 @@ public class ClientePF extends Cliente {
         }
     }
 
-    public boolean implementacaoClientePF(ClientePF clientePf1, Seguradora seguradora, Scanner scan, String cpf){
-        boolean validacao;
-        System.out.println("Digite a data de nascimento do cliente:");
+    public static ClientePF implementacaoClientePF(Scanner scan, String cpf){
+        String nome = scan.nextLine();
+        String endereco = scan.nextLine();
+        String genero = scan.nextLine();
+        String educacao = scan.nextLine();
+        String classeEconomica = scan.nextLine();
+
+        System.out.println("Digite a data de licença:");
         String data = scan.nextLine();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-    
-    try {
-        clientePf1.setDataNascimento(format.parse(data));;
-    } catch (ParseException e) {
-        System.out.println("Formato de data inválido!");
-        e.printStackTrace();
-    }
-    validacao = clientePf1.validarCPF(clientePf1.getCpf());
-    if (validacao == false){
-        System.out.println("Cpf incorreto. Cliente não cadastrado");
-        return false;
-    }
-    else{
-        seguradora.cadastrarCliente(clientePf1);
-    }
-    return true;
+        
+        ClientePF clientePf1 = new ClientePF(nome, endereco, genero, educacao, classeEconomica, null, null, cpf, null, 0);
+
+        try {
+            clientePf1.setDataLicenca(format.parse(data));
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido!");
+            e.printStackTrace();
+        }
+
+        System.out.println("Digite a data de Nascimento:");
+        data = scan.nextLine();
+        
+        try {
+            clientePf1.setDataNascimento(format.parse(data));;
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido!");
+            e.printStackTrace();
+        }
+
+        return clientePf1;
     }
 
     public int calculaIdade(Date dataNascimento) {
@@ -140,7 +150,14 @@ public class ClientePF extends Cliente {
     public double calculaScore(ClientePF cliente) {
         int idade = calculaIdade(cliente.getDataNascimento());
         double qtdeCarros = cliente.getListaVeiculos().size();
-        double valor = CalcSeguro.VALOR_BASE.getValor() * idade* qtdeCarros;
+        double valor;
+        if ((idade >=18) && (idade <= 30))
+            valor = CalcSeguro.VALOR_BASE.getValor() * CalcSeguro.FATOR_18_30.getValor()* qtdeCarros;
+        else if (idade < 60)
+            valor = CalcSeguro.VALOR_BASE.getValor() * CalcSeguro.FATOR_30_60.getValor()* qtdeCarros;
+        else 
+            valor = CalcSeguro.VALOR_BASE.getValor() * CalcSeguro.FATOR_60_90.getValor()* qtdeCarros;
+
         cliente.setValorSeguro(valor);
         return valor;
 

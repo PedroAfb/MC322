@@ -2,7 +2,8 @@
  * Define as constantes dos submenus
  */
 public enum SubmenuOpcoes {
-	CADASTRAR_CLIENTE("Cadastrar cliente"),
+	CADASTRAR_CLIENTEPF("Cadastrar cliente PF"),
+	CADASTRAR_CLIENTEPJ("Cadastrar cliente PJ"),
 	CADASTRAR_VEICULO("Cadastrar veiculo"),
 	CADASTRAR_SEGURADORA("Cadastrar seguradora"),
 	LISTAR_CLIENTES("Listar cliente"),
