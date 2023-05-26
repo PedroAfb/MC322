@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class Condutor {
     private final String cpf;
     private String nome;
@@ -55,6 +59,14 @@ public class Condutor {
     }
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public void adicionaSinistro(Condutor condutor, SeguroPF seguroPF, SeguroPJ seguroPJ ,Sinistro sinistro){
+        condutor.getListaSinistros().add(sinistro);
+        if(seguroPF != null)
+            seguroPF.getListaSinistros().add(sinistro);
+        else
+            seguroPJ.getListaSinistros().add(sinistro);
     }
 
     public String toString() {

@@ -6,13 +6,15 @@
         private Date data;
         private String endereco;
         private Condutor condutor;
-        private Seguro seguro;
+        private SeguroPF seguroPF;
+        private SeguroPJ seguroPJ;
 
-        public Sinistro(int id, Date data, String endereco, Condutor condutor, Seguro seguro){
+        public Sinistro(int id, Date data, String endereco, Condutor condutor, SeguroPF seguroPF, SeguroPJ seguroPJ){
             this.id = id;
             this.condutor = condutor;
             this.data = data;
-            this.seguro = seguro;
+            this.seguroPF = seguroPF;
+            this.seguroPJ = seguroPJ;
             this.endereco = endereco;
         }
 
@@ -37,12 +39,19 @@
         public int getId() {
             return id;
         }
-        public Seguro getSeguro() {
-            return seguro;
+        public SeguroPF getSeguroPF() {
+            return seguroPF;
         }
-        public void setSeguro(Seguro seguro) {
-            this.seguro = seguro;
+        public void setSeguroPF(SeguroPF seguroPF) {
+            this.seguroPF = seguroPF;
         }
+        public SeguroPJ getSeguroPJ() {
+            return seguroPJ;
+        }
+        public void setSeguroPJ(SeguroPJ seguroPJ) {
+            this.seguroPJ = seguroPJ;
+        }
+      
 
         public String toString() {
             return "Sinistro {" +

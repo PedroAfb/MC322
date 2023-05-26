@@ -88,8 +88,8 @@ public class Seguradora {
         sb.append("Telefone: ").append(telefone).append("\n");
         sb.append("Email: ").append(email).append("\n");
         sb.append("Endereço: ").append(endereco).append("\n");
-        sb.append("Lista de seguros:\n");
-        for (Seguro seguro : listaSeguros) {
+        sb.append("Lista de seguros físicos:\n");
+        for (SeguroPF seguroPF : listaSeguros) {
             sb.append(seguro).append("\n");
         }
         sb.append("Lista de clientes físicos:\n");
