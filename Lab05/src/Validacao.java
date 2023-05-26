@@ -13,9 +13,9 @@ public class Validacao {
     public static boolean ValidarCNPJ(String cnpj){
         // função que verifica todas as regras para que um cnpj seja válido
         boolean verificador;
-        int tamanho = cnpj.length();
         cnpj = cnpj.replaceAll("[^0-9]", "");
         verificador = VerificadorCaracteresIguais(cnpj);
+        int tamanho = cnpj.length();
         if (tamanho != 14)
             return false;
         else if (verificador == true){

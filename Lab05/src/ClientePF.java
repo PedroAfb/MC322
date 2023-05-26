@@ -5,16 +5,23 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
     private final String cpf;
     private Date dataNascimento;
+    private String genero;
+    private String educacao;
+    private List <Veiculo> listaVeiculos;
 
     //Construtor
-    public ClientePF(String nome, String endereco, String genero, String educacao, String classeEconomica, Date dataLicenca, List <Veiculo> listaVeiculos, String cpf, Date dataNascimento, double valorSeguro){
-        super(nome, endereco, genero, educacao, classeEconomica, dataLicenca, listaVeiculos, valorSeguro);
+    public ClientePF(String nome, String endereco, String genero, String educacao, List <Veiculo> listaVeiculos, String cpf, Date dataNascimento,String email, String telefone){
+        super(nome, endereco, email, telefone);
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
+        this.genero = genero;
+        this.educacao = educacao;
+        this.listaVeiculos = listaVeiculos;
     }
 
     //Getters e setters
@@ -27,6 +34,24 @@ public class ClientePF extends Cliente {
     }
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+    public String getEducacao() {
+        return educacao;
+    }
+    public void setEducacao(String educacao) {
+        this.educacao = educacao;
+    }
+    public String getGenero() {
+        return genero;
+    }
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+    public List<Veiculo> getListaVeiculos() {
+        return listaVeiculos;
+    }
+    public void setListaVeiculos(List<Veiculo> listaVeiculos) {
+        this.listaVeiculos = listaVeiculos;
     }
 
     public boolean VerificadorCaracteresIguais(String str){
@@ -93,29 +118,6 @@ public class ClientePF extends Cliente {
         }
     }
 
-    public boolean implementacaoClientePF(ClientePF clientePf1, Seguradora seguradora, Scanner scan, String cpf){
-        boolean validacao;
-        System.out.println("Digite a data de nascimento do cliente:");
-        String data = scan.nextLine();
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-    
-    try {
-        clientePf1.setDataNascimento(format.parse(data));;
-    } catch (ParseException e) {
-        System.out.println("Formato de data inválido!");
-        e.printStackTrace();
-    }
-    validacao = clientePf1.validarCPF(clientePf1.getCpf());
-    if (validacao == false){
-        System.out.println("Cpf incorreto. Cliente não cadastrado");
-        return false;
-    }
-    else{
-        seguradora.cadastrarCliente(clientePf1);
-    }
-    return true;
-    }
-
     public int calculaIdade(Date dataNascimento) {
         // Suponha que a data de nascimento da pessoa está armazenada na variável 'dataNascimento'
         Calendar dataNasc = Calendar.getInstance();
@@ -137,23 +139,15 @@ public class ClientePF extends Cliente {
 
     }
     
-    public double calculaScore(ClientePF cliente) {
-        int idade = calculaIdade(cliente.getDataNascimento());
-        double qtdeCarros = cliente.getListaVeiculos().size();
-        double valor = CalcSeguro.VALOR_BASE.getValor() * idade* qtdeCarros;
-        cliente.setValorSeguro(valor);
-        return valor;
-
-    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Nome: ").append(this.getNome()).append("\n");
+        sb.append("Telefone: ").append(this.getTelefone()).append("\n");
+        sb.append("email: ").append(this.getEmail()).append("\n");
         sb.append("Endereço: ").append(this.getEndereco()).append("\n");
         sb.append("Gênero: ").append(this.getGenero()).append("\n");
         sb.append("Educação: ").append(this.getEducacao()).append("\n");
-        sb.append("Classe Econômica: ").append(this.getClasseEconomica()).append("\n");
-        sb.append("Data da Licença: ").append(this.getDataLicenca()).append("\n");
         sb.append("Lista de Veículos: \n");
         for (Veiculo veiculo : this.getListaVeiculos()) {
             sb.append("  Modelo: ").append(veiculo.getModelo())

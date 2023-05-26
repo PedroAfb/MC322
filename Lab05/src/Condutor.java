@@ -56,4 +56,17 @@ public class Condutor {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+
+    public String toString() {
+        return "Condutor {" +
+                "cpf='" + cpf + '\'' +
+                ", nome='" + nome + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", dataNasc=" + dataNasc +
+                ", listaSinistros=" + listaSinistros +
+                '}';
+    }
+
 }
