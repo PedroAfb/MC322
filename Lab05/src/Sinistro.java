@@ -52,13 +52,16 @@
             this.seguroPJ = seguroPJ;
         }
       
-
         public String toString() {
-            return "Sinistro {" +
-                    "id=" + getId()+
-                    ", data='" + getData() + '\'' +
-                    ", endereco='" + getEndereco()+
+            return "Sinistro{" +
+                    "id=" + id +
+                    ", data=" + data +
+                    ", endereco='" + endereco + '\'' +
+                    ", condutor=" + condutor +
+                    ", seguroPF=" + seguroPF +
+                    ", seguroPJ=" + seguroPJ +
                     '}';
         }
+
     } 
 
