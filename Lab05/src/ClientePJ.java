@@ -38,7 +38,7 @@ public class ClientePJ extends Cliente {
     public boolean cadastrarFrota(Frota frota){
             if (frota != null){
                 //Verifica se a frota já está cadastrada
-                if(!listaFrota.contans(frota)){
+                if(!listaFrota.contains(frota)){
                     //Adiciona a frota na lista de frotas do cliente
                     listaFrota.add(frota);
                     System.out.println("A frota foi cadastrada com sucesso");
@@ -80,6 +80,15 @@ public class ClientePJ extends Cliente {
             System.out.println("Frota inválida.");
         }
         return false;
+    }
+
+    public List <Veiculo> getVeiculosPorFrota(Frota frota){
+        if(frota != null && frota.getListaVeiculos() != null)
+            return frota.getListaVeiculos();
+        else{
+            System.out.println("A lista ou a frota não existe");
+            return null;
+        }
     }
 
     public String toString() {

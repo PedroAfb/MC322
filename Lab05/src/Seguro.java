@@ -61,6 +61,42 @@ public abstract class Seguro {
         this.valorMensal = valorMensal;
     }
 
+    public boolean autorizarCondutor(Condutor condutor){
+        if(condutor != null){
+            if(!listaCondutores.contains(condutor)){
+                listaCondutores.add(condutor);
+                System.out.println("Condutor Autorizado");
+                return true;
+            }
+            else{
+                System.out.println("Conduntor já estava autorizado");
+                return false;
+            }
+        }
+        else{
+            System.out.println("Condutor inválido");
+            return false;
+        }
+    }
+
+    public boolean desautorizarCondutor(Condutor condutor){
+        if(condutor != null){
+            if(!listaCondutores.contains(condutor)){
+                System.out.println("Condutor desconhecido");
+                return false;
+            }
+            else{
+                listaCondutores.remove(condutor);
+                System.out.println("Conduntor desautorizado");
+                return true;
+            }
+        }
+        else{
+            System.out.println("Condutor inválido");
+            return false;
+        }
+    }
+
     public String toString() {
         return "Seguro {" +
                 "id=" + id +

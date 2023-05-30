@@ -139,6 +139,45 @@ public class ClientePF extends Cliente {
 
     }
     
+    public boolean cadastrarVeiculo(Veiculo veiculo){
+        if (veiculo != null){
+            //Verifica se o veículo já está cadastrado
+            if(!listaVeiculos.contains(veiculo)){
+                //Adiciona o veículo na lista de veículos do cliente
+                listaVeiculos.add(veiculo);
+                System.out.println("O veículo foi cadastrada com sucesso");
+                    return true;
+                }
+                else{
+                    System.out.println("Esse veículo já está cadastrado com esse cliente");
+                    return false;
+                }
+            }
+            else{
+                System.out.println("Esse veículo é inválido");
+                return false;
+            }
+        }
+
+    public boolean removerVeiculos(Veiculo veiculo){
+        if(veiculo != null){
+            //Verifica se o veículo já está cadastrado
+            if(listaVeiculos.contains(veiculo)){
+                //Remove o veículo da lista de veículos do cliente
+                listaVeiculos.remove(veiculo);
+                System.out.println("O veículo foi removido com sucesso");
+                return true;
+            }
+            else{
+                System.out.println("Esse veículo não pertence a esse cliente");
+                return false;
+            }
+        }
+        else{
+            System.out.println("Esse veículo não é válido");
+            return false;
+        }
+    }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();
