@@ -1,3 +1,4 @@
+package com.pedro;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,16 +9,18 @@ import java.text.SimpleDateFormat;
 public class ClientePJ extends Cliente {
     private final String cnpj;
     private Date dataFundacao;
+    private int qntdFunc;
     private List <Frota> listaFrota;
 
     //Construtor
-    public ClientePJ (String nome, String endereco, String email, String telefone, String cnpj, Date dataFundacao, List <Frota> listaFrota){
-        super(nome, endereco, email , telefone);
+    public ClientePJ(int qntdFunc,String nome, String endereco, String email, String telefone, String cnpj, Date dataFundacao, List<Frota> listaFrota) {
+        super(nome, endereco, email, telefone);
         this.cnpj = cnpj;
         this.dataFundacao = dataFundacao;
-        this.listaFrota = listaFrota != null ? listaFrota : new ArrayList<>();
-
+        this.listaFrota = new ArrayList<>();
+        this.qntdFunc = qntdFunc;
     }
+    
     //Setters e Getters
     public String getCnpj () {
         return cnpj ;
@@ -33,6 +36,12 @@ public class ClientePJ extends Cliente {
     }
     public void setListaFrota(List<Frota> listaFrota) {
         this.listaFrota = listaFrota;
+    }
+    public int getQntdFunc() {
+        return qntdFunc;
+    }
+    public void setQntdFunc(int qntdFunc) {
+        this.qntdFunc = qntdFunc;
     }
 
     public boolean cadastrarFrota(Frota frota){

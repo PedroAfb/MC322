@@ -1,3 +1,4 @@
+package com.pedro;
 import java.util.Scanner;
 public class Main{
     //exibir menu externo
@@ -115,7 +116,7 @@ public class Main{
 	//executa o menu externo: exibição do menu, leitura da opção e execução da opção
 	public static void main(String[] args) {
 		MenuOpcoes op;
-		Seguradora seguradora = new Seguradora
+		Seguradora seguradora = new Seguradora();
 		Scanner scanner = new Scanner(System.in);
 		do {
 			exibirMenuExterno();

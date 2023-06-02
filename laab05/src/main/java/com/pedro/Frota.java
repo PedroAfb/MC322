@@ -1,3 +1,4 @@
+package com.pedro;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -7,7 +8,7 @@ public class Frota {
 
     public Frota(String code, List <Veiculo> listaVeiculos){
         this.code = code;
-        this.listaVeiculos = listaVeiculos != null ? listaVeiculos : new ArrayList<>();
+        this.listaVeiculos = new ArrayList<>();
     }
 
     public String getCode() {

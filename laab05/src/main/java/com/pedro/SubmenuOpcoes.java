@@ -1,3 +1,4 @@
+package com.pedro;
 /*
  * Define as constantes dos submenus
  */

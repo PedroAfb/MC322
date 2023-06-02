@@ -1,3 +1,5 @@
+package com.pedro;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,8 +17,8 @@ public abstract class Seguro {
         this.id = id;
         this.dataFim = dataFim;
         this.dataInicio = dataInicio;
-        this.listaSinistros = listaSinistros != null ? listaSinistros : new ArrayList<>();
-        this.listaCondutores = listaCondutores != null ? listaCondutores : new ArrayList<>();
+        this.listaSinistros = new ArrayList<>();
+        this.listaCondutores = new ArrayList<>();
         this.seguradora = seguradora;
         this.valorMensal = valorMensal;
     }
@@ -61,7 +63,9 @@ public abstract class Seguro {
         this.valorMensal = valorMensal;
     }
 
-    public boolean autorizarCondutor(Condutor condutor){
+    public abstract boolean autorizarCondutor(Condutor condutor);
+    /*
+    {
         if(condutor != null){
             if(!listaCondutores.contains(condutor)){
                 listaCondutores.add(condutor);
@@ -77,9 +81,10 @@ public abstract class Seguro {
             System.out.println("Condutor inválido");
             return false;
         }
-    }
+    }*/
 
-    public boolean desautorizarCondutor(Condutor condutor){
+    public abstract boolean desautorizarCondutor(Condutor condutor);
+    /*{
         if(condutor != null){
             if(!listaCondutores.contains(condutor)){
                 System.out.println("Condutor desconhecido");
@@ -95,7 +100,10 @@ public abstract class Seguro {
             System.out.println("Condutor inválido");
             return false;
         }
-    }
+    }*/
+
+    public abstract double calcularValor(Cliente cliente, Seguradora seguradora);
+
 
     public String toString() {
         return "Seguro {" +

@@ -1,4 +1,6 @@
-    import java.util.Date;
+package com.pedro;
+
+import java.util.Date;
 
 
     public class Sinistro {

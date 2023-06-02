@@ -1,3 +1,4 @@
+package com.pedro;
 
 	public abstract class Cliente {
 		private String nome;

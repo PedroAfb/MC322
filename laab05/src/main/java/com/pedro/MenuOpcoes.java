@@ -1,3 +1,4 @@
+package com.pedro;
 /* enum para menu externo
 Cada constante é vista como uma descrição e uma lista de outras constantes (que são as constantes do submenu)
 

@@ -1,6 +1,4 @@
-import java.util.Scanner;
-
-
+package com.pedro;
 public class Veiculo {
     private String placa;
 	private String marca;

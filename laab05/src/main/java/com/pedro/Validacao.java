@@ -1,3 +1,4 @@
+package com.pedro;
 public class Validacao {
     public static boolean VerificadorCaracteresIguais(String str){
         //Verifica se a string tem todos os caracteres iguais

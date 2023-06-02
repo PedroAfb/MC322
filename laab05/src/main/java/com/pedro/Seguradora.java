@@ -1,4 +1,4 @@
-
+package com.pedro;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -22,11 +22,11 @@ public class Seguradora {
         this . email = email ;
         this . endereco = endereco ;
         this.cnpj = cnpj;
-        this.listaSegurosPfs = listaSegurosPfs != null ? listaSegurosPfs : new ArrayList<>();
-        this.listaSegurosPjs = listaSegurosPjs != null ? listaSegurosPjs : new ArrayList<>();
+        this.listaSegurosPfs = new ArrayList<>();
+        this.listaSegurosPjs = new ArrayList<>();
         //this.listaSeguros = listaSeguros != null ? listaSeguros : new ArrayList<>();
-        this.listaClientePFs = listaClientePFs != null ? listaClientePFs : new ArrayList<>();
-        this.listaClientePJs = listaClientePJs != null ? listaClientePJs : new ArrayList<>();
+        this.listaClientePFs = new ArrayList<>();
+        this.listaClientePJs = new ArrayList<>();
 
 
     }
