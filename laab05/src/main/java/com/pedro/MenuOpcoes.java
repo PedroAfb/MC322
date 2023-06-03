@@ -18,11 +18,21 @@ public enum MenuOpcoes {
 			SubmenuOpcoes.LISTAR_VEICULOS,
 			SubmenuOpcoes.VOLTAR
 	}),
-	EXCLUIR("Excluir", new SubmenuOpcoes[] {
-			SubmenuOpcoes.EXCLUIR_CLIENTE,
-			SubmenuOpcoes.EXCLUIR_VEICULO,
-			SubmenuOpcoes.EXCLUIR_SINISTRO,
+	REMOVER("Remover", new SubmenuOpcoes[] {
+			SubmenuOpcoes.REMOVER_CLIENTE,
+			SubmenuOpcoes.REMOVER_VEICULO,
+			SubmenuOpcoes.REMOVER_SINISTRO,
 			SubmenuOpcoes.VOLTAR}),
+	GERAR("Gerar", new SubmenuOpcoes[]{
+
+	}),
+
+	AUTORIZAÇÕES("Autorizar", new SubmenuOpcoes[]{
+
+	}),
+	DESAUTORIZAÇÕES("Desautorizar", new SubmenuOpcoes[]{
+
+	}),
 	GERAR_SINISTRO("Gerar Sinistro", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
 	TRANSFERIR_SEGURO("Transferir Seguro", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
 	CALCULAR_RECEITA("Calcular Receita", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
