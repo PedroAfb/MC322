@@ -1,23 +1,29 @@
 package com.pedro;
-
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 import java.util.Date;
-
+import java.util.Random;
 
     public class Sinistro {
-        private final int id;
+        private final int id = GeraID();
         private Date data;
         private String endereco;
         private Condutor condutor;
         private SeguroPF seguroPF;
         private SeguroPJ seguroPJ;
 
-        public Sinistro(int id, Date data, String endereco, Condutor condutor, SeguroPF seguroPF, SeguroPJ seguroPJ){
-            this.id = id;
+        public Sinistro(String data, String endereco, Condutor condutor, SeguroPF seguroPF, SeguroPJ seguroPJ){
             this.condutor = condutor;
-            this.data = data;
             this.seguroPF = seguroPF;
             this.seguroPJ = seguroPJ;
             this.endereco = endereco;
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                this.data = format.parse(data);
+            } catch (ParseException e) {
+                System.out.println("Formato de data inválido!");
+                e.printStackTrace();
+            }
         }
 
         public Condutor getCondutor() {
@@ -54,6 +60,13 @@ import java.util.Date;
             this.seguroPJ = seguroPJ;
         }
       
+        public int GeraID(){
+            // Gera um número int aleatório para o id
+            Random gerador = new Random();
+            return gerador.nextInt(100);
+    
+        }
+
         public String toString() {
             return "Sinistro{" +
                     "id=" + id +

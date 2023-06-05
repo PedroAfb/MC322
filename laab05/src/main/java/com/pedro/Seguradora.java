@@ -9,25 +9,25 @@ public class Seguradora {
     private String telefone ;
     private String email ;
     private String endereco ;
-    private List <Seguro> listaSegurosPfs;
-    //private List <Seguro> listaSeguros;
-    private List <SeguroPJ> listaSegurosPjs;
+    private List <SeguroPF> listaSeguroPFs;
+    private List <SeguroPJ> listaSeguroPJs;
     private List <ClientePF>  listaClientePFs;
     private List <ClientePJ> listaClientePJs;
 
     // Construtor
-    public Seguradora ( String nome , String telefone , String email , String endereco, List <ClientePF> listaClientePFs, List <ClientePJ> listaClientePJs, String cnpj, List <Seguro> listaSeguros) {
+    public Seguradora ( String nome , String telefone , String email , String endereco, List <ClientePF> listaClientePFs, List <ClientePJ> listaClientePJs, String cnpj, List <SeguroPF> listaSeguroPFs, List <SeguroPJ> listaSeguroPJs) {
         this . nome = nome ;
         this . telefone = telefone ;
         this . email = email ;
         this . endereco = endereco ;
-        this.cnpj = cnpj;
-        this.listaSegurosPfs = new ArrayList<>();
-        this.listaSegurosPjs = new ArrayList<>();
-        //this.listaSeguros = listaSeguros != null ? listaSeguros : new ArrayList<>();
+        this.listaSeguroPFs = listaSeguroPFs;
+        this.listaSeguroPJs = listaSeguroPJs;
         this.listaClientePFs = new ArrayList<>();
         this.listaClientePJs = new ArrayList<>();
-
+        if(Validacao.ValidarCNPJ(cnpj))
+            this.cnpj = cnpj;
+        else
+            throw new IllegalArgumentException("CNPJ inválido. A instância do objeto Seguradora foi cancelada.");
 
     }
 
@@ -63,17 +63,17 @@ public class Seguradora {
     public void setEndereco ( String endereco ) {
         this . endereco = endereco ;
     }
-    public List<Seguro> getListaSegurosPfs() {
-        return listaSegurosPfs;
+    public List<SeguroPF> getListaSeguroPFs() {
+        return listaSeguroPFs;
     }
-    public void setListaSegurosPfs(List<Seguro> listaSegurosPfs) {
-        this.listaSegurosPfs = listaSegurosPfs;
+    public void setListaSeguroPFs(List<SeguroPF> listaSeguroPFs) {
+        this.listaSeguroPFs = listaSeguroPFs;
     }
-    public List<SeguroPJ> getListaSegurosPjs() {
-        return listaSegurosPjs;
+    public List<SeguroPJ> getListaSeguroPJs() {
+        return listaSeguroPJs;
     }
-    public void setListaSegurosPjs(List<SeguroPJ> listaSegurosPjs) {
-        this.listaSegurosPjs = listaSegurosPjs;
+    public void setListaSeguroPJs(List<SeguroPJ> listaSeguroPJs) {
+        this.listaSeguroPJs = listaSeguroPJs;
     }
     public List<ClientePF> getListaClientePFs() {
         return listaClientePFs;
@@ -97,87 +97,34 @@ public class Seguradora {
         return cnpj;
     }
 
-    public boolean gerarSeguro(Cliente cliente, Seguro seguro) {
-
-        /*É necessário fazer a implementação na main para chamar o método, exemplo: // Pergunta se deseja gerar um seguro PF ou PJ
-        System.out.println("Deseja gerar um seguro PF ou PJ? (PF/PJ)");
-        String tipoSeguro = scanner.nextLine();
-
-        // Cria o objeto seguroPF ou seguroPJ de acordo com a resposta
-        Seguro seguro;
-        if (tipoSeguro.equalsIgnoreCase("PF")) {
-            seguro = new SeguroPF();
-        } else if (tipoSeguro.equalsIgnoreCase("PJ")) {
-            seguro = new SeguroPJ();
-        } else {
-            System.out.println("Opção inválida. Encerrando o programa.");
-            return;
-        }
-
-        // Cria o objeto clientePF ou clientePJ
-        Cliente cliente;
-        if (seguro instanceof SeguroPF) {
-            cliente = new ClientePF();
-            // Configura os atributos específicos do clientePF
-        } else {
-            cliente = new ClientePJ();
-            // Configura os atributos específicos do clientePJ
-        }
-
-        // Chama o método gerarSeguro da seguradora
-        Seguradora seguradora = new Seguradora();
-        boolean resultado = seguradora.gerarSeguro(cliente, seguro);
-
-        if (resultado) {
-            System.out.println("Seguro gerado com sucesso!");
-        } else {
-            System.out.println("Não foi possível gerar o seguro.");
-        }
-    } */
-
-        if (cliente instanceof ClientePF && seguro instanceof SeguroPF) {
-            ClientePF clientePF = (ClientePF) cliente;
-            SeguroPF seguroPF = (SeguroPF) seguro;
-    
-            // Verifica se o cliente já possui o veículo registrado
-            if (clientePF.getListaVeiculos().contains(seguroPF.getVeiculo())) {
-                // Atualiza a seguradora do seguro
-                seguroPF.setSeguradora(this);
-    
-                // Adiciona o seguro à lista de seguros da seguradora
-                listaSegurosPfs.add(seguroPF);
-    
-                return true;
-            }
-        } else if (cliente instanceof ClientePJ && seguro instanceof SeguroPJ) {
+    public boolean gerarSeguro(Cliente cliente, Scanner scanner, Veiculo veiculo,Frota frota, Condutor condutor) {
+        if (cliente instanceof ClientePJ) {
             ClientePJ clientePJ = (ClientePJ) cliente;
-            SeguroPJ seguroPJ = (SeguroPJ) seguro;
-    
-            // Verifica se o cliente já possui a frota registrada
-            if (clientePJ.getListaFrota().contains(seguroPJ.getFrota())) {
-                // Atualiza a seguradora do seguro
-                seguroPJ.setSeguradora(this);
-    
-                // Adiciona o seguro à lista de seguros da seguradora
-                listaSegurosPjs.add(seguroPJ);
-    
-                return true;
-            }
+            SeguroPJ seguroPJ = SeguroPJ.criaSeguroPJ(scanner, this, null, null, frota, clientePJ);
+            listaSeguroPJs.add(seguroPJ);
+            seguroPJ.gerarSinistro(scanner, condutor);
+            return true;
+        } else if (cliente instanceof ClientePF) {
+            ClientePF clientePF = (ClientePF) cliente;
+            SeguroPF seguroPF = SeguroPF.criarSeguroPF(this, scanner, null, null, veiculo, clientePF);
+            listaSeguroPFs.add(seguroPF);
+            seguroPF.gerarSinistro(scanner, condutor);
+            return true;
         }
-    
         return false;
     }
+    
     
     public boolean cancelarSeguro(Seguro seguro) {
         if (seguro instanceof SeguroPF) {
             SeguroPF seguroPF = (SeguroPF) seguro;
-            if (listaSegurosPfs.remove(seguroPF)) {
+            if (listaSeguroPFs.remove(seguroPF)) {
                 seguroPF.setSeguradora(null);
                 return true;
             }
         } else if (seguro instanceof SeguroPJ) {
             SeguroPJ seguroPJ = (SeguroPJ) seguro;
-            if (listaSegurosPjs.remove(seguroPJ)) {
+            if (listaSeguroPJs.remove(seguroPJ)) {
                 seguroPJ.setSeguradora(null);
                 return true;
             }
@@ -211,14 +158,14 @@ public class Seguradora {
     
         if (cliente instanceof ClientePF) {
             ClientePF clientePF = (ClientePF) cliente;
-            for (Seguro seguro : listaSegurosPfs) {
+            for (Seguro seguro : listaSeguroPFs) {
                 if (seguro instanceof SeguroPF && ((SeguroPF) seguro).getCliente().equals(clientePF)) {
                     segurosCliente.add(seguro);
                 }
             }
         } else if (cliente instanceof ClientePJ) {
             ClientePJ clientePJ = (ClientePJ) cliente;
-            for (Seguro seguro : listaSegurosPjs) {
+            for (Seguro seguro : listaSeguroPJs) {
                 if (seguro instanceof SeguroPJ && ((SeguroPJ) seguro).getCliente().equals(clientePJ)) {
                     segurosCliente.add(seguro);
                 }
@@ -234,14 +181,14 @@ public class Seguradora {
     
         if (cliente instanceof ClientePF) {
             ClientePF clientePF = (ClientePF) cliente;
-            for (Seguro seguro : listaSegurosPfs) {
+            for (Seguro seguro : listaSeguroPFs) {
                 if (seguro instanceof SeguroPF && ((SeguroPF) seguro).getCliente().equals(clientePF)) {
                     sinistrosCliente.addAll(((SeguroPF) seguro).getListaSinistros());
                 }
             }
         } else if (cliente instanceof ClientePJ) {
             ClientePJ clientePJ = (ClientePJ) cliente;
-            for (Seguro seguro : listaSegurosPjs) {
+            for (Seguro seguro : listaSeguroPJs) {
                 if (seguro instanceof SeguroPJ && ((SeguroPJ) seguro).getCliente().equals(clientePJ)) {
                     sinistrosCliente.addAll(((SeguroPJ) seguro).getListaSinistros());
                 }
@@ -259,11 +206,11 @@ public class Seguradora {
         sb.append("Email: ").append(email).append("\n");
         sb.append("Endereço: ").append(endereco).append("\n");
         sb.append("Lista de seguros físicos:\n");
-        for (Seguro seguroPF : listaSegurosPfs) {
+        for (Seguro seguroPF : listaSeguroPFs) {
             sb.append(seguroPF).append("\n");
         }
         sb.append("Lista de seguros jurídicos:\n");
-        for (SeguroPJ seguroPJ : listaSegurosPjs) {
+        for (SeguroPJ seguroPJ : listaSeguroPJs) {
             sb.append(seguroPJ).append("\n");
         }
         /*sb.append("Lista de seguros:\n");

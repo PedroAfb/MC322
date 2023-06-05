@@ -2,13 +2,14 @@ package com.pedro;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class SeguroPJ extends Seguro {
     private Frota frota;
     private ClientePJ cliente;
 
-    public SeguroPJ(int id, Date dataInicio, Date dataFim, Seguradora seguradora, int valorMensal, List <Sinistro> listaSinistros, List <Condutor> listaCondutores, Frota frota, ClientePJ cliente){
-        super(id, dataInicio, dataFim, seguradora, listaSinistros, listaCondutores, valorMensal);
+    public SeguroPJ(String dataInicio, String dataFim, Seguradora seguradora, double valorMensal, List <Sinistro> listaSinistros, List <Condutor> listaCondutores, Frota frota, ClientePJ cliente){
+        super(dataInicio, dataFim, seguradora, listaSinistros, listaCondutores, valorMensal);
         this.frota = frota;
         this.cliente = cliente;
     }
@@ -82,7 +83,7 @@ public class SeguroPJ extends Seguro {
 
     }
 
-    public double calcularValor(Cliente cliente, Seguradora seguradora){
+    public void calcularValor(Cliente cliente, Seguradora seguradora){
         ClientePJ clientePJ = (ClientePJ) cliente;
         int qntdVeiculos = 0;
         int qntdSinistrosCondutor = 0;
@@ -107,6 +108,46 @@ public class SeguroPJ extends Seguro {
         (1 + 1/( qntdVeiculos +2) ) * (1 + 1/( anosPosFundacao +2) ) * (2 + qntdSinistrosCliente /10) * 
         (5 + qntdSinistrosCondutor /10));
 
-        return valorMensal;
+        setValorMensal(valorMensal);
     }
+
+    public void gerarSinistro(Scanner scanner, Condutor condutor) {
+        System.out.println("Coloque a data do acontecimento:");
+        String data = scanner.nextLine();
+        System.out.println("Coloque o endereço do acontecimento:");
+        String endereco = scanner.nextLine();
+        Sinistro sinistro = new Sinistro(data, endereco, condutor, null, this);
+        getListaSinistros().add(sinistro);
+        System.out.println("Sinistro Gerado!");
+        condutor.adicionaSinistro(condutor, null, this, sinistro);
+    }
+
+    public static SeguroPJ criaSeguroPJ(Scanner scanner, Seguradora seguradora, List<Sinistro> lSinistros, List<Condutor> lCondutors, Frota frota, ClientePJ cliente){
+        System.out.println("Digite a data de início do seguro: ");
+            String dataInicio = scanner.nextLine();
+
+        System.out.println("Digite a data de fim do seguro: ");
+            String dataFim = scanner.nextLine();
+
+        // Chamar o construtor da classe SeguroPF com os valores lidos
+        SeguroPJ seguroPJ = new SeguroPJ(dataInicio, dataFim, seguradora, 0, lSinistros, lCondutors, frota, cliente);
+        seguroPJ.calcularValor(cliente, seguradora);
+
+        return seguroPJ;
+    }
+
+    public void implementacaoSeguroPJ(Frota frota, Condutor condutor, Sinistro sinistro, Seguradora seguradora){
+        if(seguradora != null)
+            setSeguradora(seguradora);
+        if(frota != null)
+            setFrota(frota);
+        if(condutor != null){
+            autorizarCondutor(condutor);
+            getListaCondutores().add(condutor);
+        }
+        if(sinistro != null)
+            getListaSinistros().add(sinistro);
+    }
+
+
 }

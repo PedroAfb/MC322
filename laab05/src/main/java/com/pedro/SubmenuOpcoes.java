@@ -10,9 +10,7 @@ public enum SubmenuOpcoes {
 	CADASTRAR_FROTA("Cadastrar frota"),
 	AUTORIZAR_CONDUTOR("Autorizar Condutor"),
 	AUTORIZAR_FROTA("Autorizar frota"),
-	GET_SEGUROS_POR_CLIENTE("Lista de seguros por cliente"),
-	GET_SINISTROS_POR_CLIENTE("Lista de sinistros por cliente"),
-	GET_VEICULOS_POR_FROTA("Lista de veiculos por frota"),
+	DESAUTORIZAR_CONDUTOR("Desautorizar condutor"),
 	LISTAR_CLIENTES("Listar cliente"),
 	LISTAR_SINISTROS("Listar sinistros"),
 	LISTAR_VEICULOS("Listar veiculo"),
@@ -22,6 +20,8 @@ public enum SubmenuOpcoes {
 	CANCELAR_SEGURO("Cancelar seguro"),
 	GERAR_SINISTRO("Gerar sinistro"),
 	GERAR_SEGURO("Gerar seguro"),
+	CALCULA_VALOR_PJ("Calcula o valor do seguro de um cliente pj"),
+	CALCULA_VALOR_PF("Calcula o valor do seguro de um cliente pf"),
 	VOLTAR("Voltar");
 	
 	//atributo

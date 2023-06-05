@@ -16,13 +16,23 @@ public class ClientePF extends Cliente {
     private List <Veiculo> listaVeiculos;
 
     //Construtor
-    public ClientePF(String nome, String endereco, String genero, String educacao, List <Veiculo> listaVeiculos, String cpf, Date dataNascimento,String email, String telefone){
+    public ClientePF(String nome, String endereco, String genero, String educacao, List <Veiculo> listaVeiculos, String cpf, String dataNascimento,String email, String telefone){
         super(nome, endereco, email, telefone);
-        this.cpf = cpf;
-        this.dataNascimento = dataNascimento;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            this.dataNascimento = format.parse(dataNascimento);
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido!");
+            e.printStackTrace();
+        }
         this.genero = genero;
         this.educacao = educacao;
         this.listaVeiculos = listaVeiculos;
+        if(Validacao.validarCPF(cpf))
+        this.cpf = cpf;
+    else
+        throw new IllegalArgumentException("CPF inválido. A instância do objeto ClientePF foi cancelada.");
+
     }
 
     //Getters e setters

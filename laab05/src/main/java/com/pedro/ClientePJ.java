@@ -13,12 +13,24 @@ public class ClientePJ extends Cliente {
     private List <Frota> listaFrota;
 
     //Construtor
-    public ClientePJ(int qntdFunc,String nome, String endereco, String email, String telefone, String cnpj, Date dataFundacao, List<Frota> listaFrota) {
+    public ClientePJ(int qntdFunc,String nome, String endereco, String email, String telefone, String cnpj, String dataFundacao, List<Frota> listaFrota) {
         super(nome, endereco, email, telefone);
-        this.cnpj = cnpj;
-        this.dataFundacao = dataFundacao;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            this.dataFundacao = format.parse(dataFundacao);
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido!");
+            e.printStackTrace();
+        }
+
         this.listaFrota = new ArrayList<>();
         this.qntdFunc = qntdFunc;
+
+        if(Validacao.ValidarCNPJ(cnpj))
+        this.cnpj = cnpj;
+    else
+        throw new IllegalArgumentException("CNPJ inválido. A instância do objeto ClientePJ foi cancelada.");
+
     }
     
     //Setters e Getters

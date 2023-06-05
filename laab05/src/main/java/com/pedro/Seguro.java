@@ -1,22 +1,37 @@
 package com.pedro;
-
+import java.util.Random;
+import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
 public abstract class Seguro {
-    private final int id;
+    private final int id = getId();
     private Date dataInicio;
     private Date dataFim;
     private Seguradora seguradora;
     private List <Sinistro> listaSinistros;
     private List <Condutor> listaCondutores;
-    private int valorMensal;
+    private double valorMensal;
 
-    public Seguro(int id, Date dataInicio, Date dataFim, Seguradora seguradora, List <Sinistro> listaSinistros, List <Condutor> listaCondutores, int valorMensal){
-        this.id = id;
-        this.dataFim = dataFim;
-        this.dataInicio = dataInicio;
+    public Seguro(String dataInicio, String dataFim, Seguradora seguradora, List <Sinistro> listaSinistros, List <Condutor> listaCondutores, double valorMensal){
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            this.dataFim = format.parse(dataFim);
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido!");
+            e.printStackTrace();
+        }
+
+        try {
+            this.dataInicio = format.parse(dataInicio);
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido!");
+            e.printStackTrace();
+        }
+
         this.listaSinistros = new ArrayList<>();
         this.listaCondutores = new ArrayList<>();
         this.seguradora = seguradora;
@@ -56,11 +71,18 @@ public abstract class Seguro {
     public void setSeguradora(Seguradora seguradora) {
         this.seguradora = seguradora;
     }
-    public int getValorMensal() {
+    public double getValorMensal() {
         return valorMensal;
     }
-    public void setValorMensal(int valorMensal) {
+    public void setValorMensal(double valorMensal) {
         this.valorMensal = valorMensal;
+    }
+
+    public int GeraID(){
+        // Gera um número int aleatório para o id
+        Random gerador = new Random();
+        return gerador.nextInt(100);
+
     }
 
     public abstract boolean autorizarCondutor(Condutor condutor);
@@ -102,8 +124,9 @@ public abstract class Seguro {
         }
     }*/
 
-    public abstract double calcularValor(Cliente cliente, Seguradora seguradora);
+    public abstract void calcularValor(Cliente cliente, Seguradora seguradora);
 
+    public abstract void gerarSinistro(Scanner scanner, Condutor condutor);
 
     public String toString() {
         return "Seguro {" +

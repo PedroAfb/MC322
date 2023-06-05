@@ -2,13 +2,14 @@ package com.pedro;
 import java.util.Date;
 import java.util.List;
 import java.util.Calendar;
+import java.util.Scanner;
 
 public class SeguroPF extends Seguro {
     private Veiculo veiculo;
     private ClientePF cliente;
 
-    public SeguroPF(int id, Date dataInicio, Date dataFim, Seguradora seguradora, List <Sinistro> listaSinistros, List <Condutor> listaCondutores, int valorMensal, Veiculo veiculo, ClientePF cliente){
-        super(id, dataInicio, dataFim, seguradora, listaSinistros, listaCondutores, valorMensal);
+    public SeguroPF(String dataInicio, String dataFim, Seguradora seguradora, List <Sinistro> listaSinistros, List <Condutor> listaCondutores, double valorMensal, Veiculo veiculo, ClientePF cliente){
+        super(dataInicio, dataFim, seguradora, listaSinistros, listaCondutores, valorMensal);
         this.veiculo = veiculo;
         this.cliente = cliente;
     }
@@ -83,7 +84,7 @@ public class SeguroPF extends Seguro {
     }
     
 
-    public double calcularValor(Cliente cliente, Seguradora seguradora){
+    public void calcularValor(Cliente cliente, Seguradora seguradora){
         ClientePF clientePF = (ClientePF) cliente;
         double valor;
         int idade = calculaIdade(clientePF.getDataNascimento());
@@ -106,9 +107,49 @@ public class SeguroPF extends Seguro {
         else
             valor = ( CalcSeguro.VALOR_BASE.getValor() * CalcSeguro.FATOR_60_90.getValor() * (1 + 1/( qntdVeiculos +2) ) * (2 + qntdSinistrosCliente /10) * (5 + qntdSinistrosCondutor /10) );
 
-        return valor;
+        setValorMensal(valor);
 
     }
+
+    public static SeguroPF criarSeguroPF(Seguradora seguradora, Scanner scanner, List<Sinistro> lSinistros, List<Condutor> lCondutors, Veiculo veiculo, ClientePF cliente) {
+
+        System.out.println("Digite a data de início do seguro: ");
+            String dataInicio = scanner.nextLine();
+
+        System.out.println("Digite a data de fim do seguro: ");
+            String dataFim = scanner.nextLine();
+
+        // Chamar o construtor da classe SeguroPF com os valores lidos
+        SeguroPF seguroPF = new SeguroPF(dataInicio, dataFim, seguradora, lSinistros, lCondutors, 0, veiculo, cliente);
+        seguroPF.calcularValor(cliente, seguradora);
+
+        return seguroPF;
+    }
+
+    public void implementacaoSeguroPF(Veiculo veiculo, Condutor condutor, Sinistro sinistro, Seguradora seguradora){
+        if(seguradora != null)
+            setSeguradora(seguradora);
+        if(veiculo != null)
+            setVeiculo(veiculo);
+        if(condutor != null){
+            autorizarCondutor(condutor);
+            getListaCondutores().add(condutor);
+        }
+        if(sinistro != null)
+            getListaSinistros().add(sinistro);
+    }
+
+    public void gerarSinistro(Scanner scanner, Condutor condutor) {
+        System.out.println("Coloque a data do acontecimento:");
+        String data = scanner.nextLine();
+        System.out.println("Coloque o endereço do acontecimento:");
+        String endereco = scanner.nextLine();
+        Sinistro sinistro = new Sinistro(data, endereco, condutor, this, null);
+        getListaSinistros().add(sinistro);
+        System.out.println("Sinistro Gerado!");
+        condutor.adicionaSinistro(condutor, this, null, sinistro);
+    }
+    
 
     public String toString() {
         return "SeguroPF {" +

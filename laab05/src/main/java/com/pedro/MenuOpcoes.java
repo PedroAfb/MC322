@@ -10,31 +10,32 @@ public enum MenuOpcoes {
 			SubmenuOpcoes.CADASTRAR_CLIENTEPJ,
 			SubmenuOpcoes.CADASTRAR_VEICULO,
 			SubmenuOpcoes.CADASTRAR_SEGURADORA,
+			SubmenuOpcoes.CADASTRAR_FROTA,
 			SubmenuOpcoes.VOLTAR
 	}),
-	LISTAR("Listar", new SubmenuOpcoes[] {
-			SubmenuOpcoes.LISTAR_CLIENTES,
-			SubmenuOpcoes.LISTAR_SINISTROS,
-			SubmenuOpcoes.LISTAR_VEICULOS,
+	LISTAR("Autorizações", new SubmenuOpcoes[] {
+			SubmenuOpcoes.AUTORIZAR_CONDUTOR,
+			SubmenuOpcoes.AUTORIZAR_FROTA,
 			SubmenuOpcoes.VOLTAR
 	}),
 	REMOVER("Remover", new SubmenuOpcoes[] {
 			SubmenuOpcoes.REMOVER_CLIENTE,
-			SubmenuOpcoes.REMOVER_VEICULO,
-			SubmenuOpcoes.REMOVER_SINISTRO,
+			SubmenuOpcoes.REMOVER_VEICULO_CLIENTE,
+			SubmenuOpcoes.REMOVER_VEICULO_FROTA,
+			SubmenuOpcoes.CANCELAR_SEGURO,
 			SubmenuOpcoes.VOLTAR}),
 	GERAR("Gerar", new SubmenuOpcoes[]{
-
-	}),
-
-	AUTORIZAÇÕES("Autorizar", new SubmenuOpcoes[]{
-
+		SubmenuOpcoes.GERAR_SEGURO,
+		SubmenuOpcoes.GERAR_SINISTRO
 	}),
 	DESAUTORIZAÇÕES("Desautorizar", new SubmenuOpcoes[]{
-
+		SubmenuOpcoes.DESAUTORIZAR_CONDUTOR
 	}),
-	GERAR_SINISTRO("Gerar Sinistro", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
-	TRANSFERIR_SEGURO("Transferir Seguro", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
+	CALCULAR_VALOR("Calcular valor do seguro", new SubmenuOpcoes[]{
+		SubmenuOpcoes.CALCULA_VALOR_PF,
+		SubmenuOpcoes.CALCULA_VALOR_PJ
+	}),
+	ADICIONAR_VEICULO("Adicionar veículo numa frota", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
 	CALCULAR_RECEITA("Calcular Receita", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
 	SAIR("Sair", new SubmenuOpcoes[] {});
 	
