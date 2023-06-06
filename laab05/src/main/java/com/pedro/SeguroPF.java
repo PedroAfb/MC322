@@ -121,7 +121,6 @@ public class SeguroPF extends Seguro {
 
         // Chamar o construtor da classe SeguroPF com os valores lidos
         SeguroPF seguroPF = new SeguroPF(dataInicio, dataFim, seguradora, lSinistros, lCondutors, 0, veiculo, cliente);
-        seguroPF.calcularValor(cliente, seguradora);
 
         return seguroPF;
     }
@@ -146,12 +145,12 @@ public class SeguroPF extends Seguro {
         String endereco = scanner.nextLine();
         Sinistro sinistro = new Sinistro(data, endereco, condutor, this, null);
         getListaSinistros().add(sinistro);
-        System.out.println("Sinistro Gerado!");
         condutor.adicionaSinistro(condutor, this, null, sinistro);
+        System.out.println("Sinistro Gerado!");
     }
     
     public static SeguroPF buscaSeguroPF(Seguradora seguradora, Scanner scanner){
-        System.out.println("Digite a id do seguro em que deseja cancelar");
+        System.out.println("Digite a id do seguro em que deseja achar");
         int id = scanner.nextInt();
         scanner.nextLine();
         for (SeguroPF seguroPF : seguradora.getListaSeguroPFs()){

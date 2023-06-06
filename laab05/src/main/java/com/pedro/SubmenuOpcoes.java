@@ -4,7 +4,7 @@ package com.pedro;
  */
 public enum SubmenuOpcoes {
 	CADASTRAR_CLIENTE("Cadastrar cliente"),
-	CADASTRAR_VEICULO("Cadastrar veiculo"),
+	CADASTRAR_VEICULO_CLIENTEPF("Cadastrar veiculo em um cliente físico"),
 	CADASTRAR_FROTA("Cadastrar frota"),
 	DESAUTORIZAR_CONDUTOR("Desautorizar condutor"),
 	REMOVER_CLIENTE("Excluir cliente"),

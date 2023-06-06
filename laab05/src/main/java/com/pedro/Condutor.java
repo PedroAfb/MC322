@@ -1,4 +1,5 @@
 package com.pedro;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,11 @@ public class Condutor {
         this.telefone = telefone;
         this.email = email;
         this.endereco = endereco;
-        this.listaSinistros = listaSinistros;
+        if(listaSinistros != null)
+            this.listaSinistros = listaSinistros;
+        else
+            this.listaSinistros = new ArrayList<>();
+
         this.nome = nome;
         if (dataNasc == null){
             SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");

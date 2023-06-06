@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
     private final String cpf;
@@ -26,7 +27,10 @@ public class ClientePF extends Cliente {
         }
         this.genero = genero;
         this.educacao = educacao;
-        this.listaVeiculos = listaVeiculos;
+        if(listaVeiculos != null)
+            this.listaVeiculos = listaVeiculos;
+        else
+            this.listaVeiculos = new ArrayList<>();
         if(Validacao.validarCPF(cpf))
             this.cpf = cpf.replaceAll("[^0-9]", "");
         else

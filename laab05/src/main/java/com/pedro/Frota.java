@@ -27,12 +27,13 @@ public class Frota {
 
     public boolean addVeiculo(Veiculo veiculo){
         for (Veiculo veiculo1 : getListaVeiculos()){
-            if (veiculo.getPlaca().equals(veiculo1.getPlaca())){
+            if (veiculo.getPlaca() == veiculo1.getPlaca()){
                 System.out.println("Esse veículo já está nesta frota");
                 return false;
             }
         }
         getListaVeiculos().add(veiculo);
+        System.out.println("Veículo adicionado com sucesso");
         return true;
     }
 
@@ -65,13 +66,15 @@ public class Frota {
     }
 
     public static Frota buscaFarota(ClientePJ clientePJ, Scanner scanner){
-        System.out.println("Digite o code da frota:");
-        String code = scanner.nextLine();
-        for (Frota frota : clientePJ.getListaFrota()){
-            if(frota.getCode().equals(code)){
-                return frota;
+        
+            System.out.println("Digite o code da frota:");
+            String code = scanner.nextLine();
+            for (Frota frota : clientePJ.getListaFrota()){
+                if(frota.getCode().equals(code)){
+                    return frota;
+                }
             }
-        }
+       
         throw new IllegalArgumentException("Frota inválida, não foi encontrada.");
 
     }

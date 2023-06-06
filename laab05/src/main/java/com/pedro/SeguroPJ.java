@@ -131,7 +131,6 @@ public class SeguroPJ extends Seguro {
 
         // Chamar o construtor da classe SeguroPF com os valores lidos
         SeguroPJ seguroPJ = new SeguroPJ(dataInicio, dataFim, seguradora, 0, lSinistros, lCondutors, frota, cliente);
-        seguroPJ.calcularValor(cliente, seguradora);
 
         return seguroPJ;
     }

@@ -20,8 +20,16 @@ public class Seguradora {
         this . telefone = telefone ;
         this . email = email ;
         this . endereco = endereco ;
-        this.listaSeguroPFs = listaSeguroPFs;
-        this.listaSeguroPJs = listaSeguroPJs;
+        if (listaClientePFs != null)
+            this.listaSeguroPFs = listaSeguroPFs;
+        else
+            this.listaSeguroPFs = new ArrayList<>();
+            
+        if (listaClientePJs != null)
+            this.listaSeguroPJs = listaSeguroPJs;
+        else
+            this.listaSeguroPJs = new ArrayList<>();
+
         this.listaClientePFs = new ArrayList<>();
         this.listaClientePJs = new ArrayList<>();
         if(Validacao.ValidarCNPJ(cnpj))
@@ -97,18 +105,16 @@ public class Seguradora {
         return cnpj;
     }
 
-    public boolean gerarSeguro(Cliente cliente, Scanner scanner, Veiculo veiculo,Frota frota, Condutor condutor) {
+    public boolean gerarSeguro(Cliente cliente, Scanner scanner, Veiculo veiculo,Frota frota) {
         if (cliente instanceof ClientePJ) {
             ClientePJ clientePJ = (ClientePJ) cliente;
             SeguroPJ seguroPJ = SeguroPJ.criaSeguroPJ(scanner, this, null, null, frota, clientePJ);
             listaSeguroPJs.add(seguroPJ);
-            seguroPJ.gerarSinistro(scanner, condutor);
             return true;
         } else if (cliente instanceof ClientePF) {
             ClientePF clientePF = (ClientePF) cliente;
             SeguroPF seguroPF = SeguroPF.criarSeguroPF(this, scanner, null, null, veiculo, clientePF);
             listaSeguroPFs.add(seguroPF);
-            seguroPF.gerarSinistro(scanner, condutor);
             return true;
         }
         return false;

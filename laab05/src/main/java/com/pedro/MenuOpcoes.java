@@ -7,7 +7,7 @@ new SubmenuOpcoes[]{} cria uma lista de constantes do submenu.
 public enum MenuOpcoes {
 	CADASTROS("Cadastros", new SubmenuOpcoes[] {
 			SubmenuOpcoes.CADASTRAR_CLIENTE,
-			SubmenuOpcoes.CADASTRAR_VEICULO,
+			SubmenuOpcoes.CADASTRAR_VEICULO_CLIENTEPF,
 			SubmenuOpcoes.CADASTRAR_FROTA,
 			SubmenuOpcoes.VOLTAR
 	}),
@@ -28,8 +28,8 @@ public enum MenuOpcoes {
 		SubmenuOpcoes.CALCULA_VALOR_PF,
 		SubmenuOpcoes.CALCULA_VALOR_PJ
 	}),
-	ADICIONAR_VEICULO("Adicionar veículo numa frota", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
-	CALCULAR_RECEITA("Calcular Receita", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
+	ADICIONAR_VEICULO_FROTA("Adicionar veículo numa frota", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
+	CALCULAR_RECEITA_SEGURADORA("Calcular Receita", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
 	AUTORIZAR_CONDUTOR("Autorizar condutor", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
 	SAIR("Sair", new SubmenuOpcoes[] {});
 	
