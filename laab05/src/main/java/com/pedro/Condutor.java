@@ -1,6 +1,9 @@
 package com.pedro;
-    import java.util.Date;
+import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class Condutor {
     private final String cpf;
@@ -11,14 +14,29 @@ public class Condutor {
     private Date dataNasc;
     private List <Sinistro> listaSinistros;
 
-    public Condutor(String cpf, String nome, String telefone, String email, String endereco, Date dataNasc, List <Sinistro> listaSinistros){
-        this.cpf = cpf;
+    public Condutor(String cpf, String nome, String telefone, String email, String endereco, Date dataNasc,String dataNascimentoString ,List <Sinistro> listaSinistros){
         this.telefone = telefone;
-        this.dataNasc = dataNasc;
         this.email = email;
         this.endereco = endereco;
         this.listaSinistros = listaSinistros;
         this.nome = nome;
+        if (dataNasc == null){
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                this.dataNasc = format.parse(dataNascimentoString);
+            } catch (ParseException e) {
+                System.out.println("Formato de data inválido!");
+                e.printStackTrace();
+            }
+        }
+        else
+            this.dataNasc = dataNasc;
+
+        if(Validacao.validarCPF(cpf))
+            this.cpf = cpf.replaceAll("[^0-9]", "");
+        else
+            throw new IllegalArgumentException("CPF inválido. A instância do objeto ClientePF foi cancelada.");
+
     }
 
     public String getCpf() {
@@ -67,6 +85,51 @@ public class Condutor {
             seguroPF.getListaSinistros().add(sinistro);
         else
             seguroPJ.getListaSinistros().add(sinistro);
+    }
+
+    public static Condutor criarCondutor(Scanner scanner) {
+        System.out.println("Digite o CPF do condutor:");
+        String cpf = scanner.nextLine();
+
+        System.out.println("Digite o nome do condutor:");
+        String nome = scanner.nextLine();
+
+        System.out.println("Digite o telefone do condutor:");
+        String telefone = scanner.nextLine();
+
+        System.out.println("Digite o endereço do condutor:");
+        String endereco = scanner.nextLine();
+
+        System.out.println("Digite o email do condutor:");
+        String email = scanner.nextLine();
+        System.out.println("Digite a data de nascimento do condutor:");
+        String dataNasc = scanner.nextLine();
+
+        // Cria e retorna a instância do Condutor com os atributos preenchidos
+        return new Condutor(cpf, nome, telefone, email, endereco, null, dataNasc, null);
+    }
+
+    public static Condutor buscaCondutor(SeguroPF seguroPF, SeguroPJ seguroPJ,Scanner scanner){
+        System.out.println("Digite o cpf desse condutor:");
+        String cpf = scanner.nextLine();
+        cpf = cpf.replaceAll("[^0-9]", "");
+        
+        if(seguroPF != null){
+            for(Condutor condutor : seguroPF.getListaCondutores()){
+                if(condutor.getCpf().equals(cpf)){
+                    return condutor;
+                }
+            }
+        }
+        else{
+            for(Condutor condutor : seguroPJ.getListaCondutores()){
+                if(condutor.getCpf().equals(cpf)){
+                    return condutor;
+                }
+            }
+        }
+        throw new IllegalArgumentException("Veiculo inválido, não foi encontrado.");
+
     }
 
     public String toString() {

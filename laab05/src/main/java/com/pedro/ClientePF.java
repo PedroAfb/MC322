@@ -6,7 +6,6 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.ArrayList;
 
 public class ClientePF extends Cliente {
     private final String cpf;
@@ -29,9 +28,9 @@ public class ClientePF extends Cliente {
         this.educacao = educacao;
         this.listaVeiculos = listaVeiculos;
         if(Validacao.validarCPF(cpf))
-        this.cpf = cpf;
-    else
-        throw new IllegalArgumentException("CPF inválido. A instância do objeto ClientePF foi cancelada.");
+            this.cpf = cpf.replaceAll("[^0-9]", "");
+        else
+            throw new IllegalArgumentException("CPF inválido. A instância do objeto ClientePF foi cancelada.");
 
     }
 
@@ -63,70 +62,6 @@ public class ClientePF extends Cliente {
     }
     public void setListaVeiculos(List<Veiculo> listaVeiculos) {
         this.listaVeiculos = listaVeiculos;
-    }
-
-    public boolean VerificadorCaracteresIguais(String str){
-        //Verifica se a string tem todos os caracteres iguais
-        char inicial = str.charAt(0);
-        int tamanho = str.length();
-        for (int i=0;i<tamanho;i++){
-            if (str.charAt(i) != inicial)
-                return false;
-        }
-        return true;
-    }
-    
-    public int calcularDigitoVerificador1(String cpf) {
-        // Calcula o primeiro digito verificador do cpf
-        int total = 0;
-        for (int i = 0; i < cpf.length(); i++) {
-            int multiplicador = 10 - i;
-            total += Character.getNumericValue(cpf.charAt(i)) * multiplicador;
-        }
-        int resto = total % 11;
-        if (resto == 0 || resto == 1) {
-            return 0;
-        } else {
-            return 11 - resto;
-        }
-    }
-    
-    public int calcularDigitoVerificador2(String cpf) {
-        // Calcula o segundo digito verificador do cpf
-        int total = 0;
-        for (int i = 0; i < cpf.length(); i++) {
-            int multiplicador = 11 - i;
-            total += Character.getNumericValue(cpf.charAt(i)) * multiplicador;
-        }
-        int resto = total % 11;
-        if (resto == 0 || resto == 1) {
-            return 0;
-        } else {
-            return 11 - resto;
-        }
-    }
-    
-    public boolean validarCPF(String cpf){
-        // função que verifica todas as regras para que um cpf seja válido
-        boolean verificador;
-        cpf = cpf.replaceAll("[^0-9]", "");
-        int tamanho = cpf.length();
-        verificador = VerificadorCaracteresIguais(cpf);
-        if (tamanho != 11)
-            return false;
-        else if (verificador == true){
-            return false;
-        }
-        int digito1 = calcularDigitoVerificador1(cpf.substring(0, 9));
-        int digito2 = calcularDigitoVerificador2(cpf.substring(0, 9) + digito1);
-        int digitoCpf1 = Character.getNumericValue(cpf.charAt(9));
-        int digitoCpf2 = Character.getNumericValue(cpf.charAt(10));
-        if ((digito1 == digitoCpf1) & (digito2 == digitoCpf2)){
-            return true;
-        }
-        else{
-            return false;
-        }
     }
 
     public int calculaIdade(Date dataNascimento) {
@@ -188,6 +123,42 @@ public class ClientePF extends Cliente {
             System.out.println("Esse veículo não é válido");
             return false;
         }
+    }
+
+    public static ClientePF criarClientePF(Scanner scanner) {
+        System.out.println("Digite o CPF do cliente:");
+        String cpf = scanner.nextLine();
+        System.out.println("Digite o nome do cliente:");
+        String nome = scanner.nextLine();
+        System.out.println("Digite o telefone do cliente:");
+        String telefone = scanner.nextLine();
+        System.out.println("Digite o endereço do cliente:");
+        String endereco = scanner.nextLine();
+        System.out.println("Digite o e-mail do cliente:");
+        String email = scanner.nextLine();
+        System.out.println("Digite o gênero do cliente:");
+        String genero = scanner.nextLine();
+        System.out.println("Digite a educação do cliente:");
+        String educacao = scanner.nextLine();
+        System.out.println("Digite a data de nascimento do cliente:");
+        String dataNasc = scanner.nextLine();
+
+        // Cria e retorna a instância do ClientePF com os atributos preenchidos
+        return new ClientePF(nome, endereco, genero, educacao, null, cpf, dataNasc, email, telefone);
+    }
+    
+    public static ClientePF buscaClientePF(Seguradora seguradora, Scanner scanner){
+        System.out.println("Digite o cpf desse cliente:");
+        String cpf = scanner.nextLine();
+        cpf = cpf.replaceAll("[^0-9]", "");
+        for (ClientePF clientePF3 : seguradora.getListaClientePFs()){
+            if(clientePF3.getCpf().equals(cpf)){
+                return clientePF3;
+            }
+        }
+
+        throw new IllegalArgumentException("ClientePF inválido, não foi encontrado.");
+                        
     }
 
     public String toString() {

@@ -149,5 +149,17 @@ public class SeguroPJ extends Seguro {
             getListaSinistros().add(sinistro);
     }
 
+    public static SeguroPJ buscaSeguroPJ(Seguradora seguradora, Scanner scanner){
+        System.out.println("Digite a id do seguro em que deseja cancelar");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        for (SeguroPJ seguroPJ : seguradora.getListaSeguroPJs()){
+            if(seguroPJ.getId() == id){
+                return seguroPJ;
+            }
+        }
+        throw new IllegalArgumentException("Seguro inválido, não foi encontrado.");
+
+    }
 
 }

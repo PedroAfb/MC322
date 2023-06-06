@@ -135,9 +135,11 @@ public class Seguradora {
     public void cadastrarCliente(Cliente cliente) {
         if (cliente instanceof ClientePF) {
             ClientePF clientePF = (ClientePF) cliente;
+            System.out.println("Cliente cadastrado");
             listaClientePFs.add(clientePF);
         } else if (cliente instanceof ClientePJ) {
             ClientePJ clientePJ = (ClientePJ) cliente;
+            System.out.println("Cliente cadastrado");
             listaClientePJs.add(clientePJ);
         }
     }
@@ -198,7 +200,17 @@ public class Seguradora {
         return sinistrosCliente;
     }
     
-    
+    public void calcularReceita(){
+        double receita = 0;
+        for(SeguroPF seguroPF : getListaSeguroPFs()){
+            receita += seguroPF.getValorMensal();
+        }
+        for(SeguroPJ seguroPJ : getListaSeguroPJs()){
+            receita += seguroPJ.getValorMensal();
+        }
+        System.out.println("O valor da receita da seguradora é: R$" + receita);
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Seguradora: ").append(nome).append("\n");

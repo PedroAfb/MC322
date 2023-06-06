@@ -3,17 +3,10 @@ package com.pedro;
  * Define as constantes dos submenus
  */
 public enum SubmenuOpcoes {
-	CADASTRAR_CLIENTEPF("Cadastrar cliente PF"),
-	CADASTRAR_CLIENTEPJ("Cadastrar cliente PJ"),
+	CADASTRAR_CLIENTE("Cadastrar cliente"),
 	CADASTRAR_VEICULO("Cadastrar veiculo"),
-	CADASTRAR_SEGURADORA("Cadastrar seguradora"),
 	CADASTRAR_FROTA("Cadastrar frota"),
-	AUTORIZAR_CONDUTOR("Autorizar Condutor"),
-	AUTORIZAR_FROTA("Autorizar frota"),
 	DESAUTORIZAR_CONDUTOR("Desautorizar condutor"),
-	LISTAR_CLIENTES("Listar cliente"),
-	LISTAR_SINISTROS("Listar sinistros"),
-	LISTAR_VEICULOS("Listar veiculo"),
 	REMOVER_CLIENTE("Excluir cliente"),
 	REMOVER_VEICULO_CLIENTE("Excluir veiculo"),
 	REMOVER_VEICULO_FROTA("Excluir sininstro"),

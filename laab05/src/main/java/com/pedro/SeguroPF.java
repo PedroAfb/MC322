@@ -150,6 +150,18 @@ public class SeguroPF extends Seguro {
         condutor.adicionaSinistro(condutor, this, null, sinistro);
     }
     
+    public static SeguroPF buscaSeguroPF(Seguradora seguradora, Scanner scanner){
+        System.out.println("Digite a id do seguro em que deseja cancelar");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        for (SeguroPF seguroPF : seguradora.getListaSeguroPFs()){
+            if(seguroPF.getId() == id){
+                return seguroPF;
+            }
+        }
+        throw new IllegalArgumentException("Seguro inválido, não foi encontrado.");
+
+    }
 
     public String toString() {
         return "SeguroPF {" +

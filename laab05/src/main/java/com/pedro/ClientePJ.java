@@ -27,9 +27,9 @@ public class ClientePJ extends Cliente {
         this.qntdFunc = qntdFunc;
 
         if(Validacao.ValidarCNPJ(cnpj))
-        this.cnpj = cnpj;
-    else
-        throw new IllegalArgumentException("CNPJ inválido. A instância do objeto ClientePJ foi cancelada.");
+            this.cnpj = cnpj.replaceAll("[^0-9]", "");
+        else
+            throw new IllegalArgumentException("CNPJ inválido. A instância do objeto ClientePJ foi cancelada.");
 
     }
     
@@ -110,6 +110,41 @@ public class ClientePJ extends Cliente {
             System.out.println("A lista ou a frota não existe");
             return null;
         }
+    }
+
+    public static ClientePJ criarClientePJComInputScanner(Scanner scanner) {
+        System.out.println("Digite o CNPJ do cliente:");
+        String cnpj = scanner.nextLine();
+        System.out.println("Digite o nome do cliente:");
+        String nome = scanner.nextLine();
+        System.out.println("Digite o telefone do cliente:");
+        String telefone = scanner.nextLine();
+        System.out.println("Digite o endereço do cliente:");
+        String endereco = scanner.nextLine();
+        System.out.println("Digite o e-mail do cliente:");
+        String email = scanner.nextLine();
+        System.out.println("Digite a quantidade de funcionários do cliente:");
+        int qntdFunc = scanner.nextInt();
+        scanner.nextLine();
+        System.out.println("Digite a data de fundação da empresa do cliente:");
+        String dataFundacao = scanner.nextLine();
+
+        // Cria e retorna a instância do ClientePJ com os atributos preenchidos
+        return new ClientePJ(qntdFunc, nome, endereco, email, telefone, cnpj, dataFundacao, null);
+    }
+
+    public static ClientePJ buscaClientePJ(Seguradora seguradora, Scanner scanner){
+        System.out.println("Digite o cpf desse cliente:");
+        String cnpj = scanner.nextLine();
+        cnpj = cnpj.replaceAll("[^0-9]", "");
+        for (ClientePJ clientePJ3 : seguradora.getListaClientePJs()){
+            if(clientePJ3.getCnpj().equals(cnpj)){
+                return clientePJ3;
+            }
+        }
+
+        throw new IllegalArgumentException("ClientePJ inválido, não foi encontrado.");
+                        
     }
 
     public String toString() {
