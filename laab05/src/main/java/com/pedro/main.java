@@ -80,13 +80,7 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
         clientePF.getEndereco(), clientePF.getDataNascimento(),null , null);
         seguradora.cadastrarCliente(clientePF);
         clientePF.cadastrarVeiculo(veiculo); 
-        seguradora.gerarSeguro(clientePF, scanner, veiculo, null);
-        for (SeguroPF seguroPF : seguradora.getListaSeguroPFs()){
-            if(seguroPF.getCliente() == clientePF){
-                seguroPF.gerarSinistro(scanner, condutor);
-                seguroPF.autorizarCondutor(condutor);
-            }
-        }     
+        seguradora.gerarSeguro(clientePF, scanner, veiculo, null); 
         
 
         //ClientePF 2
@@ -95,35 +89,18 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
         Veiculo veiculo2 = new Veiculo("DXT-0139", "Fiat", "Palio", 2014);
         clientePF2.cadastrarVeiculo(veiculo2);
         Condutor condutor2 = new Condutor(clientePF2.getCpf(), clientePF2.getNome(), clientePF2.getTelefone(),
-        clientePF2.getEmail(), clientePF2.getEndereco(), clientePF2.getDataNascimento(), null, null);
-        seguradora.cadastrarCliente(clientePF2); 
-        seguradora.gerarSeguro(clientePF2, scanner, veiculo2, null);
-        for (SeguroPF seguroPF : seguradora.getListaSeguroPFs()){
-            if(seguroPF.getCliente() == clientePF2){
-                seguroPF.gerarSinistro(scanner, condutor2);
-                seguroPF.autorizarCondutor(condutor2);
-            }
-        }   
+        clientePF2.getEmail(), clientePF2.getEndereco(), clientePF2.getDataNascimento(), null, null);   
+
+
 
 
         ClientePJ clientePJ = new ClientePJ(10, "Maria", "Rua Lauro", "maria.r@gmail.com",
         "12991102384", "54.710.601/0001-17", "14/01/2023", null);
         Frota frota = new Frota("3245", null);
-        clientePJ.cadastrarFrota(frota);
         Veiculo veiculo3 = new Veiculo("PEA-4256", "chevrolet", "corsa", 2011);
         Veiculo veiculo4 = new Veiculo("JEI-3296", "Ford", "Escort", 1998);
-        clientePJ.atualizarFrota(frota.getCode(), veiculo3, true);
-        clientePJ.atualizarFrota(frota.getCode(), veiculo4, true);
         Condutor condutor4 = new Condutor("353.168.090-09", "João", "12991768153", "joao@gmail.com", "Rua Antão",
         null, "05/12/1990", null);
-        seguradora.cadastrarCliente(clientePJ);
-        seguradora.gerarSeguro(clientePJ, scanner, null, frota);
-        for (SeguroPJ seguroPJ : seguradora.getListaSeguroPJs()){
-            if(seguroPJ.getCliente() == clientePJ){
-                seguroPJ.gerarSinistro(scanner, condutor4);
-                seguroPJ.autorizarCondutor(condutor4);
-            }
-        }  
 
         ClientePJ clientePJ2 = new ClientePJ(28, "Fabiana", "Rua Antônio", "fabiana.m@gmail.com",
         "19910829306", "92846102/9836-47", "08/06/2022", null);
@@ -318,3 +295,7 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
     }
 }
+
+/*Todos os objetos serão instanciados antes do menu (exceto a classe Seguro e Sinistro visto que o menu fará isso)
+ * É preciso criar métodos de listar seguros,clientes e etc e deixar essa opção no menu
+ */
