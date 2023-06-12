@@ -27,14 +27,18 @@ public class ClientePF extends Cliente {
         }
         this.genero = genero;
         this.educacao = educacao;
+
         if(listaVeiculos != null)
             this.listaVeiculos = listaVeiculos;
         else
             this.listaVeiculos = new ArrayList<>();
+
         if(Validacao.validarCPF(cpf))
             this.cpf = cpf.replaceAll("[^0-9]", "");
-        else
-            throw new IllegalArgumentException("CPF inválido. A instância do objeto ClientePF foi cancelada.");
+        else{
+            this.cpf = null;
+            System.out.println("CPF inválido. A instância do objeto ClientePF foi cancelada.");
+        }
 
     }
 
@@ -90,6 +94,9 @@ public class ClientePF extends Cliente {
     }
     
     public boolean cadastrarVeiculo(Veiculo veiculo){
+        if(getCpf() == null)
+                return false;
+
         if (veiculo != null){
             //Verifica se o veículo já está cadastrado
             if(!listaVeiculos.contains(veiculo)){
@@ -110,6 +117,9 @@ public class ClientePF extends Cliente {
         }
 
     public boolean removerVeiculos(Veiculo veiculo){
+        if(getCpf() == null)
+            return false;
+
         if(veiculo != null){
             //Verifica se o veículo já está cadastrado
             if(listaVeiculos.contains(veiculo)){
@@ -164,6 +174,19 @@ public class ClientePF extends Cliente {
         throw new IllegalArgumentException("ClientePF inválido, não foi encontrado.");
                         
     }
+
+    public void imprimirListaVeiculos() {
+    if (listaVeiculos.isEmpty()) {
+        System.out.println("A lista de veículos está vazia.");
+    } else {
+        System.out.println("Lista de Veículos:");
+        for (Veiculo veiculo : listaVeiculos) {
+            System.out.println(veiculo.toString());
+            System.out.println("-------------------------");
+            }
+        }
+    }
+
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

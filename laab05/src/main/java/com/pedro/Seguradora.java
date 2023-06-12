@@ -217,6 +217,54 @@ public class Seguradora {
         System.out.println("O valor da receita da seguradora é: R$" + receita);
     }
 
+    public void imprimirListaSegurosPFs() {
+    if (listaSeguroPFs.isEmpty()) {
+        System.out.println("A lista de seguros está vazia.");
+    } else {
+        System.out.println("Lista de Seguros:");
+        for (SeguroPF seguroPF : listaSeguroPFs) {
+            System.out.println(seguroPF.toString());
+            System.out.println("-------------------------");
+            }
+        }
+    }
+
+    public void imprimirListaSegurosPJs() {
+    if (listaSeguroPJs.isEmpty()) {
+        System.out.println("A lista de seguros está vazia.");
+    } else {
+        System.out.println("Lista de Seguros:");
+        for (SeguroPJ seguroPJ : listaSeguroPJs) {
+            System.out.println(seguroPJ.toString());
+            System.out.println("-------------------------");
+            }
+        }
+    }
+
+    public void imprimirListaClientePFs() {
+    if (listaClientePFs.isEmpty()) {
+        System.out.println("A lista de clientes PFs está vazia.");
+    } else {
+        System.out.println("Lista de Clientes PFs:");
+        for (ClientePF clientePF : listaClientePFs) {
+            System.out.println(clientePF.toString());
+            System.out.println("-------------------------");
+            }
+        }
+    }
+
+    public void imprimirListaClientePJs() {
+    if (listaClientePJs.isEmpty()) {
+        System.out.println("A lista de clientes PJs está vazia.");
+    } else {
+        System.out.println("Lista de Clientes PJs:");
+        for (ClientePJ clientePJ : listaClientePJs) {
+            System.out.println(clientePJ.toString());
+            System.out.println("-------------------------");
+            }
+        }
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Seguradora: ").append(nome).append("\n");

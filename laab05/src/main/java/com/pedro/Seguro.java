@@ -128,6 +128,30 @@ public abstract class Seguro {
 
     public abstract void gerarSinistro(Scanner scanner, Condutor condutor);
 
+    public void imprimirListaSinistros() {
+    if (listaSinistros.isEmpty()) {
+        System.out.println("A lista de sinistros está vazia.");
+    } else {
+        System.out.println("Lista de Sinistros:");
+        for (Sinistro sinistro : listaSinistros) {
+            System.out.println(sinistro.toString());
+            System.out.println("-------------------------");
+            }
+        }
+    }
+    
+    public void imprimirListaCondutor() {
+    if (listaCondutores.isEmpty()) {
+        System.out.println("A lista de condutores está vazia.");
+    } else {
+        System.out.println("Lista de Condutores:");
+        for (Condutor condutor : listaCondutores) {
+            System.out.println(condutor.toString());
+            System.out.println("-------------------------");
+        }
+    }
+}
+
     public String toString() {
         return "Seguro {" +
                 "id=" + id +

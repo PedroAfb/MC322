@@ -1,4 +1,5 @@
 package com.pedro;
+import java.text.BreakIterator;
 import java.util.Scanner;
 
 public class main 
@@ -76,21 +77,9 @@ public class main
         ClientePF clientePF = new ClientePF("Pedro", "Rua Jean", "M", "Ensino médio",
 null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
         Veiculo veiculo = new Veiculo("GZN-1319", "Toyota", "Corolla", 2018);
-        Condutor condutor = new Condutor("894.739.120-48", clientePF.getNome(), clientePF.getTelefone(), clientePF.getEmail(),
-        clientePF.getEndereco(), clientePF.getDataNascimento(),null , null);
+        clientePF.cadastrarVeiculo(veiculo);
         seguradora.cadastrarCliente(clientePF);
-        clientePF.cadastrarVeiculo(veiculo); 
-        seguradora.gerarSeguro(clientePF, scanner, veiculo, null); 
         
-
-        //ClientePF 2
-        ClientePF clientePF2 = new ClientePF("Roberto", "Rua Mateus", "M", "Superior", null,
-     "570.169.060-19", "06/10/1993", "roberto.89@gmail,com", "19991021358");
-        Veiculo veiculo2 = new Veiculo("DXT-0139", "Fiat", "Palio", 2014);
-        clientePF2.cadastrarVeiculo(veiculo2);
-        Condutor condutor2 = new Condutor(clientePF2.getCpf(), clientePF2.getNome(), clientePF2.getTelefone(),
-        clientePF2.getEmail(), clientePF2.getEndereco(), clientePF2.getDataNascimento(), null, null);   
-
 
 
 
@@ -99,8 +88,10 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
         Frota frota = new Frota("3245", null);
         Veiculo veiculo3 = new Veiculo("PEA-4256", "chevrolet", "corsa", 2011);
         Veiculo veiculo4 = new Veiculo("JEI-3296", "Ford", "Escort", 1998);
-        Condutor condutor4 = new Condutor("353.168.090-09", "João", "12991768153", "joao@gmail.com", "Rua Antão",
-        null, "05/12/1990", null);
+        clientePJ.cadastrarFrota(frota);
+        clientePJ.atualizarFrota(frota.getCode(), veiculo3, true);
+        clientePJ.atualizarFrota(frota.getCode(), veiculo4, true);
+        seguradora.cadastrarCliente(clientePJ);
 
         ClientePJ clientePJ2 = new ClientePJ(28, "Fabiana", "Rua Antônio", "fabiana.m@gmail.com",
         "19910829306", "92846102/9836-47", "08/06/2022", null);
@@ -121,11 +112,13 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                     System.out.println("Digite o code da frota em que deseja adicionar um veículo:");
                     String code = scanner.nextLine();
                     clientePJ3.atualizarFrota(code, veiculo5, true);
-                   
+
                     break;
+
                 case CALCULAR_RECEITA_SEGURADORA:
                     seguradora.calcularReceita();
                     break;
+
                 case AUTORIZAR_CONDUTOR:
                     Condutor condutor3 = Condutor.criarCondutor(scanner);
                     System.out.println("Deseja autorizar esse condutor em um Seguro PF ou Jurídico? [p/j]");
@@ -163,14 +156,14 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                         seguradora.cadastrarCliente(clientePF3);
                     }
                     else{
-                        ClientePJ clientePJ3 = ClientePJ.criarClientePJComInputScanner(scanner);
+                        ClientePJ clientePJ3 = ClientePJ.criarClientePJ(scanner);
                         seguradora.cadastrarCliente(clientePJ3);
                     }
                         
                     break;
                 case CADASTRAR_VEICULO_CLIENTEPF:
                     Veiculo veiculo5 = Veiculo.criarVeiculo(scanner);
-                    ClientePF clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
+                    ClientePF clientePF3 = ClientePF.criarClientePF(scanner);
                     boolean verifica = clientePF3.cadastrarVeiculo(veiculo5);
                     if (verifica)
                         System.out.println("Veículo cadastrado com sucesso");
@@ -181,36 +174,59 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
                 case CADASTRAR_FROTA:
                     Frota frota2 = Frota.criarFrota(scanner);
-                    ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                    verifica = clientePJ3.cadastrarFrota(frota2);
+                    try{
+                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                        verifica = clientePJ3.cadastrarFrota(frota2);
                     if (verifica)
                         System.out.println("Frota cadastrada com sucesso");
                     else
                         System.out.println("Erro ao cadastrar a frota");
 
+                    }catch(IllegalArgumentException e){
+                        System.out.println("Cliente não encontrado");
+                    }
+                   
                     break;
                 case REMOVER_CLIENTE:
                     System.out.println("Deseja remover um cliente jurídico ou físico? [f/j]");
                     tipoCliente = scanner.nextLine();
                     if(tipoCliente.equals("f")){
-                       clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
-                       seguradora.removerCliente(clientePF3);
+                       try{
+                            clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
+                            seguradora.removerCliente(clientePF3);
+
+                       }catch(IllegalArgumentException e){
+                            System.out.println("Cliente não encontrado");
+
+                       }
                     }
                     else{
-                        clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                        seguradora.removerCliente(clientePJ3);
+                        try{
+                            ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                            seguradora.removerCliente(clientePJ3);
+                        }catch(IllegalArgumentException e){
+                            System.out.println("Cliente não encontrado");
+                        }
                     }
                     break;
                 case REMOVER_VEICULO_CLIENTE:
-                    clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
+                    try{clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
                     veiculo5 = Veiculo.buscaVeiculo(null, clientePF3, scanner);
                     clientePF3.removerVeiculos(veiculo5);
+                    }catch(IllegalArgumentException e){
+                        System.out.println("Dados inválidos");
+                    }
                     break;
                 case REMOVER_VEICULO_FROTA:
-                    clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                    frota2 = Frota.buscaFarota(clientePJ3, scanner);
-                    veiculo5 = Veiculo.buscaVeiculo(frota2, null, scanner);
-                    clientePJ3.atualizarFrota(frota2.getCode(), veiculo5, false);
+                    try{
+                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                        frota2 = Frota.buscaFarota(clientePJ3, scanner);
+                        veiculo5 = Veiculo.buscaVeiculo(frota2, null, scanner);
+                        clientePJ3.atualizarFrota(frota2.getCode(), veiculo5, false);
+
+                    }catch(IllegalArgumentException e){
+                        System.out.println("Dados inválidos");
+                    }
 
                     break;
 
@@ -218,31 +234,41 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                     System.out.println("É um seguro de pessoa física ou jurídica? [f/j]");
                     tipoCliente = scanner.nextLine();
                     if (tipoCliente.equals("f")){
-                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                        seguradora.cancelarSeguro(seguroPF);
+                        try{
+                            SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                            seguradora.cancelarSeguro(seguroPF);
+                        
+                        }catch(IllegalArgumentException e){
+                            System.out.println("Dados inválidos");           
+                        }
                     }
                     else{
-                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                        seguradora.cancelarSeguro(seguroPJ);
+                        try{
+                            SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                            seguradora.cancelarSeguro(seguroPJ);
+                        
+                        }catch(IllegalArgumentException e){
+                            System.out.println("Dados inválidos");           
+                        }
                     }
 
                     break;
                 case GERAR_SEGURO:
                     System.out.println("Quer gerar um seguro de pessoa física ou jurídica? [f/j]");
                     tipoCliente = scanner.nextLine();
+                    tipoCliente = scanner.nextLine();
+
                     if (tipoCliente.equals("f")){
-                        System.out.println("Para gerar um seguro é preciso de informações do Cliente, veículo e condutor");
+                        System.out.println("Para gerar um seguro é preciso de informações do Cliente e veículo");
                         clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
                         veiculo5 = Veiculo.buscaVeiculo(null,clientePF3, scanner);
-                        Condutor condutor3 = Condutor.criarCondutor(scanner);
                         seguradora.gerarSeguro(clientePF3, scanner, veiculo5, null);
                     }
                     else{
-                        System.out.println("Para gerar um seguro é preciso de informações do Cliente, veículo e condutor");
-                        clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                        System.out.println("Para gerar um seguro é preciso de informações do Cliente, veículo e frota");
+                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
                         frota2 = Frota.buscaFarota(clientePJ3, scanner);
                         veiculo5 = Veiculo.buscaVeiculo(frota2, null, scanner);
-                        Condutor condutor3 = Condutor.criarCondutor(scanner);
                         seguradora.gerarSeguro(clientePJ3, scanner, veiculo5, frota2);
                     }
 
@@ -261,29 +287,80 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                     seguroPJ.gerarSinistro(scanner, condutor3);
                 }
                     break;
+                
+                case LISTAR_CLIENTE_PF:
+                    seguradora.imprimirListaClientePFs();
+                    break;
+                case LISTAR_CLIENTE_PJ:
+                    seguradora.imprimirListaClientePJs();
+                    break;
+                case LISTAR_CONDUTORES_PF:
+                    SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                    seguroPF.imprimirListaCondutor();
+                    break;
+                case LISTAR_CONDUTORES_PJ:
+                    SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                    seguroPJ.imprimirListaCondutor();
+                    break;
+                case LISTAR_FROTA:
+                    ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                    clientePJ3.imprimirListaFrotas();
+                    break;
+                case LISTAR_SEGURO_PF:
+                    seguradora.imprimirListaSegurosPFs();
+                    break;
+                case LISTAR_SEGURO_PJ:
+                    seguradora.imprimirListaSegurosPJs();
+                    break;
+                case LISTAR_SINISTRO_CONDUTOR_PF:
+                    seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                    Condutor condutor = Condutor.buscaCondutor(seguroPF, null, scanner);
+                    condutor.imprimirListaSinistros();
+                    break;
+                case LISTAR_SINISTRO_CONDUTOR_PJ:
+                    seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                    condutor = Condutor.buscaCondutor(null, seguroPJ, scanner);
+                    condutor.imprimirListaSinistros();
+                    break;
+                case LISTAR_SINISTRO_SEGURO_PF:
+                    seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                    seguroPF.imprimirListaSinistros();
+                    break;
+                case LISTAR_SINISTRO_SEGURO_PJ:
+                    seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                    seguroPJ.imprimirListaSinistros();
+                    break;
+                case LISTAR_VEICULO_CLIENTE:
+                    clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
+                    clientePF3.imprimirListaVeiculos();
+                    break;
+                case LISTAR_VEICULO_FROTA:
+                    clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                    clientePJ3.imprimirListaFrotas();
+                    break;    
                 case DESAUTORIZAR_CONDUTOR:
                 System.out.println("Quer desautorizar um condutor de um seguro de pessoa física ou jurídica? [f/j]");
                 tipoCliente = scanner.nextLine();
                 if(tipoCliente.equals("f")){
-                    SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                    seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
                     Condutor condutor3 = Condutor.buscaCondutor(seguroPF, null, scanner);
                     seguroPF.desautorizarCondutor(condutor3);
                 }
                 else{
-                    SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                    seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
                     Condutor condutor3 = Condutor.buscaCondutor(null, seguroPJ, scanner);
                     seguroPJ.desautorizarCondutor(condutor3);
                 }
                     break;
 
                 case CALCULA_VALOR_PF:
-                    SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                    seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
                     clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
                     seguroPF.calcularValor(clientePF3, seguradora);
                     break;
 
                 case CALCULA_VALOR_PJ:
-                    SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                    seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
                     clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
                     seguroPJ.calcularValor(clientePJ3, seguradora);
                     break;

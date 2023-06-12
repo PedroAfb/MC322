@@ -79,6 +79,19 @@ public class Frota {
 
     }
 
+    public void imprimirListaVeiculos() {
+    if (listaVeiculos.isEmpty()) {
+        System.out.println("A lista de veículos está vazia.");
+    } else {
+        System.out.println("Lista de Veículos:");
+        for (Veiculo veiculo : listaVeiculos) {
+            System.out.println(veiculo.toString());
+            System.out.println("-------------------------");
+        }
+    }
+}
+
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Frota [code=").append(code).append(", listaVeiculos=").append(listaVeiculos).append("]");

@@ -5,7 +5,7 @@ Cada constante é vista como uma descrição e uma lista de outras constantes (q
 new SubmenuOpcoes[]{} cria uma lista de constantes do submenu.
 */
 public enum MenuOpcoes {
-	CADASTROS("Cadastros", new SubmenuOpcoes[] {
+	CADASTRAR("Cadastros", new SubmenuOpcoes[] {
 			SubmenuOpcoes.CADASTRAR_CLIENTE,
 			SubmenuOpcoes.CADASTRAR_VEICULO_CLIENTEPF,
 			SubmenuOpcoes.CADASTRAR_FROTA,
@@ -20,6 +20,21 @@ public enum MenuOpcoes {
 	GERAR("Gerar", new SubmenuOpcoes[]{
 		SubmenuOpcoes.GERAR_SEGURO,
 		SubmenuOpcoes.GERAR_SINISTRO
+	}),
+	LISTAR("Listar", new SubmenuOpcoes[]{
+		SubmenuOpcoes.LISTAR_CLIENTE_PF,
+		SubmenuOpcoes.LISTAR_CLIENTE_PJ,
+		SubmenuOpcoes.LISTAR_CONDUTORES_PF,
+		SubmenuOpcoes.LISTAR_CONDUTORES_PJ,
+		SubmenuOpcoes.LISTAR_FROTA,
+		SubmenuOpcoes.LISTAR_SEGURO_PF,
+		SubmenuOpcoes.LISTAR_SEGURO_PJ,
+		SubmenuOpcoes.LISTAR_SINISTRO_CONDUTOR_PF,
+		SubmenuOpcoes.LISTAR_SINISTRO_CONDUTOR_PJ,
+		SubmenuOpcoes.LISTAR_SINISTRO_SEGURO_PF,
+		SubmenuOpcoes.LISTAR_SINISTRO_SEGURO_PJ,
+		SubmenuOpcoes.LISTAR_VEICULO_CLIENTE,
+		SubmenuOpcoes.LISTAR_VEICULO_FROTA
 	}),
 	DESAUTORIZAÇÕES("Desautorizar", new SubmenuOpcoes[]{
 		SubmenuOpcoes.DESAUTORIZAR_CONDUTOR

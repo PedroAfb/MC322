@@ -133,9 +133,22 @@ public class Condutor {
                 }
             }
         }
-        throw new IllegalArgumentException("Veiculo inválido, não foi encontrado.");
+        throw new IllegalArgumentException("Condutor inválido, não foi encontrado.");
 
     }
+
+    public void imprimirListaSinistros() {
+    if (listaSinistros.isEmpty()) {
+        System.out.println("A lista de sinistros está vazia.");
+    } else {
+        System.out.println("Lista de Sinistros:");
+        for (Sinistro sinistro : listaSinistros) {
+            System.out.println(sinistro.toString());
+            System.out.println("-------------------------");
+        }
+    }
+}
+
 
     public String toString() {
         return "Condutor {" +

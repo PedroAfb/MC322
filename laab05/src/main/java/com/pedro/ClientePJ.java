@@ -30,7 +30,7 @@ public class ClientePJ extends Cliente {
             this.cnpj = cnpj.replaceAll("[^0-9]", "");
         else{
             this.cnpj = null;
-            throw new IllegalArgumentException("CNPJ inválido. A instância do objeto ClientePJ foi cancelada.");
+            System.out.println("CNPJ inválido. A instância do objeto ClientePJ foi cancelada.");
         }
 
     }
@@ -59,6 +59,9 @@ public class ClientePJ extends Cliente {
     }
 
     public boolean cadastrarFrota(Frota frota){
+            if(getCnpj() == null)
+                return false;
+            
             if (frota != null){
                 //Verifica se a frota já está cadastrada
                 if(!listaFrota.contains(frota)){
@@ -109,6 +112,9 @@ public class ClientePJ extends Cliente {
     }*/
 
     public boolean atualizarFrota(String codigo, Veiculo veiculo, boolean adicionar) {
+        if(getCnpj() == null)
+            return false;
+
         for (Frota frota : listaFrota) {
             if (frota.getCode().equals(codigo)) {
                 if (adicionar) {
@@ -131,7 +137,20 @@ public class ClientePJ extends Cliente {
         }
     }
 
-    public static ClientePJ criarClientePJComInputScanner(Scanner scanner) {
+    public void imprimirListaFrotas() {
+    if (listaFrota.isEmpty()) {
+        System.out.println("A lista de veículos está vazia.");
+    } else {
+        System.out.println("Lista de frota:");
+        for (Frota frota : listaFrota) {
+            System.out.println(frota.toString());
+            System.out.println("-------------------------");
+        }
+    }
+}
+
+
+    public static ClientePJ criarClientePJ(Scanner scanner) {
         System.out.println("Digite o CNPJ do cliente:");
         String cnpj = scanner.nextLine();
         System.out.println("Digite o nome do cliente:");
