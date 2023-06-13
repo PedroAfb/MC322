@@ -107,7 +107,7 @@ public class SeguroPF extends Seguro {
         else
             valor = ( CalcSeguro.VALOR_BASE.getValor() * CalcSeguro.FATOR_60_90.getValor() * (1 + 1/( qntdVeiculos +2) ) * (2 + qntdSinistrosCliente /10) * (5 + qntdSinistrosCondutor /10) );
 
-        System.out.println(valor);
+        System.out.println("Valor do seguro: "+valor);
         setValorMensal(valor);
 
     }
@@ -151,6 +151,7 @@ public class SeguroPF extends Seguro {
     }
     
     public static SeguroPF buscaSeguroPF(Seguradora seguradora, Scanner scanner){
+        seguradora.imprimirListaSegurosPFs();
         System.out.println("Digite a id do seguro em que deseja achar");
         int id = scanner.nextInt();
         scanner.nextLine();

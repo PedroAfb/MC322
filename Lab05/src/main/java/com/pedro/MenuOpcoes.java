@@ -25,17 +25,10 @@ public enum MenuOpcoes {
 	LISTAR("Listar", new SubmenuOpcoes[]{
 		SubmenuOpcoes.LISTAR_CLIENTE_PF,
 		SubmenuOpcoes.LISTAR_CLIENTE_PJ,
-		SubmenuOpcoes.LISTAR_CONDUTORES_PF,
-		SubmenuOpcoes.LISTAR_CONDUTORES_PJ,
-		SubmenuOpcoes.LISTAR_FROTA,
 		SubmenuOpcoes.LISTAR_SEGURO_PF,
 		SubmenuOpcoes.LISTAR_SEGURO_PJ,
 		SubmenuOpcoes.LISTAR_SINISTRO_CONDUTOR_PF,
 		SubmenuOpcoes.LISTAR_SINISTRO_CONDUTOR_PJ,
-		SubmenuOpcoes.LISTAR_SINISTRO_SEGURO_PF,
-		SubmenuOpcoes.LISTAR_SINISTRO_SEGURO_PJ,
-		SubmenuOpcoes.LISTAR_VEICULO_CLIENTE,
-		SubmenuOpcoes.LISTAR_VEICULO_FROTA,
 		SubmenuOpcoes.VOLTAR
 	}),
 	DESAUTORIZAÇÕES("Desautorizar", new SubmenuOpcoes[]{

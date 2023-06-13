@@ -162,6 +162,7 @@ public class ClientePF extends Cliente {
     }
     
     public static ClientePF buscaClientePF(Seguradora seguradora, Scanner scanner){
+        seguradora.imprimirListaClientePFs();
         System.out.println("Digite o cpf desse cliente:");
         String cpf = scanner.nextLine();
         cpf = cpf.replaceAll("[^0-9]", "");

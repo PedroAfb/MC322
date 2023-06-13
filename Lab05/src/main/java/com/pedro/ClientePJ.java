@@ -172,6 +172,7 @@ public class ClientePJ extends Cliente {
     }
 
     public static ClientePJ buscaClientePJ(Seguradora seguradora, Scanner scanner){
+        seguradora.imprimirListaClientePJs();
         System.out.println("Digite o cnpj desse cliente:");
         String cnpj = scanner.nextLine();
         cnpj = cnpj.replaceAll("[^0-9]", "");

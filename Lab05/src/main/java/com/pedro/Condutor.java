@@ -116,22 +116,36 @@ public class Condutor {
     }
 
     public static Condutor buscaCondutor(SeguroPF seguroPF, SeguroPJ seguroPJ,Scanner scanner){
-        System.out.println("Digite o cpf desse condutor:");
-        String cpf = scanner.nextLine();
-        cpf = cpf.replaceAll("[^0-9]", "");
-        
+
         if(seguroPF != null){
+            try{seguroPF.imprimirListaCondutor();
+             System.out.println("Digite o cpf desse condutor:");
+            String cpf = scanner.nextLine();
+            cpf = cpf.replaceAll("[^0-9]", "");
             for(Condutor condutor : seguroPF.getListaCondutores()){
                 if(condutor.getCpf().equals(cpf)){
                     return condutor;
                 }
             }
+
+            }catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());
+      
+            }
         }
         else{
+            try{seguroPJ.imprimirListaCondutor();
+            System.out.println("Digite o cpf desse condutor:");
+            String cpf = scanner.nextLine();
+            cpf = cpf.replaceAll("[^0-9]", "");
             for(Condutor condutor : seguroPJ.getListaCondutores()){
                 if(condutor.getCpf().equals(cpf)){
                     return condutor;
                 }
+            }
+
+            }catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());                
             }
         }
         throw new IllegalArgumentException("Condutor inválido, não foi encontrado.");
@@ -152,6 +166,7 @@ public class Condutor {
 
 
     public String toString() {
+        imprimirListaSinistros();
         return "Condutor {" +
                 "cpf='" + cpf + '\'' +
                 ", nome='" + nome + '\'' +
@@ -159,7 +174,6 @@ public class Condutor {
                 ", email='" + email + '\'' +
                 ", endereco='" + endereco + '\'' +
                 ", dataNasc=" + dataNasc +
-                ", listaSinistros=" + listaSinistros +
                 '}';
     }
 

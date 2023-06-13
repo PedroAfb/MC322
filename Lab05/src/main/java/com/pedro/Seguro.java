@@ -150,7 +150,7 @@ public abstract class Seguro {
     
     public void imprimirListaCondutor() {
     if (listaCondutores.isEmpty()) {
-        System.out.println("A lista de condutores está vazia.");
+        throw new IllegalArgumentException("A lista de condutores está vazia.");
     } else {
         System.out.println("Lista de Condutores:");
         for (Condutor condutor : listaCondutores) {

@@ -110,12 +110,14 @@ public class Seguradora {
             ClientePJ clientePJ = (ClientePJ) cliente;
             SeguroPJ seguroPJ = SeguroPJ.criaSeguroPJ(scanner, this, null, null, frota, clientePJ);
             listaSeguroPJs.add(seguroPJ);
+            seguroPJ.calcularValor(clientePJ, this);
             System.out.println("Seguro gerado com sucesso");
             return true;
         } else if (cliente instanceof ClientePF) {
             ClientePF clientePF = (ClientePF) cliente;
             SeguroPF seguroPF = SeguroPF.criarSeguroPF(this, scanner, null, null, veiculo, clientePF);
             listaSeguroPFs.add(seguroPF);
+            seguroPF.calcularValor(clientePF, this);
             System.out.println("Seguro gerado com sucesso");
             return true;
         }
@@ -256,10 +258,12 @@ public class Seguradora {
     }
 
     public void imprimirListaClientePJs() {
+    System.out.println("-------------------------");
     if (listaClientePJs.isEmpty()) {
         System.out.println("A lista de clientes PJs está vazia.");
     } else {
         System.out.println("Lista de Clientes PJs:");
+        System.out.println();
         for (ClientePJ clientePJ : listaClientePJs) {
             System.out.println(clientePJ.toString());
             System.out.println("-------------------------");
@@ -275,23 +279,19 @@ public class Seguradora {
         sb.append("Endereço: ").append(endereco).append("\n");
         sb.append("Lista de seguros físicos:\n");
         for (Seguro seguroPF : listaSeguroPFs) {
-            sb.append(seguroPF).append("\n");
+            sb.append(seguroPF.toString()).append("\n");
         }
         sb.append("Lista de seguros jurídicos:\n");
         for (SeguroPJ seguroPJ : listaSeguroPJs) {
-            sb.append(seguroPJ).append("\n");
+            sb.append(seguroPJ.toString()).append("\n");
         }
-        /*sb.append("Lista de seguros:\n");
-        for (Seguro seguro : listaSeguros) {
-            sb.append(seguro).append("\n");
-        }*/
         sb.append("Lista de clientes físicos:\n");
         for (ClientePF clientePf : listaClientePFs) {
-            sb.append(clientePf).append("\n");
+            sb.append(clientePf.toString()).append("\n");
         }
         sb.append("Lista de clientes jurídicos:\n");
         for (ClientePJ clientePj : listaClientePJs) {
-            sb.append(clientePj).append("\n");
+            sb.append(clientePj.toString()).append("\n");
         }
         return sb.toString();
     }

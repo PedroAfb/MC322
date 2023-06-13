@@ -119,18 +119,13 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
                     }
                     else{
-                        System.out.println("Digite o cnpj do cliente que contém esse seguro:");
-                        String cnpj = scanner.nextLine();
-                        cnpj = cnpj.replaceAll("[^0-9]", "");
-                        for (SeguroPJ seguroPJ : seguradora.getListaSeguroPJs()){
-                            if(seguroPJ.getCliente().getCnpj().equals(cnpj)){
-                                seguroPJ.autorizarCondutor(condutor3);
-                            }
-                        } 
+                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                        seguroPJ.autorizarCondutor(condutor3);
                     }
                     break;
             }
             exibirSubmenu(op);
+            System.out.println();
             opSubmenu = lerOpcaoSubmenu(op, scanner);
             scanner.nextLine();
             switch(opSubmenu) {
@@ -261,7 +256,6 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                     tipoCliente = scanner.nextLine();
                     if (tipoCliente.equals("f")) {
                         try {
-                            seguradora.imprimirListaSegurosPFs();
                             SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
                             Condutor condutor3 = Condutor.buscaCondutor(seguroPF, null, scanner);
                             seguroPF.gerarSinistro(scanner, condutor3);
@@ -270,7 +264,6 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                         }
                     } else {
                         try {
-                            seguradora.imprimirListaSegurosPJs();
                             SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
                             Condutor condutor3 = Condutor.buscaCondutor(null, seguroPJ, scanner);
                             seguroPJ.gerarSinistro(scanner, condutor3);
@@ -286,33 +279,6 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
                 case LISTAR_CLIENTE_PJ:
                     seguradora.imprimirListaClientePJs();
-                    break;
-
-                case LISTAR_CONDUTORES_PF:
-                    try {
-                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                        seguroPF.imprimirListaCondutor();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-
-                case LISTAR_CONDUTORES_PJ:
-                    try {
-                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                        seguroPJ.imprimirListaCondutor();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-
-                case LISTAR_FROTA:
-                    try {
-                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                        clientePJ3.imprimirListaFrotas();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
                     break;
 
                 case LISTAR_SEGURO_PF:
@@ -343,42 +309,6 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                     }
                     break;
 
-                case LISTAR_SINISTRO_SEGURO_PF:
-                    try {
-                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                        seguroPF.imprimirListaSinistros();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-
-                case LISTAR_SINISTRO_SEGURO_PJ:
-                    try {
-                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                        seguroPJ.imprimirListaSinistros();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-
-                case LISTAR_VEICULO_CLIENTE:
-                    try {
-                        clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
-                        clientePF3.imprimirListaVeiculos();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-
-                case LISTAR_VEICULO_FROTA:
-                    try {
-                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                        clientePJ3.imprimirListaFrotas();
-                    } catch (IllegalArgumentException e) {
-                        System.out.println(e.getMessage());
-                    }
-                    break;
-
                 case DESAUTORIZAR_CONDUTOR:
                     System.out.println("Quer desautorizar um condutor de um seguro de pessoa física ou jurídica? [f/j]");
                     tipoCliente = scanner.nextLine();
@@ -403,7 +333,6 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
                 case CALCULA_VALOR_PF:
                     try {
-                        seguradora.imprimirListaSegurosPFs();
                         SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
                         clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
                         seguroPF.calcularValor(clientePF3, seguradora);
@@ -414,7 +343,6 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
                 case CALCULA_VALOR_PJ:
                     try {
-                        seguradora.imprimirListaSegurosPJs();
                         SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
                         ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
                         seguroPJ.calcularValor(clientePJ3, seguradora);
@@ -429,6 +357,7 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
         }while(op != MenuOpcoes.SAIR);
         scanner.close();
+        System.out.println(seguradora.toString());
     }
 }
 

@@ -29,7 +29,7 @@ public class SeguroPJ extends Seguro {
 
     public boolean autorizarCondutor(Condutor condutor){
         if(condutor != null){
-            if(getListaCondutores().contains(condutor)){
+            if(!getListaCondutores().contains(condutor)){
                 getListaCondutores().add(condutor);
                 System.out.println("Condutor Autorizado");
                 return true;
@@ -108,7 +108,7 @@ public class SeguroPJ extends Seguro {
         (1 + 1/( qntdVeiculos +2) ) * (1 + 1/( anosPosFundacao +2) ) * (2 + qntdSinistrosCliente /10) * 
         (5 + qntdSinistrosCondutor /10));
 
-        System.out.println(valorMensal);
+        System.out.println("Valor do seguro: "+valorMensal);
         setValorMensal(valorMensal);
     }
 
@@ -150,7 +150,8 @@ public class SeguroPJ extends Seguro {
     }
 
     public static SeguroPJ buscaSeguroPJ(Seguradora seguradora, Scanner scanner){
-        System.out.println("Digite a id do seguro em que deseja cancelar");
+        seguradora.imprimirListaSegurosPJs();
+        System.out.println("Digite a id do seguro em que deseja achar");
         int id = scanner.nextInt();
         scanner.nextLine();
         for (SeguroPJ seguroPJ : seguradora.getListaSeguroPJs()){
