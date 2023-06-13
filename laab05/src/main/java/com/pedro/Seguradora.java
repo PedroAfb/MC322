@@ -110,11 +110,13 @@ public class Seguradora {
             ClientePJ clientePJ = (ClientePJ) cliente;
             SeguroPJ seguroPJ = SeguroPJ.criaSeguroPJ(scanner, this, null, null, frota, clientePJ);
             listaSeguroPJs.add(seguroPJ);
+            System.out.println("Seguro gerado com sucesso");
             return true;
         } else if (cliente instanceof ClientePF) {
             ClientePF clientePF = (ClientePF) cliente;
             SeguroPF seguroPF = SeguroPF.criarSeguroPF(this, scanner, null, null, veiculo, clientePF);
             listaSeguroPFs.add(seguroPF);
+            System.out.println("Seguro gerado com sucesso");
             return true;
         }
         return false;
@@ -223,7 +225,7 @@ public class Seguradora {
     } else {
         System.out.println("Lista de Seguros:");
         for (SeguroPF seguroPF : listaSeguroPFs) {
-            System.out.println(seguroPF.toString());
+            seguroPF.imprimirSeguroPF();
             System.out.println("-------------------------");
             }
         }

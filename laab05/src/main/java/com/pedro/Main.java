@@ -1,8 +1,7 @@
 package com.pedro;
-import java.text.BreakIterator;
 import java.util.Scanner;
 
-public class main 
+public class Main 
 {
 
     //exibir menu externo
@@ -53,17 +52,6 @@ public class main
 		return opUsuarioConst;
 	}
 
-    private static ClientePJ identificaClientePJ(Seguradora seguradora, Scanner scanner){
-        System.out.println("Digite o cnpj do cliente");
-        String cnpj = scanner.nextLine();
-        for (ClientePJ cliente : seguradora.getListaClientePJs()){
-            if(cliente.getCnpj().equals(cnpj)){
-                return cliente;
-            }
-        }
-        throw new IllegalArgumentException("Cliente PJ com CNPJ " + cnpj + " não encontrado.");
-    }
-
     public static void main( String[] args )
     {
         Scanner scanner = new Scanner(System.in);
@@ -85,7 +73,7 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
         ClientePJ clientePJ = new ClientePJ(10, "Maria", "Rua Lauro", "maria.r@gmail.com",
         "12991102384", "54.710.601/0001-17", "14/01/2023", null);
-        Frota frota = new Frota("3245", null);
+        Frota frota = new Frota(null);
         Veiculo veiculo3 = new Veiculo("PEA-4256", "chevrolet", "corsa", 2011);
         Veiculo veiculo4 = new Veiculo("JEI-3296", "Ford", "Escort", 1998);
         clientePJ.cadastrarFrota(frota);
@@ -104,13 +92,15 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
             }
             switch(op){
                 case ADICIONAR_VEICULO_FROTA:
+                    scanner.nextLine();
                     Veiculo veiculo5 = Veiculo.criarVeiculo(scanner);
-                    ClientePJ clientePJ3 = identificaClientePJ(seguradora, scanner);
+                    ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
                     for (Frota frota2 : clientePJ3.getListaFrota()){
-                        frota2.toString();
+                        System.out.println(frota2.toString());
                     }
                     System.out.println("Digite o code da frota em que deseja adicionar um veículo:");
-                    String code = scanner.nextLine();
+                    int code = scanner.nextInt();
+                    scanner.nextLine();
                     clientePJ3.atualizarFrota(code, veiculo5, true);
 
                     break;
@@ -121,17 +111,11 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
                 case AUTORIZAR_CONDUTOR:
                     Condutor condutor3 = Condutor.criarCondutor(scanner);
-                    System.out.println("Deseja autorizar esse condutor em um Seguro PF ou Jurídico? [p/j]");
+                    System.out.println("Deseja autorizar esse condutor em um Seguro PF ou PJ? [f/j]");
                     String tipoSeguro = scanner.nextLine();
-                    if (tipoSeguro == "p"){
-                        System.out.println("Digite o cpf do cliente que contém esse seguro:");
-                        String cpf = scanner.nextLine();
-                        cpf = cpf.replaceAll("[^0-9]", "");
-                        for (SeguroPF seguroPF : seguradora.getListaSeguroPFs()){
-                            if(seguroPF.getCliente().getCpf().equals(cpf)){
-                                seguroPF.autorizarCondutor(condutor3);
-                            }
-                        } 
+                    if (tipoSeguro.equals("f")){
+                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                        seguroPF.autorizarCondutor(condutor3);
 
                     }
                     else{
@@ -147,7 +131,9 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                     break;
             }
             exibirSubmenu(op);
-            opSubmenu = lerOpcaoSubmenu(op, scanner);switch(opSubmenu) {
+            opSubmenu = lerOpcaoSubmenu(op, scanner);
+            scanner.nextLine();
+            switch(opSubmenu) {
                 case CADASTRAR_CLIENTE:
                     System.out.println("Cliente físico ou jurídico? [f/j]");
                     String tipoCliente = scanner.nextLine();
@@ -163,25 +149,16 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                     break;
                 case CADASTRAR_VEICULO_CLIENTEPF:
                     Veiculo veiculo5 = Veiculo.criarVeiculo(scanner);
-                    ClientePF clientePF3 = ClientePF.criarClientePF(scanner);
-                    boolean verifica = clientePF3.cadastrarVeiculo(veiculo5);
-                    if (verifica)
-                        System.out.println("Veículo cadastrado com sucesso");
-                    else
-                        System.out.println("Erro ao cadastrar o veículo");
-                    
+                    ClientePF clientePF3 = ClientePF.buscaClientePF(seguradora,scanner);
+                    clientePF3.cadastrarVeiculo(veiculo5);
+                
                     break;
 
                 case CADASTRAR_FROTA:
                     Frota frota2 = Frota.criarFrota(scanner);
                     try{
                         ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                        verifica = clientePJ3.cadastrarFrota(frota2);
-                    if (verifica)
-                        System.out.println("Frota cadastrada com sucesso");
-                    else
-                        System.out.println("Erro ao cadastrar a frota");
-
+                        clientePJ3.cadastrarFrota(frota2);
                     }catch(IllegalArgumentException e){
                         System.out.println("Cliente não encontrado");
                     }
@@ -256,120 +233,202 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                 case GERAR_SEGURO:
                     System.out.println("Quer gerar um seguro de pessoa física ou jurídica? [f/j]");
                     tipoCliente = scanner.nextLine();
-                    tipoCliente = scanner.nextLine();
 
-                    if (tipoCliente.equals("f")){
-                        System.out.println("Para gerar um seguro é preciso de informações do Cliente e veículo");
-                        clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
-                        veiculo5 = Veiculo.buscaVeiculo(null,clientePF3, scanner);
-                        seguradora.gerarSeguro(clientePF3, scanner, veiculo5, null);
+                    if (tipoCliente.equals("f")) {
+                        try {
+                            System.out.println("Para gerar um seguro é preciso de informações do Cliente e veículo");
+                            clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
+                            veiculo5 = Veiculo.buscaVeiculo(null, clientePF3, scanner);
+                            seguradora.gerarSeguro(clientePF3, scanner, veiculo5, null);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        try {
+                            System.out.println("Para gerar um seguro é preciso de informações do Cliente, veículo e frota");
+                            ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                            frota2 = Frota.buscaFarota(clientePJ3, scanner);
+                            veiculo5 = Veiculo.buscaVeiculo(frota2, null, scanner);
+                            seguradora.gerarSeguro(clientePJ3, scanner, veiculo5, frota2);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
                     }
-                    else{
-                        System.out.println("Para gerar um seguro é preciso de informações do Cliente, veículo e frota");
-                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                        frota2 = Frota.buscaFarota(clientePJ3, scanner);
-                        veiculo5 = Veiculo.buscaVeiculo(frota2, null, scanner);
-                        seguradora.gerarSeguro(clientePJ3, scanner, veiculo5, frota2);
-                    }
-
                     break;
+
                 case GERAR_SINISTRO:
-                System.out.println("Quer gerar um sinistro de pessoa física ou jurídica? [f/j]");
-                tipoCliente = scanner.nextLine();
-                if(tipoCliente.equals("f")){
-                    SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                    Condutor condutor3 = Condutor.buscaCondutor(seguroPF, null, scanner);
-                    seguroPF.gerarSinistro(scanner, condutor3);
-                }
-                else{
-                    SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                    Condutor condutor3 = Condutor.buscaCondutor(null, seguroPJ, scanner);
-                    seguroPJ.gerarSinistro(scanner, condutor3);
-                }
+                    System.out.println("Quer gerar um sinistro de pessoa física ou jurídica? [f/j]");
+                    tipoCliente = scanner.nextLine();
+                    if (tipoCliente.equals("f")) {
+                        try {
+                            seguradora.imprimirListaSegurosPFs();
+                            SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                            Condutor condutor3 = Condutor.buscaCondutor(seguroPF, null, scanner);
+                            seguroPF.gerarSinistro(scanner, condutor3);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        try {
+                            seguradora.imprimirListaSegurosPJs();
+                            SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                            Condutor condutor3 = Condutor.buscaCondutor(null, seguroPJ, scanner);
+                            seguroPJ.gerarSinistro(scanner, condutor3);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                     break;
-                
+
                 case LISTAR_CLIENTE_PF:
                     seguradora.imprimirListaClientePFs();
                     break;
+
                 case LISTAR_CLIENTE_PJ:
                     seguradora.imprimirListaClientePJs();
                     break;
+
                 case LISTAR_CONDUTORES_PF:
-                    SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                    seguroPF.imprimirListaCondutor();
+                    try {
+                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                        seguroPF.imprimirListaCondutor();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
+
                 case LISTAR_CONDUTORES_PJ:
-                    SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                    seguroPJ.imprimirListaCondutor();
+                    try {
+                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                        seguroPJ.imprimirListaCondutor();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
+
                 case LISTAR_FROTA:
-                    ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                    clientePJ3.imprimirListaFrotas();
+                    try {
+                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                        clientePJ3.imprimirListaFrotas();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
+
                 case LISTAR_SEGURO_PF:
                     seguradora.imprimirListaSegurosPFs();
                     break;
+
                 case LISTAR_SEGURO_PJ:
                     seguradora.imprimirListaSegurosPJs();
                     break;
+
                 case LISTAR_SINISTRO_CONDUTOR_PF:
-                    seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                    Condutor condutor = Condutor.buscaCondutor(seguroPF, null, scanner);
-                    condutor.imprimirListaSinistros();
+                    try {
+                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                        Condutor condutor = Condutor.buscaCondutor(seguroPF, null, scanner);
+                        condutor.imprimirListaSinistros();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
+
                 case LISTAR_SINISTRO_CONDUTOR_PJ:
-                    seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                    condutor = Condutor.buscaCondutor(null, seguroPJ, scanner);
-                    condutor.imprimirListaSinistros();
+                    try {
+                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                        Condutor condutor = Condutor.buscaCondutor(null, seguroPJ, scanner);
+                        condutor.imprimirListaSinistros();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
+
                 case LISTAR_SINISTRO_SEGURO_PF:
-                    seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                    seguroPF.imprimirListaSinistros();
+                    try {
+                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                        seguroPF.imprimirListaSinistros();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
+
                 case LISTAR_SINISTRO_SEGURO_PJ:
-                    seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                    seguroPJ.imprimirListaSinistros();
+                    try {
+                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                        seguroPJ.imprimirListaSinistros();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
+
                 case LISTAR_VEICULO_CLIENTE:
-                    clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
-                    clientePF3.imprimirListaVeiculos();
+                    try {
+                        clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
+                        clientePF3.imprimirListaVeiculos();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
+
                 case LISTAR_VEICULO_FROTA:
-                    clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                    clientePJ3.imprimirListaFrotas();
-                    break;    
+                    try {
+                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                        clientePJ3.imprimirListaFrotas();
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
                 case DESAUTORIZAR_CONDUTOR:
-                System.out.println("Quer desautorizar um condutor de um seguro de pessoa física ou jurídica? [f/j]");
-                tipoCliente = scanner.nextLine();
-                if(tipoCliente.equals("f")){
-                    seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                    Condutor condutor3 = Condutor.buscaCondutor(seguroPF, null, scanner);
-                    seguroPF.desautorizarCondutor(condutor3);
-                }
-                else{
-                    seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                    Condutor condutor3 = Condutor.buscaCondutor(null, seguroPJ, scanner);
-                    seguroPJ.desautorizarCondutor(condutor3);
-                }
+                    System.out.println("Quer desautorizar um condutor de um seguro de pessoa física ou jurídica? [f/j]");
+                    tipoCliente = scanner.nextLine();
+                    if (tipoCliente.equals("f")) {
+                        try {
+                            SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                            Condutor condutor3 = Condutor.buscaCondutor(seguroPF, null, scanner);
+                            seguroPF.desautorizarCondutor(condutor3);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+                        try {
+                            SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                            Condutor condutor3 = Condutor.buscaCondutor(null, seguroPJ, scanner);
+                            seguroPJ.desautorizarCondutor(condutor3);
+                        } catch (IllegalArgumentException e) {
+                            System.out.println(e.getMessage());
+                        }
+                    }
                     break;
 
                 case CALCULA_VALOR_PF:
-                    seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                    clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
-                    seguroPF.calcularValor(clientePF3, seguradora);
+                    try {
+                        seguradora.imprimirListaSegurosPFs();
+                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
+                        clientePF3 = ClientePF.buscaClientePF(seguradora, scanner);
+                        seguroPF.calcularValor(clientePF3, seguradora);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case CALCULA_VALOR_PJ:
-                    seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                    clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
-                    seguroPJ.calcularValor(clientePJ3, seguradora);
+                    try {
+                        seguradora.imprimirListaSegurosPJs();
+                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
+                        ClientePJ clientePJ3 = ClientePJ.buscaClientePJ(seguradora, scanner);
+                        seguroPJ.calcularValor(clientePJ3, seguradora);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
 
                 case VOLTAR:
-                	break;
+                    break;
                 }
-        }while(op != MenuOpcoes.SAIR);
 
+        }while(op != MenuOpcoes.SAIR);
+        scanner.close();
     }
 }
 

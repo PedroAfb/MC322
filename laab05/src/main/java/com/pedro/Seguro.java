@@ -31,9 +31,17 @@ public abstract class Seguro {
             System.out.println("Formato de data inválido!");
             e.printStackTrace();
         }
-
-        this.listaSinistros = new ArrayList<>();
-        this.listaCondutores = new ArrayList<>();
+        
+        if(listaSinistros ==null)
+            this.listaSinistros = new ArrayList<>();
+        else
+            this.listaSinistros = listaSinistros;
+        
+        if(listaCondutores == null)
+            this.listaCondutores = new ArrayList<>();
+        else
+            this.listaCondutores = listaCondutores;
+            
         this.seguradora = seguradora;
         this.valorMensal = valorMensal;
     }
@@ -157,9 +165,6 @@ public abstract class Seguro {
                 "id=" + id +
                 ", dataInicio=" + dataInicio +
                 ", dataFim=" + dataFim +
-                ", seguradora=" + seguradora +
-                ", listaSinistros=" + listaSinistros +
-                ", listaCondutores=" + listaCondutores +
                 ", valorMensal=" + valorMensal +
                 '}';
     }

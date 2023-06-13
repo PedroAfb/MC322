@@ -108,6 +108,7 @@ public class SeguroPJ extends Seguro {
         (1 + 1/( qntdVeiculos +2) ) * (1 + 1/( anosPosFundacao +2) ) * (2 + qntdSinistrosCliente /10) * 
         (5 + qntdSinistrosCondutor /10));
 
+        System.out.println(valorMensal);
         setValorMensal(valorMensal);
     }
 
@@ -161,4 +162,14 @@ public class SeguroPJ extends Seguro {
 
     }
 
+    public void imprimirSeguroPJ() {
+        System.out.println("ID: " + getId());
+        System.out.println("Data de Início: " + getDataInicio());
+        System.out.println("Data de Fim: " + getDataFim());
+        System.out.println("Lista de Sinistros: " + getListaSinistros());
+        System.out.println("Lista de Condutores: " + getListaCondutores());
+        System.out.println("Valor Mensal: " + getValorMensal());
+        System.out.println("Frota: " + getFrota());
+        System.out.println("Cliente: " + getCliente());
+    }
 }

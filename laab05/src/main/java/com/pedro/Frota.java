@@ -1,22 +1,22 @@
 package com.pedro;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Frota {
-    private String code;
+    private final int code = GeraID();
     private List <Veiculo> listaVeiculos;
 
-    public Frota(String code, List <Veiculo> listaVeiculos){
-        this.code = code;
-        this.listaVeiculos = new ArrayList<>();
+    public Frota(List <Veiculo> listaVeiculos){
+        if (listaVeiculos == null)
+            this.listaVeiculos = new ArrayList<>();
+        else
+            this.listaVeiculos = listaVeiculos;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
-    }
-    public void setCode(String code) {
-        this.code = code;
     }
     public List<Veiculo> getListaVeiculos() {
         return listaVeiculos;
@@ -57,20 +57,18 @@ public class Frota {
     }
 
     public static Frota criarFrota(Scanner scanner) {
-        System.out.println("Digite o código da frota:");
-        String codigo = scanner.nextLine();
-
         // Cria uma lista vazia para armazenar os veículos da frota
         List<Veiculo> listaVeiculos = new ArrayList<>();
-        return new Frota(codigo, listaVeiculos);
+        return new Frota(listaVeiculos);
     }
 
     public static Frota buscaFarota(ClientePJ clientePJ, Scanner scanner){
         
             System.out.println("Digite o code da frota:");
-            String code = scanner.nextLine();
+            int code = scanner.nextInt();
+            scanner.nextLine();
             for (Frota frota : clientePJ.getListaFrota()){
-                if(frota.getCode().equals(code)){
+                if(frota.getCode() == code){
                     return frota;
                 }
             }
@@ -90,7 +88,12 @@ public class Frota {
         }
     }
 }
-
+    public int GeraID(){
+            // Gera um número int aleatório para o id
+            Random gerador = new Random();
+            return gerador.nextInt(100);
+    
+        }
 
     public String toString() {
         StringBuilder sb = new StringBuilder();

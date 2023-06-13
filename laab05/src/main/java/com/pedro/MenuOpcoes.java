@@ -19,7 +19,8 @@ public enum MenuOpcoes {
 			SubmenuOpcoes.VOLTAR}),
 	GERAR("Gerar", new SubmenuOpcoes[]{
 		SubmenuOpcoes.GERAR_SEGURO,
-		SubmenuOpcoes.GERAR_SINISTRO
+		SubmenuOpcoes.GERAR_SINISTRO,
+		SubmenuOpcoes.VOLTAR
 	}),
 	LISTAR("Listar", new SubmenuOpcoes[]{
 		SubmenuOpcoes.LISTAR_CLIENTE_PF,
@@ -34,14 +35,17 @@ public enum MenuOpcoes {
 		SubmenuOpcoes.LISTAR_SINISTRO_SEGURO_PF,
 		SubmenuOpcoes.LISTAR_SINISTRO_SEGURO_PJ,
 		SubmenuOpcoes.LISTAR_VEICULO_CLIENTE,
-		SubmenuOpcoes.LISTAR_VEICULO_FROTA
+		SubmenuOpcoes.LISTAR_VEICULO_FROTA,
+		SubmenuOpcoes.VOLTAR
 	}),
 	DESAUTORIZAÇÕES("Desautorizar", new SubmenuOpcoes[]{
-		SubmenuOpcoes.DESAUTORIZAR_CONDUTOR
+		SubmenuOpcoes.DESAUTORIZAR_CONDUTOR,
+		SubmenuOpcoes.VOLTAR
 	}),
 	CALCULAR_VALOR("Calcular valor do seguro", new SubmenuOpcoes[]{
 		SubmenuOpcoes.CALCULA_VALOR_PF,
-		SubmenuOpcoes.CALCULA_VALOR_PJ
+		SubmenuOpcoes.CALCULA_VALOR_PJ,
+		SubmenuOpcoes.VOLTAR
 	}),
 	ADICIONAR_VEICULO_FROTA("Adicionar veículo numa frota", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),
 	CALCULAR_RECEITA_SEGURADORA("Calcular Receita", new SubmenuOpcoes[] {SubmenuOpcoes.VOLTAR}),

@@ -111,12 +111,12 @@ public class ClientePJ extends Cliente {
         return false;
     }*/
 
-    public boolean atualizarFrota(String codigo, Veiculo veiculo, boolean adicionar) {
+    public boolean atualizarFrota(int codigo, Veiculo veiculo, boolean adicionar) {
         if(getCnpj() == null)
             return false;
 
         for (Frota frota : listaFrota) {
-            if (frota.getCode().equals(codigo)) {
+            if (frota.getCode() == codigo) {
                 if (adicionar) {
                     frota.addVeiculo(veiculo);
                 } else {
@@ -172,7 +172,7 @@ public class ClientePJ extends Cliente {
     }
 
     public static ClientePJ buscaClientePJ(Seguradora seguradora, Scanner scanner){
-        System.out.println("Digite o cpf desse cliente:");
+        System.out.println("Digite o cnpj desse cliente:");
         String cnpj = scanner.nextLine();
         cnpj = cnpj.replaceAll("[^0-9]", "");
         for (ClientePJ clientePJ3 : seguradora.getListaClientePJs()){

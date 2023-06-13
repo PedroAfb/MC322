@@ -93,6 +93,7 @@ public class Condutor {
     }
 
     public static Condutor criarCondutor(Scanner scanner) {
+        scanner.nextLine();
         System.out.println("Digite o CPF do condutor:");
         String cpf = scanner.nextLine();
 

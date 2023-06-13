@@ -28,7 +28,7 @@ public class SeguroPF extends Seguro {
 
     public boolean autorizarCondutor(Condutor condutor){
         if(condutor != null){
-            if(getListaCondutores().contains(condutor)){
+            if(!getListaCondutores().contains(condutor)){
                 getListaCondutores().add(condutor);
                 System.out.println("Condutor Autorizado");
                 return true;
@@ -107,6 +107,7 @@ public class SeguroPF extends Seguro {
         else
             valor = ( CalcSeguro.VALOR_BASE.getValor() * CalcSeguro.FATOR_60_90.getValor() * (1 + 1/( qntdVeiculos +2) ) * (2 + qntdSinistrosCliente /10) * (5 + qntdSinistrosCondutor /10) );
 
+        System.out.println(valor);
         setValorMensal(valor);
 
     }
@@ -162,18 +163,31 @@ public class SeguroPF extends Seguro {
 
     }
 
+    public void imprimirSeguroPF() {
+    System.out.println("ID: " + getId());
+    System.out.println("Data de Início: " + getDataInicio());
+    System.out.println("Data de Fim: " + getDataFim());
+    System.out.println("Lista de Sinistros: " + getListaSinistros());
+    System.out.println("Lista de Condutores: " + getListaCondutores());
+    System.out.println("Valor Mensal: " + getValorMensal());
+    System.out.println("Veículo: " + getVeiculo());
+    System.out.println("Cliente: " + getCliente());
+}
+
     public String toString() {
-        return "SeguroPF {" +
-                "id=" + getId() +
-                ", dataInicio=" + getDataInicio() +
-                ", dataFim=" + getDataFim() +
-                ", seguradora=" + getSeguradora() +
-                ", listaSinistros=" + getListaSinistros() +
-                ", listaCondutores=" + getListaCondutores() +
-                ", valorMensal=" + getValorMensal() +
-                ", veiculo=" + veiculo +
-                ", cliente=" + cliente +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("SeguroPF {")
+        .append("id=").append(getId())
+        .append(", dataInicio=").append(getDataInicio())
+        .append(", dataFim=").append(getDataFim())
+        .append(", seguradora=").append(getSeguradora())
+        .append(", listaSinistros=").append(getListaSinistros())
+        .append(", listaCondutores=").append(getListaCondutores())
+        .append(", valorMensal=").append(getValorMensal())
+        .append(", veiculo=").append(veiculo)
+        .append(", cliente=").append(cliente)
+        .append('}');
+        return sb.toString();
     }
 
 }
