@@ -68,14 +68,12 @@ import java.util.Random;
         }
 
         public String toString() {
-            seguroPF.imprimirSeguroPF();
-            seguroPJ.imprimirSeguroPJ();
-            return "Sinistro{" +
-                    "id=" + id +
-                    ", data=" + data +
-                    ", endereco='" + endereco + '\'' +
-                    ", condutor=" + condutor.toString() +
-                    '}';
+                return "Sinistro{" +
+                "id=" + id +
+                ", data=" + data +
+                ", endereco='" + endereco + '\'' +
+                '}';
+            
         }
 
     } 

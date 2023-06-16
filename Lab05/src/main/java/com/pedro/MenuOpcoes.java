@@ -1,9 +1,8 @@
 package com.pedro;
 /* enum para menu externo
 Cada constante é vista como uma descrição e uma lista de outras constantes (que são as constantes do submenu)
-
-new SubmenuOpcoes[]{} cria uma lista de constantes do submenu.
 */
+
 public enum MenuOpcoes {
 	CADASTRAR("Cadastros", new SubmenuOpcoes[] {
 			SubmenuOpcoes.CADASTRAR_CLIENTE,

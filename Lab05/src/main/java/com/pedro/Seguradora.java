@@ -95,12 +95,6 @@ public class Seguradora {
     public void setListaClientePJs(List<ClientePJ> listaClientePJs) {
         this.listaClientePJs = listaClientePJs;
     }
-    /*public List<Seguro> getListaSeguros() {
-        return listaSeguros;
-    }
-    public void setListaSeguros(List<Seguro> listaSeguros) {
-        this.listaSeguros = listaSeguros;
-    }*/
     public String getCnpj() {
         return cnpj;
     }

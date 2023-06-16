@@ -1,5 +1,6 @@
 package com.pedro;
 import java.util.Scanner;
+import java.util.List;
 
 public class Main 
 {
@@ -13,12 +14,7 @@ public class Main
 		}
 	}
 	
-	/* exibir submenus
-	 * se a lista de constantes do submenu for percorrida da mesma forma que o meu externo, a opção Voltar
-	 * é printada com a posição que está na lista do enum (9 - Voltar). Por isso, a lista é percorrida 
-	 * de forma diferente, tendo i como o inteiro correspondente. Assim, para listar o submenu de cadastros,
-	 * por exemplo, vai ser printado "3 - Voltar".
-	 */
+	
 	private static void exibirSubmenu(MenuOpcoes op) {
         //Implementar o método atualiza frota
 		SubmenuOpcoes[] submenu = op.getSubmenu();
@@ -291,9 +287,12 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
                 case LISTAR_SINISTRO_CONDUTOR_PF:
                     try {
-                        SeguroPF seguroPF = SeguroPF.buscaSeguroPF(seguradora, scanner);
-                        Condutor condutor = Condutor.buscaCondutor(seguroPF, null, scanner);
-                        condutor.imprimirListaSinistros();
+                        
+                        for (ClientePF clientePF2 : seguradora.getListaClientePFs()){
+                            List <Sinistro> lSinistro = seguradora.getSinistrosPorCliente(clientePF2);
+                            for(Sinistro sinistro : lSinistro)
+                                System.out.println(sinistro.toString());
+                        }
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
@@ -301,9 +300,11 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
 
                 case LISTAR_SINISTRO_CONDUTOR_PJ:
                     try {
-                        SeguroPJ seguroPJ = SeguroPJ.buscaSeguroPJ(seguradora, scanner);
-                        Condutor condutor = Condutor.buscaCondutor(null, seguroPJ, scanner);
-                        condutor.imprimirListaSinistros();
+                       for (ClientePJ clientePJ3 : seguradora.getListaClientePJs()){
+                            List <Sinistro> lSinistro = seguradora.getSinistrosPorCliente(clientePJ3);
+                            for(Sinistro sinistro : lSinistro)
+                                System.out.println(sinistro.toString());
+                        }
                     } catch (IllegalArgumentException e) {
                         System.out.println(e.getMessage());
                     }
@@ -356,11 +357,6 @@ null, "894.739.120-48", "29/01/2004", "pedro193@gmail.com", "19990134032");
                 }
 
         }while(op != MenuOpcoes.SAIR);
-        scanner.close();
         System.out.println(seguradora.toString());
     }
 }
-
-/*Todos os objetos serão instanciados antes do menu (exceto a classe Seguro e Sinistro visto que o menu fará isso)
- * É preciso criar métodos de listar seguros,clientes e etc e deixar essa opção no menu
- */

@@ -94,43 +94,6 @@ public abstract class Seguro {
     }
 
     public abstract boolean autorizarCondutor(Condutor condutor);
-    /*
-    {
-        if(condutor != null){
-            if(!listaCondutores.contains(condutor)){
-                listaCondutores.add(condutor);
-                System.out.println("Condutor Autorizado");
-                return true;
-            }
-            else{
-                System.out.println("Conduntor já estava autorizado");
-                return false;
-            }
-        }
-        else{
-            System.out.println("Condutor inválido");
-            return false;
-        }
-    }*/
-
-    public abstract boolean desautorizarCondutor(Condutor condutor);
-    /*{
-        if(condutor != null){
-            if(!listaCondutores.contains(condutor)){
-                System.out.println("Condutor desconhecido");
-                return false;
-            }
-            else{
-                listaCondutores.remove(condutor);
-                System.out.println("Conduntor desautorizado");
-                return true;
-            }
-        }
-        else{
-            System.out.println("Condutor inválido");
-            return false;
-        }
-    }*/
 
     public abstract void calcularValor(Cliente cliente, Seguradora seguradora);
 
