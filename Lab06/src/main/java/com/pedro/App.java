@@ -1,6 +1,6 @@
+package com.pedro;
 import java.util.List;
 import java.util.Scanner;
-
 import com.pedro.ClientePF;
 import com.pedro.ClientePJ;
 import com.pedro.Condutor;
