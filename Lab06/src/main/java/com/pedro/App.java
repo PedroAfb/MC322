@@ -63,8 +63,7 @@ public class App {
         MenuOpcoes op;
         SubmenuOpcoes opSubmenu;
         
-        Seguradora seguradora = new Seguradora("Seguradora do Pedro", "12991118381", "pedro.seguradora@gmail.com", 
-        "Rua Ignácio", null,null , "92.917.008/0001-35", null, null);
+        Seguradora seguradora = new Seguradora("Pedro", "129933403", "pedroaf@gmai.com", "Rua Jean", null, null, "58.804.275/0001-68", null, null, null, null, null, null, null, null, null);
         
         //ClientePF 1
         ClientePF clientePF = new ClientePF("Pedro", "Rua Jean", "M", "Ensino médio",
