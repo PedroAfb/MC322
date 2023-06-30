@@ -2,7 +2,8 @@ package com.pedro;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+//Os dados de Cliente, Condutor, Frota e veículo são utilizados para leitura e instanciação desses dados 
+// Já para os arquivos de seguro e Sinistro será usado o método de gravar arquivo para transcrever os dados desses objetos
 public class Seguradora {
     private final String cnpj;
     private String nome ;
@@ -13,9 +14,16 @@ public class Seguradora {
     private List <SeguroPJ> listaSeguroPJs;
     private List <ClientePF>  listaClientePFs;
     private List <ClientePJ> listaClientePJs;
+    private ArquivoClientePF arquivoClientePF;
+    private ArquivoClientePJ arquivoClientePJ;
+    private ArquivoCondutor arquivoCondutor;
+    private ArquivoFrota arquivoFrota;
+    private ArquivoSeguro arquivoSeguro;
+    private ArquivoSinistro arquivoSinistro;
+    private ArquivoVeiculo arquivoVeiculo;
 
     // Construtor
-    public Seguradora ( String nome , String telefone , String email , String endereco, List <ClientePF> listaClientePFs, List <ClientePJ> listaClientePJs, String cnpj, List <SeguroPF> listaSeguroPFs, List <SeguroPJ> listaSeguroPJs) {
+    public Seguradora ( String nome , String telefone , String email , String endereco, List <ClientePF> listaClientePFs, List <ClientePJ> listaClientePJs, String cnpj, List <SeguroPF> listaSeguroPFs, List <SeguroPJ> listaSeguroPJs, ArquivoClientePF arquivoClientePF, ArquivoClientePJ arquivoClientePJ, ArquivoCondutor arquivoCondutor, ArquivoFrota arquivoFrota, ArquivoSeguro arquivoSeguro, ArquivoSinistro arquivoSinistro, ArquivoVeiculo arquivoVeiculo) {
         this . nome = nome ;
         this . telefone = telefone ;
         this . email = email ;
@@ -32,6 +40,43 @@ public class Seguradora {
 
         this.listaClientePFs = new ArrayList<>();
         this.listaClientePJs = new ArrayList<>();
+
+        if (arquivoClientePF != null)
+            this.arquivoClientePF = arquivoClientePF;
+        else
+            this.arquivoClientePF = null;
+
+        if (arquivoClientePJ != null)
+            this.arquivoClientePJ = arquivoClientePJ;
+        else
+            this.arquivoClientePJ = null;
+
+        if (arquivoCondutor != null)
+            this.arquivoCondutor = arquivoCondutor;
+        else
+            this.arquivoCondutor = null;
+
+        if (arquivoFrota != null)
+            this.arquivoFrota = arquivoFrota;
+        else
+            this.arquivoFrota = null;
+        
+        if (arquivoSeguro != null)
+            this.arquivoSeguro = arquivoSeguro;
+        else
+            this.arquivoSeguro = null;
+
+        if (arquivoSinistro != null)
+            this.arquivoSinistro = arquivoSinistro;
+        else
+            this.arquivoSinistro = null;
+
+        if (arquivoVeiculo != null)
+            this.arquivoVeiculo = arquivoVeiculo;
+        else
+            this.arquivoVeiculo = null;
+        
+
         if(Validacao.ValidarCNPJ(cnpj))
             this.cnpj = cnpj;
         else
@@ -97,6 +142,48 @@ public class Seguradora {
     }
     public String getCnpj() {
         return cnpj;
+    }
+    public ArquivoClientePF getArquivoClientePF() {
+        return arquivoClientePF;
+    }
+    public void setArquivoClientePF(ArquivoClientePF arquivoClientePF) {
+        this.arquivoClientePF = arquivoClientePF;
+    }
+    public ArquivoClientePJ getArquivoClientePJ() {
+        return arquivoClientePJ;
+    }
+    public void setArquivoClientePJ(ArquivoClientePJ arquivoClientePJ) {
+        this.arquivoClientePJ = arquivoClientePJ;
+    }
+    public ArquivoCondutor getArquivoCondutor() {
+        return arquivoCondutor;
+    }
+    public void setArquivoCondutor(ArquivoCondutor arquivoCondutor) {
+        this.arquivoCondutor = arquivoCondutor;
+    }
+    public ArquivoFrota getArquivoFrota() {
+        return arquivoFrota;
+    }
+    public void setArquivoFrota(ArquivoFrota arquivoFrota) {
+        this.arquivoFrota = arquivoFrota;
+    }
+    public ArquivoSeguro getArquivoSeguro() {
+        return arquivoSeguro;
+    }
+    public void setArquivoSeguro(ArquivoSeguro arquivoSeguro) {
+        this.arquivoSeguro = arquivoSeguro;
+    }
+    public ArquivoSinistro getArquivoSinistro() {
+        return arquivoSinistro;
+    }
+    public void setArquivoSinistro(ArquivoSinistro arquivoSinistro) {
+        this.arquivoSinistro = arquivoSinistro;
+    }
+    public ArquivoVeiculo getArquivoVeiculo() {
+        return arquivoVeiculo;
+    }
+    public void setArquivoVeiculo(ArquivoVeiculo arquivoVeiculo) {
+        this.arquivoVeiculo = arquivoVeiculo;
     }
 
     public boolean gerarSeguro(Cliente cliente, Scanner scanner, Veiculo veiculo,Frota frota) {
